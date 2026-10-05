@@ -1,0 +1,7 @@
+# 构建产物，不需要提交
+public/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini

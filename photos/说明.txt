@@ -1,0 +1,10 @@
+把照片放进这个文件夹，然后重新构建：
+
+    python build.py
+
+支持的格式：jpg / jpeg / png / webp / gif
+子文件夹也可以（例如 photos/2026-huizhou/）。
+
+⚠️ 建议先把图片压缩到长边 1600px 左右再放进来。
+   手机原图一张 3–10 MB，几十张就会让网站变慢。
+   可以用 https://squoosh.app/（免费，在线，可存为 WebP）
