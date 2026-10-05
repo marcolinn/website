@@ -121,41 +121,55 @@ summary: 摘要
 
 ## 五、部署到 Cloudflare Pages
 
+### 先选路线（这一步不能反悔）
+
+Cloudflare 有两个入口，**创建项目时选定，之后不能互转**：
+
+| | 路线 A：连 Git 仓库 | 路线 B：直接上传 |
+|---|---|---|
+| 需要 GitHub | 是 | 否 |
+| 以后改内容 | `git push`，自动上线 | 每次手动重新拖一次 |
+| 能不能互转 | ✗ 不能 | ✗ 不能（官方原文：*You cannot switch to Git integration later*） |
+
+不能互转不等于进死胡同——大不了以后**另建一个新项目**选另一条路线，旧项目删掉即可。但既然要建，一次选对省事。
+
+**建议**：你会持续加读书笔记，选**路线 A**。
+
 ### 前期准备
 
 1. 注册 [Cloudflare](https://dash.cloudflare.com/sign-up) 账号（免费，邮箱即可，不用绑卡）
-2. 注册 [GitHub](https://github.com/signup) 账号（如果还没有）
-3. 把本目录推上 GitHub：
+2. 注册 [GitHub](https://github.com/signup) 账号（走路线 B 的话跳过）
+3. 本目录**已经是 git 仓库了**（已初始化 + 已提交一次），只差一个远程仓库：
 
 ```powershell
 cd D:\Data\Onedrive\DSH\Website
-git init
-git add .
-git commit -m "初始化个人网站"
-git branch -M main
+# 先在 GitHub 网页上新建一个空仓库（不要勾 Add README / .gitignore），
+# 然后把下面这行的「你的用户名」换成你的账号
 git remote add origin https://github.com/你的用户名/website.git
 git push -u origin main
 ```
 
-### 路线 A：连 Git 仓库（推荐，以后改完 push 就自动上线）
+### 路线 A：连 Git 仓库（推荐）
 
-1. Cloudflare 控制台 → 左侧 **Workers & Pages** → **Create** → 选 **Pages** 标签 → **Connect to Git**
+1. Cloudflare 控制台 → **Workers & Pages** → **Create** → 选 **Pages** 标签 → **Connect to Git**
 2. 授权 GitHub，选中刚才的仓库 → **Begin setup**
 3. 构建配置填：
 
    | 字段 | 填什么 |
    |---|---|
-   | Project name | 随便，会变成 `xxx.pages.dev` |
+   | Project name | 随便起，会变成 `项目名.pages.dev` |
    | Production branch | `main` |
    | Framework preset | **None** |
-   | Build command | `python3 build.py` |
+   | Build command | `python3 build.py && python3 check.py` |
    | Build output directory | `public` |
 
 4. 点 **Save and Deploy**，等一两分钟
 5. 得到网址 `https://项目名.pages.dev` —— **这个地址是长期有效的**，可以直接发给别人
 
-> Cloudflare 的构建镜像自带 Python 3，不需要额外的环境配置。
-> 万一构建失败（提示找不到 python3），改用路线 B，最简单。
+> **构建命令末尾为什么要跟 `check.py`**：它会给所有内部链接做一次体检，非零退出码会让构建**失败**。等于给自己上了一道闸——哪天手滑写错一个链接、或者某个页面漏了标题，Cloudflare 会拒绝上线并保留上一个好版本，而不是把坏页面推出去。
+
+> **Python 从哪来**：Cloudflare 的构建镜像（v3，Ubuntu 22.04）自带 **Python 3.13.3**，不需要任何环境配置。本项目只用标准库，不用 `pip install`。
+> 万一提示找不到 `python3`，把构建命令里的 `python3` 换成 `python` 再试；仍然不行就走路线 B。
 
 ### 路线 B：直接上传（不用 Git，30 秒上线）
 
@@ -164,7 +178,7 @@ git push -u origin main
 3. 把 `public` 文件夹里的**所有内容**拖进去（注意是 `public` 里面的东西，不是 `public` 这一层）
 4. 点 **Deploy**
 
-缺点是以后每改一次都要重新上传一遍。适合先看效果。
+> 两个限制：拖拽上传**单次最多 1000 个文件**、单个文件最大 25 MiB。现在这个站只有十几个文件，远够用；但照片攒到上千张时会撞上限，那时要么改用路线 A（Git 集成是 20000 个文件），要么把照片挪到 R2。
 
 ### 绑定自己的域名（可选）
 
