@@ -1,6 +1,6 @@
 # 我的书房
 
-一个用 Markdown 写、用 Python 生成、托管在 Cloudflare Pages 上的个人网站。
+一个用 Markdown 写、用 Python 生成、托管在 Cloudflare 上的个人网站。
 
 主要内容：**读书笔记**（主体）、文章、旅行记录、照片。
 
@@ -11,13 +11,18 @@
 ```
 Website/
 ├─ build.py              ← 生成器（唯一需要动的代码）
+├─ check.py              ← 构建后自检（死链、缺标题），也是部署闸门
+├─ sync_book_page.py     ← 把《中国租界通史》那套手工网页同步进来（见第四节末）
 ├─ content/              ← 所有内容都在这里，写 Markdown 就行
 │   ├─ about.md          ← 关于页
 │   ├─ books/            ← 每本书一个 .md
 │   ├─ blog/             ← 每篇文章一个 .md
 │   └─ travel/           ← 每条旅行记录一个 .md
 ├─ photos/               ← 照片原图丢这里
-├─ static/               ← 样式等静态资源（style.css）
+├─ static/               ← 原样复制到站点根目录的静态资源
+│   ├─ style.css         ←   全站样式
+│   └─ books/zhongguo-zujie-tongshi/   ← 《中国租界通史》整套手工网页
+├─ wrangler.jsonc        ← Cloudflare 部署配置
 └─ public/               ← 构建产物，自动生成，不用管（已 gitignore）
 ```
 
@@ -117,6 +122,29 @@ summary: 摘要
 
 直接编辑 `content/about.md`。
 
+### 整页手工网页（某一本不做成 Markdown 的那种）
+
+`content/books/` 里的书默认按模板生成一个简单详情页。如果某一本你已经做好了整套独立网页
+（自带样式和脚本，不是 Markdown），可以把它接进来，以《中国租界通史》为例：
+
+1. 把网页放进 `static/books/<slug>/`，目录名必须和 `content/books/<slug>.md` 的**文件名一致**
+   （本例是 `static/books/zhongguo-zujie-tongshi/`）。`static/` 下的东西会被原样复制到站点根目录，
+   所以这个目录在线上就是 `/books/zhongguo-zujie-tongshi/`。
+2. 在那个 `.md` 的 front matter 里加一行：
+
+   ```yaml
+   custom_page: true
+   ```
+
+   作用是**让 `build.py` 跳过自动生成详情页**——否则简易模板会把它覆盖掉。
+   这本书仍然照常出现在书单和首页（书名、星级、短评都还来自那个 `.md`），
+   只是「点进去」看到的是你自己那套页面。
+
+> **原稿在仓库之外**。《中国租界通史》的网页原稿在 `D:\Data\Onedrive\DSH\Book\中国租界通史_网页`
+> （177 个文件、14.7 MB），站点只用得到其中三个：`index.html`、`chapters.html`、`assets/`（39 张图，约 2 MB）。
+> 原稿改动后，本地跑一次 `python sync_book_page.py` 把它们同步进 `static/`，再照常提交。
+> 云端的构建机看不到原稿目录，它只认仓库里的文件——所以 `static/` 里那份是**要提交进 git** 的。
+
 ---
 
 ## 五、部署到 Cloudflare
@@ -214,7 +242,7 @@ push 之后 Cloudflare 会自动重新构建并上线，大约 1 分钟。
 
 ## 七、免费额度够不够用
 
-Cloudflare Pages 免费版：
+Cloudflare 免费版：
 
 | 项目 | 额度 |
 |---|---|
@@ -241,6 +269,10 @@ Cloudflare Pages 免费版：
 
 **想换配色？**
 `static/style.css` 最上面 `:root` 里的 CSS 变量：`--accent` 是主色（赭石红），`--accent-2` 是辅助色（松绿），`--paper` 是背景色。改这三个就能整体换风格。
+
+**改了《中国租界通史》的网页，线上没变？**
+`static/books/zhongguo-zujie-tongshi/` 是**同步过来的拷贝**，不是原稿。改完原稿要跑一次 `python sync_book_page.py` 再提交。
+另外那一页的样式是内联的、不引 `style.css`，所以它对全站换色不敏感，要单独改。
 
 **想加新栏目（比如"观影"）？**
 1. `content/` 下新建 `films/` 文件夹

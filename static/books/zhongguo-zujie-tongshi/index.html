@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>《中国租界通史》—— 费成康 著｜从 1843 到 1945：二十五个"国中之国"的百年兴灭</title>
+<meta name="description" content="费成康《中国租界通史》（上海社会科学院出版社2024年版）图文导读：书影、租界示意图、历史照片、全书结构、制度四柱、开辟与收回时间线、书摘与完整目录。">
+<style>
+  :root{
+    --ink:#16232e;
+    --ink-2:#31465a;
+    --ink-3:#5d7183;
+    --paper:#f4efe4;
+    --paper-2:#fffdf7;
+    --paper-3:#eae2d2;
+    --line:rgba(22,35,46,.14);
+    --line-2:rgba(22,35,46,.08);
+    --red:#8e2b26;
+    --red-2:#b04a3f;
+    --gold:#9c7c39;
+    --serif:"Songti SC","Source Han Serif SC","Noto Serif SC","STSong","SimSun",Georgia,serif;
+    --sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,-apple-system,sans-serif;
+    --shadow:0 18px 46px -22px rgba(14,24,33,.55);
+    --radius:3px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  /* 锚点跳转时给吸顶导航留出高度，标题不会被导航遮住 */
+  section[id],article[id]{scroll-margin-top:74px}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--serif);font-size:17px;line-height:1.95;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      radial-gradient(circle at 12% 8%,rgba(156,124,57,.06),transparent 45%),
+      radial-gradient(circle at 88% 30%,rgba(142,43,38,.05),transparent 40%);
+  }
+  img{max-width:100%;display:block}
+  a{color:var(--red);text-decoration:none;border-bottom:1px solid rgba(142,43,38,.3)}
+  a:hover{border-bottom-color:var(--red)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 26px}
+  .sans{font-family:var(--sans)}
+
+  /* ---------- 导航 ---------- */
+  nav.top{
+    position:sticky;top:0;z-index:60;
+    background:rgba(244,239,228,.92);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.top .wrap{display:flex;align-items:center;gap:20px;height:58px}
+  nav.top .brand{font-family:var(--sans);font-size:14px;letter-spacing:.16em;color:var(--ink-2);white-space:nowrap}
+  nav.top .brand b{color:var(--red);font-weight:600}
+  nav.top ul{display:flex;gap:0;list-style:none;margin:0;padding:0;overflow-x:auto;font-family:var(--sans);font-size:12.5px;scrollbar-width:none}
+  nav.top ul::-webkit-scrollbar{display:none}
+  nav.top a{color:var(--ink-3);border:0;padding:6px 8px;border-radius:2px;white-space:nowrap}
+  nav.top a:hover{background:rgba(22,35,46,.06);color:var(--ink)}
+  nav.top a.active{color:var(--paper-2);background:var(--ink)}
+
+  /* ---------- 封面区 ---------- */
+  header.hero{
+    position:relative;overflow:hidden;color:#eef2f4;
+    background:
+      radial-gradient(circle at 78% 18%,rgba(156,124,57,.30),transparent 46%),
+      radial-gradient(circle at 15% 85%,rgba(142,43,38,.28),transparent 45%),
+      linear-gradient(158deg,#0e1a23 0%,#172836 48%,#22394b 100%);
+    border-bottom:1px solid rgba(0,0,0,.3);
+  }
+  header.hero::after{
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;
+    background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.12) 0 1px,transparent 1px 3px);
+    mix-blend-mode:overlay;
+  }
+  .hero-inner{display:grid;grid-template-columns:1.35fr .8fr;gap:54px;align-items:center;padding:74px 0 66px;position:relative;z-index:2}
+  .eyebrow{font-family:var(--sans);font-size:12.5px;letter-spacing:.34em;color:rgba(238,242,244,.72);margin:0 0 18px}
+  .hero h1{
+    font-size:clamp(38px,5.6vw,62px);line-height:1.16;margin:0 0 14px;letter-spacing:.06em;font-weight:600;
+  }
+  .hero h1 small{display:block;font-size:.30em;letter-spacing:.36em;font-weight:400;color:rgba(238,242,244,.66);margin-bottom:14px}
+  .hero .sub{font-size:18px;color:rgba(238,242,244,.86);margin:0 0 8px;letter-spacing:.03em}
+  .hero .byline{font-family:var(--sans);font-size:15px;color:rgba(238,242,244,.7)}
+  .hero .byline b{color:#f2e6c9;font-weight:600;letter-spacing:.08em}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 0;padding:0;list-style:none;font-family:var(--sans);font-size:12.5px}
+  .chips li{border:1px solid rgba(238,242,244,.28);color:rgba(238,242,244,.85);padding:5px 11px;border-radius:2px;letter-spacing:.06em}
+  .cover-box{position:relative;justify-self:center}
+  .cover-box img{
+    width:clamp(200px,24vw,272px);border-radius:2px;
+    box-shadow:0 34px 60px -26px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.10);
+    transform:rotate(-1.6deg);transition:transform .5s ease;
+  }
+  .cover-box:hover img{transform:rotate(0deg) translateY(-4px)}
+  .cover-box figcaption{font-family:var(--sans);font-size:12px;color:rgba(238,242,244,.55);text-align:center;margin-top:14px;letter-spacing:.1em}
+
+  /* 数字条 */
+  .stats{background:var(--paper-2);border-bottom:1px solid var(--line);position:relative;z-index:2}
+  .stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+  .stat{padding:26px 18px;border-right:1px solid var(--line-2);text-align:center}
+  .stat:last-child{border-right:0}
+  .stat b{display:block;font-size:31px;color:var(--red);letter-spacing:.02em;line-height:1.3}
+  .stat b i{font-size:15px;font-style:normal;color:var(--ink-3);margin-left:3px}
+  .stat span{font-family:var(--sans);font-size:12.5px;color:var(--ink-3);letter-spacing:.06em}
+
+  /* ---------- 通用区块 ---------- */
+  section{padding:76px 0;border-bottom:1px solid var(--line-2)}
+  section:nth-of-type(even){background:linear-gradient(180deg,rgba(255,253,247,.7),rgba(244,239,228,0))}
+  .sec-head{margin-bottom:44px;max-width:900px}
+  .sec-head .tag{
+    display:inline-block;font-family:var(--sans);font-size:12px;letter-spacing:.3em;color:var(--red);
+    border-left:3px solid var(--red);padding-left:10px;margin-bottom:14px;
+  }
+  .sec-head h2{font-size:clamp(26px,3.4vw,35px);margin:0 0 12px;letter-spacing:.05em;font-weight:600}
+  .sec-head .lead{margin:0;color:var(--ink-2);font-size:17px}
+  .grid{display:grid;gap:26px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+
+  /* 图 */
+  figure.pic{margin:0}
+  figure.pic img{
+    width:100%;background:#fff;border:1px solid var(--line);
+    box-shadow:var(--shadow);border-radius:var(--radius);
+    filter:saturate(.92) contrast(1.02);
+  }
+  figure.pic figcaption{
+    font-family:var(--sans);font-size:13px;color:var(--ink-3);line-height:1.7;margin-top:11px;
+  }
+  figure.pic figcaption b{color:var(--ink);font-weight:600}
+  .zoomable img{cursor:zoom-in}
+
+  /* 卡片 */
+  .card{
+    background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px 22px 20px;box-shadow:0 10px 30px -26px rgba(14,24,33,.6);position:relative;overflow:hidden;
+  }
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--red),rgba(142,43,38,.15))}
+  .card h3{margin:0 0 8px;font-size:19px;letter-spacing:.04em}
+  .card p{margin:0;font-size:15.5px;color:var(--ink-2);line-height:1.85}
+  .card .pg{font-family:var(--sans);font-size:12px;color:var(--gold);letter-spacing:.1em;margin-bottom:8px;display:block}
+  .card .no{font-family:var(--sans);font-size:12px;color:var(--ink-3);letter-spacing:.18em}
+
+  /* 引文 */
+  .quote{
+    margin:34px 0;padding:30px 34px;background:var(--paper-2);border:1px solid var(--line);
+    border-left:4px solid var(--gold);border-radius:var(--radius);
+  }
+  .quote p{margin:0;font-size:19px;line-height:2;letter-spacing:.02em}
+  .quote cite{display:block;font-family:var(--sans);font-size:13px;font-style:normal;color:var(--ink-3);margin-top:12px}
+
+  /* 时间线 */
+  .tl{list-style:none;margin:0;padding:0 0 0 26px;border-left:2px solid rgba(142,43,38,.28)}
+  .tl li{position:relative;padding:0 0 30px 22px}
+  .tl li::before{
+    content:"";position:absolute;left:-33px;top:9px;width:12px;height:12px;border-radius:50%;
+    background:var(--paper);border:3px solid var(--red);
+  }
+  .tl .when,.tl .when *{font-family:var(--sans)}
+  .tl .when{font-size:15px;letter-spacing:.08em;color:var(--red);font-weight:600}
+  .tl h4{margin:4px 0 6px;font-size:17.5px;letter-spacing:.03em}
+  .tl p{margin:0;font-size:15.5px;color:var(--ink-2);line-height:1.85}
+  .tl .src{font-family:var(--sans);font-size:12.5px;color:var(--ink-3);margin-top:6px;display:block}
+
+  /* 图版墙 */
+  .wall{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .wall figure{margin:0}
+  .wall img{
+    width:100%;aspect-ratio:4/3;object-fit:cover;background:#fff;border:1px solid var(--line);
+    border-radius:var(--radius);cursor:zoom-in;transition:transform .35s ease,box-shadow .35s ease;
+  }
+  .wall figure:hover img{transform:translateY(-3px);box-shadow:var(--shadow)}
+  .wall figcaption{font-family:var(--sans);font-size:12.5px;color:var(--ink-3);line-height:1.6;margin-top:8px}
+
+  /* 目录 */
+  .toc{columns:2;column-gap:46px;font-size:15.5px}
+  .toc .row{display:flex;align-items:baseline;gap:8px;break-inside:avoid;padding:5px 0;border-bottom:1px dotted var(--line)}
+  .toc .row .t{flex:1}
+  .toc .row .p{font-family:var(--sans);font-size:12.5px;color:var(--ink-3)}
+  .toc .row.sub{padding-left:18px;font-size:14.5px;color:var(--ink-2);border-bottom:0;padding-top:1px;padding-bottom:1px}
+  .toc .row.chapter .t{font-weight:600}
+
+  /* 表格 */
+  table{width:100%;border-collapse:collapse;font-size:15px;background:var(--paper-2)}
+  caption{font-family:var(--sans);font-size:13px;color:var(--ink-3);text-align:left;padding-bottom:10px}
+  th,td{border:1px solid var(--line);padding:10px 13px;text-align:left;vertical-align:top}
+  th{background:var(--paper-3);font-family:var(--sans);font-size:13.5px;letter-spacing:.05em;font-weight:600}
+  td.n{font-family:var(--sans);font-variant-numeric:tabular-nums;color:var(--red)}
+
+  footer{padding:56px 0 74px;background:#101c26;color:rgba(238,242,244,.78);font-size:15px}
+  footer h3{color:#f2e6c9;font-size:17px;letter-spacing:.1em;margin:0 0 14px}
+  footer a{color:#e8c9a6;border-bottom-color:rgba(232,201,166,.4)}
+  footer .fgrid{display:grid;grid-template-columns:1.3fr 1fr;gap:44px}
+  footer ul{margin:0;padding-left:18px}
+  footer li{margin-bottom:8px;line-height:1.8}
+  footer .fine{font-family:var(--sans);font-size:12.5px;color:rgba(238,242,244,.5);margin-top:34px;border-top:1px solid rgba(255,255,255,.12);padding-top:20px;line-height:1.9}
+
+  /* 灯箱 */
+  #lb{position:fixed;inset:0;z-index:200;display:none;background:rgba(9,15,20,.94);padding:38px 26px}
+  #lb.on{display:flex;flex-direction:column;align-items:center;justify-content:center}
+  #lb img{max-width:min(1000px,94vw);max-height:78vh;width:auto;box-shadow:0 30px 70px -20px #000;background:#fff}
+  #lb .cap{font-family:var(--sans);color:rgba(255,255,255,.85);font-size:14px;margin-top:18px;text-align:center;max-width:820px;line-height:1.7}
+  #lb .close{position:absolute;top:18px;right:26px;font-family:var(--sans);color:#fff;font-size:26px;cursor:pointer;line-height:1}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important;transition:none}}
+
+  @media (max-width:960px){
+    .hero-inner{grid-template-columns:1fr;gap:38px;padding:56px 0 48px}
+    .cover-box{justify-self:start}
+    .g3,.g4{grid-template-columns:repeat(2,1fr)}
+    .wall{grid-template-columns:repeat(3,1fr)}
+    .stats .wrap{grid-template-columns:repeat(2,1fr)}
+    .stat:nth-child(2){border-right:0}
+    .toc{columns:1}
+    footer .fgrid{grid-template-columns:1fr;gap:30px}
+  }
+  @media (max-width:640px){
+    body{font-size:16px}
+    section{padding:56px 0}
+    .g2,.g3,.g4{grid-template-columns:1fr}
+    .wall{grid-template-columns:repeat(2,1fr)}
+    nav.top .brand{display:none}
+  }
+</style>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap">
+    <span class="brand">中国租界通史 · <b>费成康</b></span>
+    <ul>
+      <li><a href="#intro">导读</a></li>
+      <li><a href="#author">作者</a></li>
+      <li><a href="#outline">全书结构</a></li>
+      <li><a href="chapters.html">分章导读</a></li>
+      <li><a href="#timeline">开辟与收回</a></li>
+      <li><a href="#system">制度四柱</a></li>
+      <li><a href="#powers">各国异同</a></li>
+      <li><a href="#places">各地兴衰</a></li>
+      <li><a href="#special">特殊区域</a></li>
+      <li><a href="#gallery">图版精选</a></li>
+      <li><a href="#excerpts">书摘</a></li>
+      <li><a href="#toc">目录</a></li>
+      <li><a href="#edition">出版信息</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ================= 封面区 ================= -->
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <p class="eyebrow">上海社会科学院出版社 · 2024</p>
+      <h1><small>费成康 著</small>中国租界通史</h1>
+      <p class="sub">从 1843 到 1945：二十五个"国中之国"的百年兴灭</p>
+      <p class="byline">一部把租界的<strong>土地、立法、司法、行政</strong>与<strong>开辟、抗争、收回</strong>打通来讲的通贯之作 · <b>550 千字</b></p>
+      <ul class="chips">
+        <li>ISBN 978-7-5520-4320-4</li>
+        <li>710mm × 960mm 1/16</li>
+        <li>37 印张</li>
+        <li>定价 168.00 元</li>
+        <li>2024 年 4 月第 1 版</li>
+      </ul>
+    </div>
+    <figure class="cover-box zoomable">
+      <img src="assets/cover.jpg" alt="《中国租界通史》书影">
+      <figcaption>原书书影（书中插图）</figcaption>
+    </figure>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="stat"><b>25<i>个</i></b><span>先后开辟的专管租界</span></div>
+    <div class="stat"><b>2<i>个</i></b><span>公共租界（上海、鼓浪屿）</span></div>
+    <div class="stat"><b>60<i>年</i></b><span>开辟历程（1843—1902）</span></div>
+    <div class="stat"><b>9<i>国</i></b><span>在天津先后设界</span></div>
+  </div>
+</div>
+
+<!-- ================= 导读 ================= -->
+<section id="intro">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">导读</span>
+      <h2>一片中国领土，为什么会由外国人管治</h2>
+      <p class="lead">租界是近代中国最特殊的空间：土地属于中国，管治权却握在外国人手里；它不是割让地，却长期成了"国中之国"。费成康的这部《中国租界通史》，就是要把这六百多页的复杂账目从头到尾算清。</p>
+    </div>
+
+    <div class="grid g2">
+      <div class="reveal">
+        <p>全书从"外国人居留区"的长时段前史写起：汉长安的蛮夷邸、北魏洛阳的四馆四里、唐宋元广州的蕃坊、明清的澳门，直至广州商馆——它被外国人称作"镀金的鸟笼"，居留与贸易都受严格约束而绝无自治。作者据此指出，古代中国从未出现过"独立王国"式的居留区；而清政府的"中外大防"政策，以及在《望厦条约》《黄埔条约》中放弃对居留范围的限制，正是租界得以产生的关键成因之一。</p>
+
+        <p>正文的核心是通则而非逸闻：<strong>土地制度</strong>（永租、地价、地税、地契）、<strong>立法</strong>（立法主体与四类章程）、<strong>司法</strong>（拘捕、审判、刑罚）、<strong>行政</strong>（行政体制、主要事务、财政收支）四章，把租界"怎么运转"讲透；<strong>各国租界的异同</strong>与<strong>各地租界的兴衰</strong>两章，则把英、法、美、日与他国的治理差异，以及上海、天津、汉口、厦门等地的沉浮逐一对照。</p>
+      </div>
+      <div class="reveal">
+        <p>其后三章把租界放回中外冲突的现场：作为"国中之国"，它平时是由外国人管治的中国领土，是刑事犯的逋逃薮与国事犯的活动舞台，战时又成了所谓"中立区域"；与此同时，中国人民反对开设与扩展租界、反抗苛捐与暴行、争取华人参政、直至收回会审公堂的抗争贯穿始终。最后一章收束于租界的收回：第一次世界大战带来的机会、五卅运动至北伐革命时期的高潮、外交谈判的新成果，直到反法西斯战争中的彻底荡涤。</p>
+
+        <p>书末附<strong>各地租界一览表</strong>、<strong>未形成租界一览表</strong>与<strong>大事年表</strong>三件工具，兼收"主要的引用书籍和文章"，使全书兼具通史的叙述力与工具书的查检价值。</p>
+      </div>
+    </div>
+
+    <blockquote class="quote reveal">
+      <p>「由外国人控制的租界当局拥有属地的行政管理权，这是租界与华界最根本的区别。」</p>
+      <cite>——《中国租界通史》第九章 "国中之国"的主要特征</cite>
+    </blockquote>
+
+    <div class="grid g2" style="align-items:start">
+      <figure class="pic zoomable reveal">
+        <img src="assets/photo-bund.jpg" alt="上海租界的外滩">
+        <figcaption><b>上海租界的外滩，是地价最高昂的区域。</b>租界开辟国及外国侨民无论采用何种方式获取租界土地，往往都要通过中国官府的协助。图中为书中照片 2。</figcaption>
+      </figure>
+      <figure class="pic zoomable reveal">
+        <img src="assets/map-shanghai-growth.jpg" alt="上海租界迭次扩展图">
+        <figcaption><b>上海租界迭次扩展图（书中图 27）。</b>英美租界合并为上海公共租界后不断扩张，法租界则三次扩展，面积从不足 1000 亩增至 1.5 万余亩，成为中国最大的专管租界。</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 作者 ================= -->
+<section id="author">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">作者</span>
+      <h2>费成康：三十余年只做一件事</h2>
+    </div>
+    <div class="grid g2">
+      <div class="reveal">
+        <p>费成康，1949 年生。华东师范大学历史学硕士，复旦大学历史学博士。上海社会科学院法学研究所二级研究员，上海市政协第八、九、十届委员；曾在美国加州大学伯克利分校、哥伦比亚大学、狄金森学院访问讲学。研究方向为租界史、澳门史、法制史。</p>
+        <p>著有《澳门四百年》《中国的家法族规》《薛福成》《澳门葡萄牙人逐步占领的历史回顾》，译有《中国绅士的收入》等。</p>
+        <p>据后记自述，他自 1986 年起研究租界，曾走访十余个省市三十多座城市，并亲赴庐山、莫干山、鸡公山、北戴河等地踏勘，行程四万余里。1991 年出版的《中国租界史》曾获中国图书奖二等奖、上海市哲学社会科学优秀著作二等奖。</p>
+      </div>
+      <div class="reveal">
+        <p>本书并非旧作的再版，而是一次重写：原书《法律制度》一章拆为《立法》《司法》两章，《土地制度》由三节扩为四节，《中国人民的抗争》由两节扩为四节，全书始自 1990 年代后期，2023 年 5 月 1 日定稿。书名中的"通史"二字，由出版社编辑陈如江提议。</p>
+        <figure class="pic zoomable" style="margin-top:22px">
+          <img src="assets/photo-alcock.jpg" alt="英国领事阿礼国肖像">
+          <figcaption><b>租界制度的始作俑者之一，英国领事阿礼国。</b>书中照片 4。作者在书中反复强调：租界的产生是一连串具体交涉、章程与惯例累积的结果，而非某个人的一次设计。</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 全书结构 ================= -->
+<section id="outline">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">全书结构</span>
+      <h2>绪论加十三章：一条从"何为租界"到"租界如何消失"的链路</h2>
+      <p class="lead">括号内为原书印刷页码，可用于对照纸质书的检索。</p>
+    </div>
+
+    <div class="grid g3">
+      <div class="card reveal">
+        <span class="no">绪 论</span>
+        <h3>从蕃坊到商馆</h3>
+        <p><span class="pg">第 1—7 页</span>上溯汉唐至明清的外国人居留区传统，说明古代中国从无"独立王国"式居留区，并交代"中外大防"政策与条约失守如何为租界埋下伏笔。</p>
+      </div>
+      <div class="card reveal">
+        <span class="no">第一章</span>
+        <h3>开辟</h3>
+        <p><span class="pg">第 8—55 页</span>1843 年肇始、1902 年基本结束，前后六十年分四个阶段：鸦片战争后、第二次鸦片战争后、甲午战争后、八国联军侵华后。</p>
+      </div>
+      <div class="card reveal">
+        <span class="no">第二章</span>
+        <h3>扩展</h3>
+        <p><span class="pg">第 56—93 页</span>历次扩界的交涉与手法，以及"越界筑路"形成的附属区域——租界面积膨胀的主要途径。</p>
+      </div>
+      <div class="card reveal">
+        <span class="no">第三章</span>
+        <h3>土地制度</h3>
+        <p><span class="pg">第 94—121 页</span>土地获取、地价、地税、地契。永租制如何把"押租"做成地价、"年租"做成地税，是中国主权流失的关键一环。</p>
+      </div>
+      <div class="card reveal">
+        <span class="no">第四章</span>
+        <h3>立法</h3>
+        <p><span class="pg">第 122—158 页</span>立法主体、中外约章、基本章程（《土地章程》）、行政规章——包括《土地章程》《市政章程》、综合章程、《居留民团法》四类章程体系。</p>
+      </div>
+      <div class="card reveal">
+        <span class="no">第五章</span>
+        <h3>司法</h3>
+        <p><span class="pg">第 159—191 页</span>拘捕、审判、刑罚。领事裁判权是属人管辖权，租界当局的行政权是属地管辖权，两者叠加造就了中外会审的特殊司法景观。</p>
+      </div>
+      <div class="card reveal">
+        <span class="no">第六章</span>
+        <h3>行政</h3>
+        <p><span class="pg">第 192—260 页</span>行政体制（工部局、公董局、居留民团等）、主要事务、财政收支——租界这台"市政机器"的构造与账本。</p>
+      </div>
+      <div class="card reveal">
+        <span class="no">第七章</span>
+        <h3>各国租界的异同</h3>
+        <p><span class="pg">第 261—284 页</span>英、法、美、日及其他各国。英界侨民自治程度最高，法界被称领事"独裁"，日界设居留民团与居留民会，德、俄、比、意、奥租界则大多历时短暂。</p>
+      </div>
+      <div class="card reveal">
+        <span class="no">第八章</span>
+        <h3>各地租界的兴衰</h3>
+        <p><span class="pg">第 285—315 页</span>上海、天津、汉口、厦门及其他各地，逐一交代各地租界的开辟、扩展、繁荣与衰落。</p>
+      </div>
+      <div class="card reveal">
+        <span class="no">第九章</span>
+        <h3>"国中之国"的主要特征</h3>
+        <p><span class="pg">第 329—363 页</span>由外国人管治的中国领土、刑事犯的逋逃薮和国事犯的活动舞台、战时的"中立区域"。</p>
+      </div>
+      <div class="card reveal">
+        <span class="no">第十章</span>
+        <h3>中国人民的抗争</h3>
+        <p><span class="pg">第 364—410 页</span>反对开设和扩展租界、反抗苛捐和暴行、华人参政、收回上海租界会审公堂。</p>
+      </div>
+      <div class="card reveal">
+        <span class="no">第十一章</span>
+        <h3>租借地等特殊区域</h3>
+        <p><span class="pg">第 411—483 页</span>租借地、避暑地、铁路附属地、其他特殊区域（贸易圈、使馆区、通商场等）——"国中之国"之外更复杂的形态谱系。</p>
+      </div>
+      <div class="card reveal">
+        <span class="no">第十二章</span>
+        <h3>有关租界研究的一些问题</h3>
+        <p><span class="pg">第 484—514 页</span>定义、数量、分类及其他。梳理"租界"一词由"永租地界""外国租地界"简化而来的过程，并检讨既有定义的得失。</p>
+      </div>
+      <div class="card reveal">
+        <span class="no">第十三章</span>
+        <h3>租界的收回</h3>
+        <p><span class="pg">第 515—536 页</span>一战带来的机会、从五卅运动到北伐革命时期、外交谈判取得的新成果、反法西斯战争的彻底荡涤。</p>
+      </div>
+      <div class="card reveal">
+        <span class="no">附 录</span>
+        <h3>一览表、年表与书林</h3>
+        <p><span class="pg">第 537—576 页</span>附录一 各地租界一览表；附录二 未形成租界一览表；附录三 大事年表；主要的引用书籍和文章（第 559 页起）。</p>
+      </div>
+    </div>
+    <p style="margin:32px 0 0"><a href="chapters.html" style="display:inline-block;font-family:var(--sans);font-size:14px;letter-spacing:.06em;color:#fffdf7;background:var(--red);padding:13px 24px;border-radius:3px;text-decoration:none">逐章细读：分章导读 · 绪论 + 十三章 + 附录与后记 →</a></p>
+  </div>
+</section>
+
+<!-- ================= 时间线 ================= -->
+<section id="timeline">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">时间线</span>
+      <h2>开辟六十年，收回三十年</h2>
+      <p class="lead">书中的叙述主线是两条：租界在 1843—1902 年间如何一块一块被开辟出来；又在 1917—1945 年间如何一块一块被收回。</p>
+    </div>
+
+    <div class="grid g2" style="align-items:start">
+      <div class="reveal">
+        <h3 style="font-size:20px;letter-spacing:.06em;margin:0 0 20px">一、开辟的四个阶段</h3>
+        <ul class="tl">
+          <li>
+            <span class="when">1843 年 起 · 第一个阶段</span>
+            <h4>鸦片战争后的演变</h4>
+            <p>战争结束未久，广州、上海、厦门等通商口岸陆续划定英商、法商及美国人的居留、贸易区。1845 年 11 月 29 日，上海道台宫慕久将同英国领事巴富尔商定的 23 条规章汇总成文，即后来所称的《土地章程》《上海租地章程》，界内实行"华洋分居"与实质为土地买卖的"永租制"。</p>
+            <span class="src">第一章 第一节 · 第三章 土地制度</span>
+          </li>
+          <li>
+            <span class="when">1854 年 · 转折</span>
+            <h4>中国官府失却控制</h4>
+            <p>1854 年 4 月，清兵重伤一名在英商租地外散步的英国商民，英美军队与义勇队以武力驱逐附近清军，"中国官府完全失却对上海外商租地的控制"；同年 7 月，英、美、法三国领事擅自修订并经三国公使批准《土地章程》，上海由此形成一个公共租界与一个专管租界并存的格局。</p>
+            <span class="src">第一章 第一节</span>
+          </li>
+          <li>
+            <span class="when">1860 年代 后 · 第二个阶段</span>
+            <h4>第二次鸦片战争后的扩散</h4>
+            <p>随着新的通商口岸开辟，租界在大江南北迅速铺开，英、法租界成为各地最常见的组合。</p>
+            <span class="src">第一章 第二节</span>
+          </li>
+          <li>
+            <span class="when">1895 年 后 · 第三个阶段</span>
+            <h4>甲午战争后的无奈</h4>
+            <p>《马关条约》之后，德、俄、日等国竞相索要专管租界，租界由英美法的"特权"扩展为列强普遍的侵夺方式。</p>
+            <span class="src">第一章 第三节</span>
+          </li>
+          <li>
+            <span class="when">1900—1902 年 · 第四个阶段</span>
+            <h4>八国联军侵华战争后的劫夺</h4>
+            <p>庚子之后新一轮开辟。1902 年 12 月 27 日订立开辟约章的天津奥租界，成为最后一块开辟的外国在华租界。至此，自鸦片战争后的近六十年间，英、法、美、德、俄、日、比、意、奥九国先后在上海、厦门、天津、镇江、汉口、九江、广州、苏州、杭州、重庆十个通商口岸开辟了二十五个专管租界。</p>
+            <span class="src">第一章 第四节</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="reveal">
+        <h3 style="font-size:20px;letter-spacing:.06em;margin:0 0 20px">二、收回的四个波次</h3>
+        <ul class="tl">
+          <li>
+            <span class="when">1917 年</span>
+            <h4>第一次世界大战带来的机会</h4>
+            <p>北洋政府先是与德国断交，旋即向德、奥两国宣战，收回德、奥租界，"首开中国收回租界的纪录"。德租界仅存在 20 年左右、奥租界不足 15 年，成为最短命的租界。</p>
+            <span class="src">第七章 第五节 · 第十三章 第一节</span>
+          </li>
+          <li>
+            <span class="when">1920 · 1924 年</span>
+            <h4>俄租界的代管与正式收回</h4>
+            <p>1920 年北洋政府"代管"俄租界；1924 年 5 月 31 日《中俄解决悬案大纲协定》第十条规定苏联抛弃前俄政府在中国境内的一切租界等特权，汉口、天津地方官府遂于 7 月 1 日、8 月 6 日正式收回两地俄租界。</p>
+            <span class="src">第七章 第五节 · 第十三章 第一节</span>
+          </li>
+          <li>
+            <span class="when">1925—1931 年</span>
+            <h4>从五卅运动到北伐革命时期</h4>
+            <p>五卅运动后厦门英租界的行政权被事实上收回；1927 年收回汉口、九江英租界。此后收回的是早归中国管理、名存实亡的厦门、镇江两地英租界；1931 年天津比租界被"交还"中国。</p>
+            <span class="src">第十三章 第二节、第三节</span>
+          </li>
+          <li>
+            <span class="when">1937—1943 年</span>
+            <h4>抗战中的残局与"收回"闹剧</h4>
+            <p>抗日战争爆发时，残存的专管租界仅 11 个、公共租界 2 个。太平洋战争爆发后租界被日军控制，成为"准沦陷区"；1943 年 7 月 30 日及 8 月 1 日，气息奄奄的法租界和公共租界在汪伪政府"收回"租界的喧嚣声中寿终正寝。</p>
+            <span class="src">第十三章 第四节</span>
+          </li>
+          <li>
+            <span class="when">1945 年</span>
+            <h4>反法西斯战争的彻底荡涤</h4>
+            <p>直到抗日战争胜利结束的 1945 年，中国才正式收回天津、广州的英租界，使收回英租界的进程断断续续持续了二十年之久；8 月，上海租界地区被中国政府正式接收。</p>
+            <span class="src">第十三章 第四节 · 第八章 第一节</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid g3" style="margin-top:44px">
+      <figure class="pic zoomable reveal">
+        <img src="assets/map-tianjin-nine.jpg" alt="天津九国租界全图">
+        <figcaption><b>天津九国租界全图（书中图 28）。</b>天津先后有英、法、美、德、日、俄、意、奥、比九国租界，是开辟国最多、也最复杂的一地。</figcaption>
+      </figure>
+      <figure class="pic zoomable reveal">
+        <img src="assets/map-hankou-all.jpg" alt="汉口租界全图">
+        <figcaption><b>汉口租界全图（书中图 29）。</b>汉口先后有五国专管租界，沿长江一字排开，1917 年后德、俄租界率先被收回。</figcaption>
+      </figure>
+      <figure class="pic zoomable reveal">
+        <img src="assets/photo-may30.jpg" alt="五卅运动">
+        <figcaption><b>上海公共租界内发生的惨案引发了席卷全中国的五卅运动（书中照片 29）。</b>收回租界从外交议题变成群众运动。</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 制度四柱 ================= -->
+<section id="system">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">制度四柱</span>
+      <h2>土地、立法、司法、行政：租界是怎么运转的</h2>
+      <p class="lead">第三章至第六章构成了全书的"制度骨架"。它们回答了同一个问题：一块中国土地上的管治权，是怎样一步步被外侨团体接手的。</p>
+    </div>
+
+    <div class="grid g2">
+      <div class="reveal">
+        <h3>土地制度｜第三章</h3>
+        <p>土地获取、地价、地税、地契。各地对"地税"的称呼并不相同：上海、广州、厦门称年租、租银、地租、租费或永远租钱；镇江、汉口、九江、苏州、杭州、重庆称税粮、税钱；天津则称租钱或钱粮。天津法租界的章程规定每亩每年向中国官府缴纳地税 1000 文。永租制下，租界土地的所有权与管治权被逐层剥离，这正是租界制度的经济地基。</p>
+        <figure class="pic zoomable" style="margin-top:20px">
+          <img src="assets/photo-landrenters.jpg" alt="汉口英租界租地人会会议记录">
+          <figcaption><b>汉口英租界 1870 年初举行的租地人会会议记录（书中照片 5）。</b>租地人会（后来的纳税人会）是租界自治的权力来源，土地与纳税资格即政治资格。</figcaption>
+        </figure>
+      </div>
+
+      <div class="reveal">
+        <h3>立法｜第四章</h3>
+        <p>立法主体与层级分明：上有中外约章，中有作为基本章程的《土地章程》，下有各类行政规章；章程又大体分为《土地章程》《市政章程》、综合章程、《居留民团法》四类，且多附有数款至数十款附则。上海英商租地的《土地章程》是租界《土地章程》的始作俑者，起初 23 条，公布于 1845 年。</p>
+        <figure class="pic zoomable" style="margin-top:20px">
+          <img src="assets/photo-hankou-charter.jpg" alt="1893年修订的汉口英租界土地章程">
+          <figcaption><b>1893 年修订的汉口英租界《土地章程》（书中照片 7）。</b>一张章程的封面，就是一地租界制度的法源。</figcaption>
+        </figure>
+      </div>
+
+      <div class="reveal">
+        <h3>司法｜第五章</h3>
+        <p>领事裁判权是属人管辖权，租界开辟国的行政管理权则是属地管辖权。1864 年 5 月 1 日，第一个中外会审机构在英驻沪领事馆首次开庭，时称洋泾浜北首理事衙门，即后来的会审公堂。拘捕、审判、刑罚三节，把"谁抓人、谁审案、谁行刑"的混乱与争夺写得极细。</p>
+        <figure class="pic zoomable" style="margin-top:20px">
+          <img src="assets/photo-mixedcourt.jpg" alt="厦门鼓浪屿公共地界会审公堂">
+          <figcaption><b>厦门鼓浪屿公共地界会审公堂（书中照片 8）。</b>会审公堂是租界里最典型的"中外混合"机构，也是中国人民抗争与收回的对象之一。</figcaption>
+        </figure>
+      </div>
+
+      <div class="reveal">
+        <h3>行政｜第六章</h3>
+        <p>行政体制、主要事务、财政收支。英国人主导的公共租界设工部局，法国专管租界设公董局，日本租界设居留民团与居留民会，各有一套选举、议决与执行程序；巡捕、道路、卫生、执照、税收构成日常政务，年报与预算则记录下租界的财政实况。</p>
+        <figure class="pic zoomable" style="margin-top:20px">
+          <img src="assets/photo-gordontower.jpg" alt="天津英租界戈登堂夜景">
+          <figcaption><b>天津英租界工部局所在地戈登堂的夜景（书中照片 10）。</b>工部局既是市政机关，也是租界的准政府。</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="grid g4" style="margin-top:40px">
+      <figure class="pic zoomable reveal">
+        <img src="assets/photo-smc-badge.jpg" alt="上海公共租界工部局局徽">
+        <figcaption><b>上海公共租界工部局局徽</b>（照片 9）。</figcaption>
+      </figure>
+      <figure class="pic zoomable reveal">
+        <img src="assets/photo-cdc-badge.jpg" alt="上海法租界公董局局徽">
+        <figcaption><b>上海法租界公董局局徽</b>（照片 11）。</figcaption>
+      </figure>
+      <figure class="pic zoomable reveal">
+        <img src="assets/photo-sikh-police.jpg" alt="鼓浪屿公共地界的巡捕">
+        <figcaption><b>鼓浪屿公共地界的巡捕最初以印捕为主</b>（照片 12）。</figcaption>
+      </figure>
+      <figure class="pic zoomable reveal">
+        <img src="assets/photo-tianjin-jp.jpg" alt="天津日租界繁华地段">
+        <figcaption><b>天津日租界的繁华地段</b>（照片 18）：填平沼泽后成为黄金地段。</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 各国异同 ================= -->
+<section id="powers">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">各国异同</span>
+      <h2>同样是租界，制度却处处不同</h2>
+      <p class="lead">第七章按国别比较：谁的侨民自治更强，谁的领事更专断，谁的租界更像军事据点。</p>
+    </div>
+    <div class="grid g4">
+      <div class="card reveal">
+        <span class="no">英 国</span>
+        <h3>七个专管租界</h3>
+        <p>开辟最早、数量最多。侨民自治程度最高：租地人会议（后为纳税人会）决定公共事务，工部局对纳税人负责。英租界因夺得地利，往往成为最受外国侨民垂青的专管租界。</p>
+      </div>
+      <div class="card reveal">
+        <span class="no">法 国</span>
+        <h3>四个专管租界</h3>
+        <p>公董局受领事钳制。上海法租界 1857 年由爱棠设管理道路委员会，1862 年成立公董局，1865—1866 年间白来尼确立了被时人称为领事"独裁"的体制。上海法租界三次扩展后成为中国最大的专管租界。</p>
+      </div>
+      <div class="card reveal">
+        <span class="no">美 国</span>
+        <h3>两个专管租界</h3>
+        <p>上海美租界后来与英租界合并为公共租界；天津美租界 1880 年"交还"清政府，1902 年并入天津英租界。美国在华租界的"退场"，反衬出公共租界这一混合形态的兴起。</p>
+      </div>
+      <div class="card reveal">
+        <span class="no">日 本</span>
+        <h3>五个专管租界</h3>
+        <p>设居留民团与居留民会，行政与侨民团体高度合一，且与军方关系密切。到 20 世纪 20 年代，随着四个英租界被中国收回，日租界在数量上超过英国；作者认为天津日租界"对中国危害最烈"。</p>
+      </div>
+    </div>
+
+    <div class="grid g2" style="margin-top:34px;align-items:start">
+      <div class="reveal">
+        <h3>其他各国：德、俄、比、意、奥</h3>
+        <p>这五国也在中国开辟了专管租界，但数量少、历时短：德租界存在约 20 年，奥租界不足 15 年，俄租界 20 多年，比租界自 1902 年订约至 1931 年被"交还"只有 29 年，意租界维持到第二次世界大战后期，共 40 余年。它们的开辟既迟，又大多率先被中国政府收回——这一"历史的偶然性"里，其实藏着第一次世界大战带来的国际格局变动。</p>
+        <figure class="pic zoomable" style="margin-top:20px">
+          <img src="assets/photo-hankou-street.jpg" alt="汉口英租界街景">
+          <figcaption><b>汉口英租界街景（书中照片 15）。</b>英租界在各地租界中往往占据最好的地段与最成熟的商业区。</figcaption>
+        </figure>
+      </div>
+      <div class="reveal">
+        <h3>异同背后的共同点</h3>
+        <p>不论英、法、美、日，租界的共同底色是三件事：土地以永租方式取得，章程由外人主导订立，行政由外侨团体掌握。差别只在自治程度、与本国领事及军方的距离、以及华人是否被纳入治理体系。作者借此提醒：把租界一概而论，反而看不清它在各地的真实形态。</p>
+        <figure class="pic zoomable" style="margin-top:20px">
+          <img src="assets/photo-joan.jpg" alt="天津法租界圣女贞德铜像">
+          <figcaption><b>天津法租界内的圣女贞德铜像（书中照片 17）。</b>建筑、纪念物与街名，是租界自我认同最直观的表达。</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 各地兴衰 ================= -->
+<section id="places">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">各地兴衰</span>
+      <h2>上海、天津、汉口、厦门——二十五个租界的不同命运</h2>
+      <p class="lead">以开辟国而论，英国 7 个、日本 5 个、法国 4 个、美国与德国、俄国各 2 个，比利时、意大利、奥匈帝国各 1 个；以口岸而论，天津 9 个、汉口 5 个、上海 3 个、广州 2 个，厦门、镇江、九江、苏州、杭州、重庆各 1 个。</p>
+    </div>
+
+    <table class="reveal">
+      <caption>《中国租界通史》所载专管租界分布（按开辟国与口岸统计）</caption>
+      <thead>
+        <tr><th>开辟国</th><th>数量</th><th>主要所在地</th><th>存续与特点</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>英国</td><td class="n">7</td><td>上海、天津、汉口、九江、镇江、广州、厦门</td><td>开辟最早、数量最多，侨民自治程度最高</td></tr>
+        <tr><td>日本</td><td class="n">5</td><td>天津、汉口、苏州、杭州、重庆</td><td>设居留民团、居留民会，与军方关系密切；无一通过外交谈判被收回</td></tr>
+        <tr><td>法国</td><td class="n">4</td><td>上海、天津、汉口、广州</td><td>领事权力极强；上海法租界为中国最大专管租界</td></tr>
+        <tr><td>美国</td><td class="n">2</td><td>上海、天津</td><td>上海美租界并入公共租界；天津美租界 1880 年交还、1902 年并入英租界</td></tr>
+        <tr><td>德国</td><td class="n">2</td><td>汉口、天津</td><td>1917 年被中国收回，存约 20 年</td></tr>
+        <tr><td>俄国</td><td class="n">2</td><td>汉口、天津</td><td>1920 年代管、1924 年正式收回</td></tr>
+        <tr><td>比利时 / 意大利 / 奥匈帝国</td><td class="n">各 1</td><td>天津</td><td>比租界 1931 年被"交还"；奥租界不足 15 年，最短命；意租界维持到二战后期</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grid g3" style="margin-top:44px">
+      <figure class="pic zoomable reveal">
+        <img src="assets/map-shanghai-first.jpg" alt="最早的上海英商租地">
+        <figcaption><b>以新辟的界路为西界的上海英商租地（书中图 1）。</b>1845 年《土地章程》划定的第一块租地，是后世一切租界的原型。</figcaption>
+      </figure>
+      <figure class="pic zoomable reveal">
+        <img src="assets/map-french-first.jpg" alt="最初的上海法租界图">
+        <figcaption><b>最初的上海法租界图（书中图 2）。</b>法租界坚持独立行政，最终发展成为面积最大的专管租界。</figcaption>
+      </figure>
+      <figure class="pic zoomable reveal">
+        <img src="assets/map-shanghai-british.jpg" alt="与美租界合并前的上海英租界图">
+        <figcaption><b>与美租界合并前的上海英租界图（书中图 16）。</b>两界合并之后，才有了后来体量庞大的上海公共租界。</figcaption>
+      </figure>
+      <figure class="pic zoomable reveal">
+        <img src="assets/map-gulangyu.jpg" alt="厦门鼓浪屿公共地界图">
+        <figcaption><b>厦门鼓浪屿公共地界图（书中图 15）。</b>鼓浪屿公共地界是上海之外唯一的多国公共租界。</figcaption>
+      </figure>
+      <figure class="pic zoomable reveal">
+        <img src="assets/photo-gulangyu-houses.jpg" alt="鼓浪屿公共地界">
+        <figcaption><b>各式建筑星罗棋布的鼓浪屿公共地界（书中照片 24）。</b>今日鼓浪屿的历史风貌，多可追溯至此。</figcaption>
+      </figure>
+      <figure class="pic zoomable reveal">
+        <img src="assets/photo-jiujiang.jpg" alt="远眺九江英租界">
+        <figcaption><b>远眺九江英租界（书中照片 25）。</b>沿江口岸的小型租界，面积虽小，制度却与上海同构。</figcaption>
+      </figure>
+      <figure class="pic zoomable reveal">
+        <img src="assets/photo-zhenjiang.jpg" alt="原英国驻镇江领事馆">
+        <figcaption><b>重建于 1890 年的原英国驻镇江领事馆（书中照片 31）。</b>镇江英租界最终在 1929—1930 年被收回。</figcaption>
+      </figure>
+      <figure class="pic zoomable reveal">
+        <img src="assets/photo-hankou-river.jpg" alt="从长江江面看汉口日租界">
+        <figcaption><b>从长江江面看汉口日租界（书中照片 23）。</b>汉口五国租界沿江排开，日租界位于下游一段。</figcaption>
+      </figure>
+      <figure class="pic zoomable reveal">
+        <img src="assets/map-fuzhou.jpg" alt="未建成的福州日租界图">
+        <figcaption><b>未建成的福州日租界图（书中图 37）。</b>附录二专列"未形成租界一览表"：拟议而未成，同样是一部交涉史。</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 特殊区域 ================= -->
+<section id="special">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">特殊区域</span>
+      <h2>租借地、避暑地、铁路附属地：不止"租界"这一种国中之国</h2>
+      <p class="lead">第十一章把视野从租界扩展出去。甲午战争之后，德、俄、英、法相继开辟胶州湾、旅大、威海卫、香港新界、广州湾五个租借地：多为海军基地，面积数百至数千平方公里，由总督或行政长官统治，不缴地价地税，租期最长 99 年——性质与租界并不相同，却在"外国人管治中国土地"这一点上一脉相承。</p>
+    </div>
+
+    <div class="grid g3">
+      <figure class="pic zoomable reveal">
+        <img src="assets/photo-jiaozhou.jpg" alt="胶州湾的一角">
+        <figcaption><b>胶州湾的一角（书中照片 32）。</b>1897 年德国强占胶州湾，次年订约"租借"99 年；青岛日租界与公共租界终未开辟。</figcaption>
+      </figure>
+      <figure class="pic zoomable reveal">
+        <img src="assets/photo-dalian.jpg" alt="日本租借时期的大连街景">
+        <figcaption><b>日本"租借"时期的大连街景（书中照片 33）。</b>旅大租借地先俄后日，是典型的军港型租借地。</figcaption>
+      </figure>
+      <figure class="pic zoomable reveal">
+        <img src="assets/photo-weihai.jpg" alt="从刘公岛眺望威海市区">
+        <figcaption><b>从刘公岛眺望威海市区（书中照片 34）。</b>威海卫租借地与香港新界、广州湾同为英国、法国的"海军据点"。</figcaption>
+      </figure>
+      <figure class="pic zoomable reveal">
+        <img src="assets/photo-guangzhouwan.jpg" alt="原广州湾法国公使署">
+        <figcaption><b>原广州湾法国公使署（书中照片 35）。</b>广州湾租借地由法国公使署统治，1945 年后归还中国。</figcaption>
+      </figure>
+      <figure class="pic zoomable reveal">
+        <img src="assets/map-lushan.jpg" alt="庐山避暑地">
+        <figcaption><b>庐山避暑地（书中图 30）。</b>避暑地由外侨团体自行管理，缴租纳税却别成一套秩序，庐山、莫干山、鸡公山、北戴河为其著者。</figcaption>
+      </figure>
+      <figure class="pic zoomable reveal">
+        <img src="assets/photo-mukden.jpg" alt="南满铁路附属地内的奉天火车站">
+        <figcaption><b>位于南满铁路附属地内的奉天火车站（书中照片 36）。</b>铁路附属地以"护路"为名行使行政权，是另一种形态的"国中之国"。</figcaption>
+      </figure>
+    </div>
+
+    <div class="grid g2" style="margin-top:36px;align-items:start">
+      <figure class="pic zoomable reveal">
+        <img src="assets/map-legation.jpg" alt="北京使馆区图">
+        <figcaption><b>北京使馆区图（书中图 33）。</b>《辛丑条约》后的使馆区由各国自行设防管理，被作者列为"其他特殊区域"之一。</figcaption>
+      </figure>
+      <div class="reveal">
+        <h3>"其他特殊区域"还有哪些</h3>
+        <p>除租借地、避暑地、铁路附属地之外，书中还辨析了贸易圈、使馆区、通商场（如宁波江北岸通商区域、苏州与芜湖的公共通商场）等形态：它们或在通商口岸划出专供外商居住贸易的地段，或由多国共同管理，行政权、警察权、税收权的边界各不相同。把这些形态与租界并列考察，才能看清"外国人管治"这一现象在中国的完整谱系。</p>
+        <p>附录二"未形成租界一览表"则记录那些曾经议及、交涉而未成的租界——它们的失败同样是历史的一部分。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 图版精选 ================= -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">图版精选</span>
+      <h2>十七幅插图，看一遍租界的样貌</h2>
+      <p class="lead">书前书后收有大量示意图与历史照片，此处精选十七幅；点击任意一幅可放大观看。</p>
+    </div>
+    <div class="wall">
+      <figure class="reveal">
+        <img class="zoomable" src="assets/map-shanghai-first.jpg" alt="上海英商租地" data-cap="图 1 以新辟的界路为西界的上海英商租地">
+        <figcaption>图 1 最早的上海英商租地</figcaption>
+      </figure>
+      <figure class="reveal">
+        <img class="zoomable" src="assets/map-shanghai-growth.jpg" alt="上海租界迭次扩展图" data-cap="图 27 上海租界迭次扩展图">
+        <figcaption>图 27 上海租界迭次扩展</figcaption>
+      </figure>
+      <figure class="reveal">
+        <img class="zoomable" src="assets/map-tianjin-nine.jpg" alt="天津九国租界全图" data-cap="图 28 天津九国租界全图">
+        <figcaption>图 28 天津九国租界全图</figcaption>
+      </figure>
+      <figure class="reveal">
+        <img class="zoomable" src="assets/map-hankou-all.jpg" alt="汉口租界全图" data-cap="图 29 汉口租界全图">
+        <figcaption>图 29 汉口租界全图</figcaption>
+      </figure>
+      <figure class="reveal">
+        <img class="zoomable" src="assets/map-gulangyu.jpg" alt="鼓浪屿公共地界图" data-cap="图 15 厦门鼓浪屿公共地界图">
+        <figcaption>图 15 鼓浪屿公共地界</figcaption>
+      </figure>
+      <figure class="reveal">
+        <img class="zoomable" src="assets/photo-bund.jpg" alt="上海租界的外滩" data-cap="照片 2 上海租界的外滩，是地价最高昂的区域">
+        <figcaption>照片 2 外滩：地价最高昂的区域</figcaption>
+      </figure>
+      <figure class="reveal">
+        <img class="zoomable" src="assets/photo-alcock.jpg" alt="英国领事阿礼国" data-cap="照片 4 租界制度的始作俑者之一，英国领事阿礼国">
+        <figcaption>照片 4 英国领事阿礼国</figcaption>
+      </figure>
+      <figure class="reveal">
+        <img class="zoomable" src="assets/photo-landrenters.jpg" alt="租地人会会议记录" data-cap="照片 5 汉口英租界 1870 年初举行的租地人会会议记录">
+        <figcaption>照片 5 租地人会会议记录</figcaption>
+      </figure>
+      <figure class="reveal">
+        <img class="zoomable" src="assets/photo-hankou-charter.jpg" alt="汉口英租界土地章程" data-cap="照片 7 1893 年修订的汉口英租界《土地章程》">
+        <figcaption>照片 7 1893 年《土地章程》</figcaption>
+      </figure>
+      <figure class="reveal">
+        <img class="zoomable" src="assets/photo-mixedcourt.jpg" alt="鼓浪屿会审公堂" data-cap="照片 8 厦门鼓浪屿公共地界会审公堂">
+        <figcaption>照片 8 鼓浪屿会审公堂</figcaption>
+      </figure>
+      <figure class="reveal">
+        <img class="zoomable" src="assets/photo-smc-badge.jpg" alt="工部局局徽" data-cap="照片 9 上海公共租界工部局局徽">
+        <figcaption>照片 9 工部局局徽</figcaption>
+      </figure>
+      <figure class="reveal">
+        <img class="zoomable" src="assets/photo-cdc-badge.jpg" alt="公董局局徽" data-cap="照片 11 上海法租界公董局局徽">
+        <figcaption>照片 11 公董局局徽</figcaption>
+      </figure>
+      <figure class="reveal">
+        <img class="zoomable" src="assets/photo-gordontower.jpg" alt="戈登堂" data-cap="照片 10 天津英租界工部局所在地戈登堂的夜景">
+        <figcaption>照片 10 戈登堂夜景</figcaption>
+      </figure>
+      <figure class="reveal">
+        <img class="zoomable" src="assets/photo-joan.jpg" alt="圣女贞德铜像" data-cap="照片 17 天津法租界内的圣女贞德铜像">
+        <figcaption>照片 17 圣女贞德铜像</figcaption>
+      </figure>
+      <figure class="reveal">
+        <img class="zoomable" src="assets/photo-shrine.jpg" alt="天津日租界内的日本神社" data-cap="照片 21 天津日租界内的日本神社">
+        <figcaption>照片 21 天津日租界的日本神社</figcaption>
+      </figure>
+      <figure class="reveal">
+        <img class="zoomable" src="assets/photo-may30-marines.jpg" alt="五卅惨案后法国海军陆战队守卫汉口法租界" data-cap="照片 27 1925 年五卅惨案发生后法国海军陆战队守卫汉口法租界">
+        <figcaption>照片 27 五卅惨案后的汉口法租界</figcaption>
+      </figure>
+      <figure class="reveal">
+        <img class="zoomable" src="assets/photo-shaji.jpg" alt="沙基惨案现场" data-cap="照片 41 沙基惨案现场">
+        <figcaption>照片 41 沙基惨案现场</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 书摘 ================= -->
+<section id="excerpts">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">书摘</span>
+      <h2>六段原文，读懂作者的判断</h2>
+    </div>
+    <blockquote class="quote reveal">
+      <p>「此后，一批西方国家和日本在中国的十个通商口岸开辟了二十多个被称作"国中之国"的专管租界和公共租界。」</p>
+      <cite>—— 第一章 开辟</cite>
+    </blockquote>
+    <blockquote class="quote reveal">
+      <p>「租界的开辟过程肇始于鸦片战争结束未久的 1843 年，基本结束于八国联军侵华战争后的 1902 年，前后长达六十年，大体上可分为四个阶段。」</p>
+      <cite>—— 第一章 开辟</cite>
+    </blockquote>
+    <blockquote class="quote reveal">
+      <p>「由外国人控制的租界当局拥有属地的行政管理权，这是租界与华界最根本的区别。」</p>
+      <cite>—— 第九章 "国中之国"的主要特征</cite>
+    </blockquote>
+    <blockquote class="quote reveal">
+      <p>「这样，德租界仅存在 20 年左右，奥租界存在的时间不足 15 年，成为最短命的租界。」</p>
+      <cite>—— 第七章 各国租界的异同（第五节 其他各国租界）</cite>
+    </blockquote>
+    <blockquote class="quote reveal">
+      <p>「1943 年 7 月 30 日及 8 月 1 日，气息奄奄的法租界和公共租界终于在汪伪政府"收回"租界的喧嚣声中寿终正寝。」</p>
+      <cite>—— 第十三章 租界的收回</cite>
+    </blockquote>
+    <blockquote class="quote reveal">
+      <p>「直到抗日战争胜利结束的 1945 年，中国才正式收回了天津、广州的英租界，使得收回英租界的进程断断续续地持续了二十年之久。」</p>
+      <cite>—— 第十三章 租界的收回</cite>
+    </blockquote>
+    <blockquote class="quote reveal">
+      <p>「直到今日，昔日上海租界内的大批建筑仍保持着原来的风貌，成为各级文物保护单位；上海租界的所在地，仍是上海市的中心城区。」</p>
+      <cite>—— 第八章 各地租界的兴衰（第一节 上海租界）</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ================= 目录 ================= -->
+<section id="toc">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">目录</span>
+      <h2>全书目录与页码</h2>
+      <p class="lead">依据原书目录整理，页码为印刷页码。</p>
+    </div>
+    <div class="toc reveal">
+      <div class="row chapter"><span class="t">绪论</span><span class="p">1</span></div>
+      <div class="row chapter"><span class="t">第一章 开辟</span><span class="p">8</span></div>
+      <div class="row sub"><span class="t">第一节 鸦片战争后的演变</span><span class="p">8</span></div>
+      <div class="row sub"><span class="t">第二节 第二次鸦片战争后的扩散</span><span class="p">19</span></div>
+      <div class="row sub"><span class="t">第三节 甲午战争后的无奈</span><span class="p">30</span></div>
+      <div class="row sub"><span class="t">第四节 八国联军侵华战争后的劫夺</span><span class="p">44</span></div>
+      <div class="row chapter"><span class="t">第二章 扩展</span><span class="p">56</span></div>
+      <div class="row sub"><span class="t">历次扩展</span><span class="p">56</span></div>
+      <div class="row sub"><span class="t">附属区域</span><span class="p">75</span></div>
+      <div class="row chapter"><span class="t">第三章 土地制度</span><span class="p">94</span></div>
+      <div class="row sub"><span class="t">土地获取</span><span class="p">94</span></div>
+      <div class="row sub"><span class="t">地价</span><span class="p">102</span></div>
+      <div class="row sub"><span class="t">地税</span><span class="p">108</span></div>
+      <div class="row sub"><span class="t">地契</span><span class="p">114</span></div>
+      <div class="row chapter"><span class="t">第四章 立法</span><span class="p">122</span></div>
+      <div class="row sub"><span class="t">立法主体</span><span class="p">122</span></div>
+      <div class="row sub"><span class="t">中外约章</span><span class="p">133</span></div>
+      <div class="row sub"><span class="t">基本章程</span><span class="p">140</span></div>
+      <div class="row sub"><span class="t">行政规章</span><span class="p">150</span></div>
+      <div class="row chapter"><span class="t">第五章 司法</span><span class="p">159</span></div>
+      <div class="row sub"><span class="t">拘捕</span><span class="p">159</span></div>
+      <div class="row sub"><span class="t">审判</span><span class="p">164</span></div>
+      <div class="row sub"><span class="t">刑罚</span><span class="p">184</span></div>
+      <div class="row chapter"><span class="t">第六章 行政</span><span class="p">192</span></div>
+      <div class="row sub"><span class="t">行政体制</span><span class="p">192</span></div>
+      <div class="row sub"><span class="t">主要事务</span><span class="p">221</span></div>
+      <div class="row sub"><span class="t">财政收支</span><span class="p">237</span></div>
+      <div class="row chapter"><span class="t">第七章 各国租界的异同</span><span class="p">261</span></div>
+      <div class="row sub"><span class="t">英、法、美、日及其他各国</span><span class="p">261</span></div>
+      <div class="row chapter"><span class="t">第八章 各地租界的兴衰</span><span class="p">285</span></div>
+      <div class="row sub"><span class="t">上海 285 ｜ 天津 294 ｜ 汉口 305</span><span class="p"></span></div>
+      <div class="row sub"><span class="t">厦门 311 ｜ 其他各地 317</span><span class="p"></span></div>
+      <div class="row chapter"><span class="t">第九章 "国中之国"的主要特征</span><span class="p">329</span></div>
+      <div class="row sub"><span class="t">由外国人管治的中国领土</span><span class="p">329</span></div>
+      <div class="row sub"><span class="t">刑事犯的逋逃薮和国事犯的活动舞台</span><span class="p">341</span></div>
+      <div class="row sub"><span class="t">战时的中立区域</span><span class="p">351</span></div>
+      <div class="row chapter"><span class="t">第十章 中国人民的抗争</span><span class="p">364</span></div>
+      <div class="row sub"><span class="t">反对开设和扩展租界</span><span class="p">364</span></div>
+      <div class="row sub"><span class="t">反抗苛捐和暴行</span><span class="p">380</span></div>
+      <div class="row sub"><span class="t">华人参政</span><span class="p">391</span></div>
+      <div class="row sub"><span class="t">收回上海租界会审公堂</span><span class="p">402</span></div>
+      <div class="row chapter"><span class="t">第十一章 租借地等特殊区域</span><span class="p">411</span></div>
+      <div class="row sub"><span class="t">租借地 411 ｜ 避暑地 432</span><span class="p"></span></div>
+      <div class="row sub"><span class="t">铁路附属地 444 ｜ 其他特殊区域 455</span><span class="p"></span></div>
+      <div class="row chapter"><span class="t">第十二章 有关租界研究的一些问题</span><span class="p">484</span></div>
+      <div class="row sub"><span class="t">定义 484 ｜ 数量 489 ｜ 分类 501 ｜ 其他 507</span><span class="p"></span></div>
+      <div class="row chapter"><span class="t">第十三章 租界的收回</span><span class="p">515</span></div>
+      <div class="row sub"><span class="t">一战带来的机会</span><span class="p">515</span></div>
+      <div class="row sub"><span class="t">从五卅运动到北伐革命时期</span><span class="p">520</span></div>
+      <div class="row sub"><span class="t">外交谈判取得的新成果</span><span class="p">527</span></div>
+      <div class="row sub"><span class="t">反法西斯战争的彻底荡涤</span><span class="p">530</span></div>
+      <div class="row chapter"><span class="t">附录一 各地租界一览表</span><span class="p">537</span></div>
+      <div class="row chapter"><span class="t">附录二 未形成租界一览表</span><span class="p">540</span></div>
+      <div class="row chapter"><span class="t">附录三 大事年表</span><span class="p">542</span></div>
+      <div class="row chapter"><span class="t">主要的引用书籍和文章</span><span class="p">559</span></div>
+      <div class="row chapter"><span class="t">后记</span><span class="p">577</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 出版信息 ================= -->
+<section id="edition">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">出版信息</span>
+      <h2>版本与参考资料</h2>
+    </div>
+    <div class="grid g2" style="align-items:start">
+      <div class="reveal">
+        <table>
+          <caption>图书基本信息</caption>
+          <tbody>
+            <tr><th style="width:34%">书名</th><td>中国租界通史</td></tr>
+            <tr><th>著者</th><td>费成康</td></tr>
+            <tr><th>出版社</th><td>上海社会科学院出版社</td></tr>
+            <tr><th>版次</th><td>2024 年 4 月第 1 版</td></tr>
+            <tr><th>ISBN</th><td>978-7-5520-4320-4／D·718</td></tr>
+            <tr><th>开本与篇幅</th><td>710mm × 960mm 1/16，37 印张，550 千字</td></tr>
+            <tr><th>定价</th><td>168.00 元</td></tr>
+            <tr><th>附录</th><td>各地租界一览表、未形成租界一览表、大事年表</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="reveal">
+        <h3>延伸阅读</h3>
+        <ul>
+          <li><a href="https://ilaw.sass.org.cn/2024/1021/c2514a573787/page.htm" target="_blank" rel="noopener">上海社会科学院法学研究所 · 新书推荐</a></li>
+          <li><a href="https://cbs.sass.org.cn/2024/1211/c7279a574836/page.htm" target="_blank" rel="noopener">上海社会科学院出版社 · 书目页（含目录与作者简介）</a></li>
+          <li><a href="https://epaper.gmw.cn/zhdsb/html/2024-07/24/nw.D110000zhdsb_20240724_4-14.htm" target="_blank" rel="noopener">中华读书报 · 陈如江《中国租界历史的通贯研究》（2024-07-24）</a></li>
+        </ul>
+        <h3 style="margin-top:26px">关于本页图片</h3>
+        <p>本页所用书影、示意图与历史照片均取自《中国租界通史》原书插图（示意图为"图 1—图 37"，历史照片为"照片 1—照片 41"），缩略处理后用于介绍与评述，版权归原作者与出版者所有。图注文字依据原书题注整理。</p>
+        <h3 style="margin-top:26px">一句话总结</h3>
+        <p>如果要给这部书找一个不可替代的位置，那就是：它第一次把二十五个专管租界与两个公共租界的<strong>制度细节</strong>与<strong>百年命运</strong>装进了同一部叙述之中，既讲清了"国中之国"如何长成，也讲清了它如何在中国人的抗争与世界大战的变局中终结。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap fgrid">
+    <div>
+      <h3>中国租界通史</h3>
+      <p>费成康 著 · 上海社会科学院出版社 · 2024 年 4 月第 1 版</p>
+      <p>本页为读书介绍页，内容依据原书正文、目录与题注整理；引用原文均取自书中相应章节。</p>
+    </div>
+    <div>
+      <h3>本页速览</h3>
+      <ul>
+        <li>25 个专管租界 + 2 个公共租界</li>
+        <li>开辟：1843—1902，共六十年四阶段</li>
+        <li>收回：1917—1945，共四个波次</li>
+        <li>十章以上的制度细目与三件附录工具</li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap fine">
+    本页为个人整理的非商业性图书介绍材料。图中插图版权归《中国租界通史》作者与上海社会科学院出版社所有，如涉版权问题请联系删除。
+  </div>
+</footer>
+
+<div id="lb" aria-hidden="true">
+  <span class="close" id="lbClose">×</span>
+  <img id="lbImg" src="" alt="">
+  <div class="cap" id="lbCap"></div>
+</div>
+
+<script>
+(function(){
+  // 滚动显现
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{rootMargin:'0px 0px -8% 0px',threshold:.06});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  // 导航高亮
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.top a'));
+  var secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  function hi(){
+    var y = window.scrollY + 120, idx = 0;
+    secs.forEach(function(s,i){ if(s && s.offsetTop <= y) idx = i; });
+    links.forEach(function(a,i){ a.classList.toggle('active', i===idx); });
+  }
+  window.addEventListener('scroll', hi, {passive:true}); hi();
+
+  // 灯箱
+  var lb = document.getElementById('lb'),
+      lbImg = document.getElementById('lbImg'),
+      lbCap = document.getElementById('lbCap');
+  function open(img){
+    lbImg.src = img.getAttribute('src');
+    lbImg.alt = img.getAttribute('alt') || '';
+    var cap = img.getAttribute('data-cap');
+    if(!cap){
+      var f = img.closest('figure');
+      cap = f ? (f.querySelector('figcaption') ? f.querySelector('figcaption').textContent.trim() : '') : '';
+    }
+    lbCap.textContent = cap || '';
+    lb.classList.add('on');
+    document.body.style.overflow = 'hidden';
+  }
+  function close(){ lb.classList.remove('on'); document.body.style.overflow=''; }
+  document.querySelectorAll('img.zoomable').forEach(function(img){
+    img.addEventListener('click', function(){ open(img); });
+  });
+  lb.addEventListener('click', function(e){ if(e.target === lb || e.target.id === 'lbClose') close(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
+})();
+</script>
+</body>
+</html>

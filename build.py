@@ -451,6 +451,11 @@ def build():
 
     # 单本书
     for b in books:
+        # front matter 里写了 custom_page: true 的，说明这一页是手工做的完整网页，
+        # 放在 static/books/<slug>/ 下，靠本文件末尾的静态资源复制带进 public/。
+        # 这里必须跳过，否则会被下面这个简易详情页覆盖掉。
+        if str(b.get("custom_page", "")).strip().lower() in ("true", "yes", "1"):
+            continue
         tags = b.get("tags") or []
         if isinstance(tags, str):
             tags = [tags]

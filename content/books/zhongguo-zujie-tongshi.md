@@ -5,6 +5,7 @@ publisher: 上海社会科学院出版社
 date: 2026-09-18
 rating: 5
 status: 读过
+custom_page: true
 tags: [历史, 近代史, 城市]
 summary: 把"租界"这个概念从模糊的印象，变成了有边界、有制度、有财政的具体存在。
 ---
