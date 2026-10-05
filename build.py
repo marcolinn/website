@@ -529,6 +529,15 @@ def build():
       </div>
     </article>"""))
 
+    # ── 404 ──
+    write_page("404.html", page("没找到这一页", "", f"""    <article class="detail">
+      <h1>没找到这一页</h1>
+      <div class="prose">
+        <p>这个地址上没有东西。可能是链接写错了，也可能是这一页还没写。</p>
+        <p><a href="/">回首页</a>　·　<a href="/books/">去看书单</a></p>
+      </div>
+    </article>"""))
+
     # ── 静态资源 ──
     if STATIC.exists():
         for item in STATIC.iterdir():

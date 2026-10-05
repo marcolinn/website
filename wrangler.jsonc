@@ -1,0 +1,15 @@
+{
+  // Cloudflare Worker 配置。
+  // 这是一个「只有静态资源、没有脚本」的 Worker：没有 main 字段。
+  // 云端构建时先跑 Build command 生成 public/，再由 `npx wrangler deploy` 上传。
+  "name": "website",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    // 站点文件目录，必须与 dashboard 里的 Build output directory 一致
+    "directory": "./public",
+    // 找不到的路径返回 404.html，并带上真正的 404 状态码
+    "not_found_handling": "404-page",
+    // /books/ 这类目录带斜杠，/style.css 这类文件不带
+    "html_handling": "auto-trailing-slash"
+  }
+}

@@ -119,77 +119,78 @@ summary: 摘要
 
 ---
 
-## 五、部署到 Cloudflare Pages
+## 五、部署到 Cloudflare
 
-### 先选路线（这一步不能反悔）
+当前线上地址：**https://website.marcolinn.workers.dev**
 
-Cloudflare 有两个入口，**创建项目时选定，之后不能互转**：
+GitHub 仓库：**https://github.com/marcolinn/website** —— 推一个 commit 上去，Cloudflare 会自动重新构建上线。
 
-| | 路线 A：连 Git 仓库 | 路线 B：直接上传 |
-|---|---|---|
-| 需要 GitHub | 是 | 否 |
-| 以后改内容 | `git push`，自动上线 | 每次手动重新拖一次 |
-| 能不能互转 | ✗ 不能 | ✗ 不能（官方原文：*You cannot switch to Git integration later*） |
+### 现在用的方式：Worker + 静态资源
 
-不能互转不等于进死胡同——大不了以后**另建一个新项目**选另一条路线，旧项目删掉即可。但既然要建，一次选对省事。
+Cloudflare 把静态站点也当成一种 Worker——一个**没有脚本、只有静态资源**的 Worker。仓库根目录的 `wrangler.jsonc` 就是干这个的：
 
-**建议**：你会持续加读书笔记，选**路线 A**。
-
-### 前期准备
-
-1. 注册 [Cloudflare](https://dash.cloudflare.com/sign-up) 账号（免费，邮箱即可，不用绑卡）
-2. 注册 [GitHub](https://github.com/signup) 账号（走路线 B 的话跳过）
-3. 本目录**已经是 git 仓库了**（已初始化 + 已提交一次），只差一个远程仓库：
-
-```powershell
-cd D:\Data\Onedrive\DSH\Website
-# 先在 GitHub 网页上新建一个空仓库（不要勾 Add README / .gitignore），
-# 然后把下面这行的「你的用户名」换成你的账号
-git remote add origin https://github.com/你的用户名/website.git
-git push -u origin main
+```jsonc
+{
+  "name": "website",              // 必须和 Cloudflare 上那个 Worker 同名
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./public",              // 构建产物目录
+    "not_found_handling": "404-page",     // 找不到的路径 → 404.html，带真 404 状态码
+    "html_handling": "auto-trailing-slash" // /books/ 带斜杠，/style.css 不带
+  }
+}
 ```
 
-### 路线 A：连 Git 仓库（推荐）
+**每次 push 之后云端发生的事**：
 
-1. Cloudflare 控制台 → **Workers & Pages** → **Create** → 选 **Pages** 标签 → **Connect to Git**
-2. 授权 GitHub，选中刚才的仓库 → **Begin setup**
+1. 克隆仓库
+2. 跑 **Build command**：`python3 build.py && python3 check.py` → 生成 `public/`
+3. 跑 **Deploy command**：`npx wrangler deploy` → 读 `wrangler.jsonc`，把 `public/` 上传
+
+所以 `public/` 不进 git 是对的（`.gitignore` 里挡掉了），云端每次自己生成。
+
+**配置在**：Cloudflare 控制台 → **Workers & Pages** → 点进 `website` → **Settings** → **Build**
+
+| 字段 | 填什么 |
+|---|---|
+| Build command | `python3 build.py && python3 check.py` |
+| Deploy command | `npx wrangler deploy`（默认值，别动） |
+
+> ⚠️ **`Build command` 留空 = 部署失败**。留空时第 2 步被整个跳过，`public/` 不存在，wrangler 就报 `Could not detect a directory containing static files`。第一次部署踩的就是这个坑。改完点 **Retry deployment**，或随便推一个 commit。
+
+> **构建命令末尾为什么要跟 `check.py`**：它会给所有内部链接做一次体检，非零退出码会让构建**失败**。等于给自己上了一道闸——哪天手滑写错一个链接、或者某个页面漏了标题，Cloudflare 会拒绝上线并保留上一个好版本，而不是把坏页面推出去。
+
+> **Python 从哪来**：Cloudflare 的构建镜像自带 **Python 3.13.3**（Workers Builds 是 Ubuntu 24.04），不需要任何环境配置。本项目只用标准库，不用 `pip install`。
+> 万一提示找不到 `python3`，把命令里的 `python3` 换成 `python` 再试。
+
+### 另一种方式：Cloudflare Pages（备选）
+
+Pages 同样自带 Python 3.13.3，配置项更少，但 Pages 项目名要**全球唯一**，且一旦选了 Direct Upload 就不能再转 Git。
+
+1. **Workers & Pages** → **Create application** → 选 **Pages** 标签 → **Connect to Git**
+2. 授权 GitHub，选 `marcolinn/website` → **Begin setup**
 3. 构建配置填：
 
    | 字段 | 填什么 |
    |---|---|
-   | Project name | 随便起，会变成 `项目名.pages.dev` |
+   | Project name | **不能填 `website`**——`website.pages.dev` 已被别人占用，用 `marcolinn-website` |
    | Production branch | `main` |
-   | Framework preset | **None** |
+   | Framework preset | **None**（预设列表里没有 Python，留着默认值会套错命令） |
    | Build command | `python3 build.py && python3 check.py` |
    | Build output directory | `public` |
 
-4. 点 **Save and Deploy**，等一两分钟
-5. 得到网址 `https://项目名.pages.dev` —— **这个地址是长期有效的**，可以直接发给别人
-
-> **构建命令末尾为什么要跟 `check.py`**：它会给所有内部链接做一次体检，非零退出码会让构建**失败**。等于给自己上了一道闸——哪天手滑写错一个链接、或者某个页面漏了标题，Cloudflare 会拒绝上线并保留上一个好版本，而不是把坏页面推出去。
-
-> **Python 从哪来**：Cloudflare 的构建镜像（v3，Ubuntu 22.04）自带 **Python 3.13.3**，不需要任何环境配置。本项目只用标准库，不用 `pip install`。
-> 万一提示找不到 `python3`，把构建命令里的 `python3` 换成 `python` 再试；仍然不行就走路线 B。
-
-### 路线 B：直接上传（不用 Git，30 秒上线）
-
-1. 本地跑一次 `python build.py`
-2. Cloudflare 控制台 → **Workers & Pages** → **Create** → **Pages** → **Upload assets**
-3. 把 `public` 文件夹里的**所有内容**拖进去（注意是 `public` 里面的东西，不是 `public` 这一层）
-4. 点 **Deploy**
-
-> 两个限制：拖拽上传**单次最多 1000 个文件**、单个文件最大 25 MiB。现在这个站只有十几个文件，远够用；但照片攒到上千张时会撞上限，那时要么改用路线 A（Git 集成是 20000 个文件），要么把照片挪到 R2。
+4. **Save and Deploy** → 得到 `https://marcolinn-website.pages.dev`
 
 ### 绑定自己的域名（可选）
 
 1. 在域名注册商买一个域名（约 ¥50–100/年）
-2. Cloudflare 控制台 → 你的 Pages 项目 → **Custom domains** → **Set up a custom domain**
+2. Cloudflare 控制台 → 你的 Worker / Pages 项目 → **Settings** → **Domains & Routes**（Pages 里叫 **Custom domains**）→ 添加
 3. 输入域名，按提示配置
    - 域名托管在 Cloudflare：一键完成，自动加 DNS 记录
-   - 域名在别处：去域名商后台加一条 CNAME，指向 `项目名.pages.dev`
+   - 域名在别处：去域名商后台加一条 CNAME，指向 `website.marcolinn.workers.dev`（Pages 则指向 `项目名.pages.dev`）
 4. SSL 证书**自动签发、自动续期**，不用管
 
-> Cloudflare Pages 不需要备案。中国大陆可以访问（速度取决于线路），但没有国内节点。
+> Cloudflare 不需要备案。中国大陆可以访问（速度取决于线路），但没有国内节点。
 
 ---
 
