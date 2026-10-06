@@ -50,7 +50,7 @@ SITE = {
         ("照片", "/photos/"),
         ("关于", "/about/"),
     ],
-    "footer": "本站使用 Cloudflare Pages 托管",
+    "footer": "本站托管在 Cloudflare",
 }
 
 # 读书页按这个顺序展示状态分组
