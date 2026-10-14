@@ -11,7 +11,7 @@
 custom_page: true），提供书单页用的书名、作者、评分、状态等字段，
 每一本都要和这里的 slug 对得上。
 
-目前有两本：
+目前有三本：
 
   中国租界通史   D:\\Data\\Onedrive\\DSH\\Book\\中国租界通史_网页
                  取 index.html、chapters.html、assets/（39 张图）
@@ -21,6 +21,19 @@ custom_page: true），提供书单页用的书名、作者、评分、状态等
   青龍造         D:\\Data\\Onedrive\\DSH\\Book\\青龍造\\site
                  取 index.html、images/（17 张图，其中 title.jpg 未被页面引用）
                  原稿共 60 个文件 7.1 MB，extract/、summaries/、tools/ 不进站点。
+
+  霓虹灯外       D:\\Data\\Onedrive\\DSH\\Book\\霓虹灯外_内容分析
+                 只有 霓虹灯外_导读.html 一个文件（40 张插图全部 base64 内联，
+                 没有图片目录），所以要改名成 index.html 才能当目录首页。
+                 extract/、figures_src/、tools/、预览图/、内容概览.md 都不进站点。
+
+book 字典可用的键：
+
+  slug    目标目录名，必须和 content/books/<slug>.md 对得上
+  source  原稿目录
+  files   要复制的单个文件（保持原名）
+  dirs    要整目录复制的子目录
+  rename  可选，{原文件名: 目标文件名}，把 files 里某个文件改名落地
 
 原稿改动之后重新跑一次：
 
@@ -54,6 +67,13 @@ BOOKS = [
         "source": Path(r"D:\Data\Onedrive\DSH\Book\青龍造\site"),
         "files": ["index.html"],
         "dirs": ["images"],
+    },
+    {
+        "slug": "nihongdeng-wai",
+        "source": Path(r"D:\Data\Onedrive\DSH\Book\霓虹灯外_内容分析"),
+        "files": ["霓虹灯外_导读.html"],
+        "dirs": [],
+        "rename": {"霓虹灯外_导读.html": "index.html"},
     },
 ]
 
@@ -131,8 +151,9 @@ def sync_one(book: dict) -> bool:
     dest.mkdir(parents=True, exist_ok=True)
 
     total = 0
+    rename = book.get("rename", {})
     for name in book["files"]:
-        shutil.copy2(source / name, dest / name)
+        shutil.copy2(source / name, dest / rename.get(name, name))
         total += 1
     for name in book["dirs"]:
         shutil.copytree(source / name, dest / name, dirs_exist_ok=True)
