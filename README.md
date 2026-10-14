@@ -12,7 +12,7 @@
 Website/
 ├─ build.py              ← 生成器（唯一需要动的代码）
 ├─ check.py              ← 构建后自检（死链、缺标题），也是部署闸门
-├─ sync_book_page.py     ← 把手工网页的书同步进来（《中国租界通史》《青龍造》，见第四节末）
+├─ sync_book_page.py     ← 把手工网页的书同步进来（《中国租界通史》《青龍造》《霓虹灯外》，见第四节末）
 ├─ content/              ← 所有内容都在这里，写 Markdown 就行
 │   ├─ about.md          ← 关于页
 │   ├─ books/            ← 每本书一个 .md
@@ -22,7 +22,8 @@ Website/
 ├─ static/               ← 原样复制到站点根目录的静态资源
 │   ├─ style.css         ←   全站样式
 │   ├─ books/zhongguo-zujie-tongshi/   ← 《中国租界通史》整套手工网页
-│   └─ books/qinglong-zao/             ← 《青龍造》整套手工网页
+│   ├─ books/qinglong-zao/             ← 《青龍造》整套手工网页
+│   └─ books/nihongdeng-wai/           ← 《霓虹灯外》整套手工网页（单文件）
 ├─ wrangler.jsonc        ← Cloudflare 部署配置
 └─ public/               ← 构建产物，自动生成，不用管（已 gitignore）
 ```
@@ -126,8 +127,8 @@ summary: 摘要
 ### 整页手工网页（某一本不做成 Markdown 的那种）
 
 `content/books/` 里的书默认按模板生成一个简单详情页。如果某一本你已经做好了整套独立网页
-（自带样式和脚本，不是 Markdown），可以把它接进来。目前有两本是这样：
-《中国租界通史》和《青龍造》。
+（自带样式和脚本，不是 Markdown），可以把它接进来。目前有三本是这样：
+《中国租界通史》《青龍造》《霓虹灯外》。
 
 1. 把网页放进 `static/books/<slug>/`，目录名必须和 `content/books/<slug>.md` 的**文件名一致**
    （例如 `static/books/zhongguo-zujie-tongshi/`）。`static/` 下的东西会被原样复制到站点根目录，
@@ -148,10 +149,12 @@ summary: 摘要
 > |---|---|---|
 > | 中国租界通史 | `D:\Data\Onedrive\DSH\Book\中国租界通史_网页` | `index.html`、`chapters.html`、`assets/`（39 张图） |
 > | 青龍造 | `D:\Data\Onedrive\DSH\Book\青龍造\site` | `index.html`、`images/`（17 张图） |
+> | 霓虹灯外 | `D:\Data\Onedrive\DSH\Book\霓虹灯外_内容分析` | `霓虹灯外_导读.html` → 改名落地为 `index.html`（40 张插图全部 base64 内联，没有图片目录） |
 >
-> 原稿目录都很大（前者 177 个文件 14.7 MB，后者 60 个文件 7.1 MB），只用得到上面那几项。
+> 原稿目录都很大（分别 177 个文件 14.7 MB、60 个文件 7.1 MB、190 个文件 12.9 MB），只用得到上面那几项。
 > 原稿改动后，本地跑一次 `python sync_book_page.py` 把它们同步进 `static/`，再照常提交。
-> 要加第三本，就在 `sync_book_page.py` 顶部的 `BOOKS` 列表里加一条。
+> 要加第四本，就在 `sync_book_page.py` 顶部的 `BOOKS` 列表里加一条；原稿文件名和落地名不一样时，
+> 在那条记录里加 `"rename": {"原文件名": "index.html"}`。
 > 云端的构建机看不到原稿目录，它只认仓库里的文件——所以 `static/` 里那份是**要提交进 git** 的。
 
 ---
@@ -279,7 +282,7 @@ Cloudflare 免费版：
 **想换配色？**
 `static/style.css` 最上面 `:root` 里的 CSS 变量：`--accent` 是主色（赭石红），`--accent-2` 是辅助色（松绿），`--paper` 是背景色。改这三个就能整体换风格。
 
-**改了手工网页的书（《中国租界通史》《青龍造》），线上没变？**
+**改了手工网页的书（《中国租界通史》《青龍造》《霓虹灯外》），线上没变？**
 `static/books/<slug>/` 是**同步过来的拷贝**，不是原稿。改完原稿要跑一次 `python sync_book_page.py` 再提交。
 另外那两页的样式都是内联的、不引 `style.css`，所以它们对全站换色不敏感，要单独改。
 
