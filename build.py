@@ -12,6 +12,7 @@
 
 import argparse
 import html
+import json
 import re
 import shutil
 import sys
@@ -20,6 +21,7 @@ import time
 import webbrowser
 from datetime import date, datetime
 from pathlib import Path
+from urllib.parse import quote
 
 # Windows 控制台默认是 GBK，显式切成 UTF-8，否则中文和符号输出会直接报错
 for _stream in (sys.stdout, sys.stderr):
@@ -51,6 +53,18 @@ SITE = {
         ("关于", "/about/"),
     ],
     "footer": "本站托管在 Cloudflare",
+
+    # 旅行页的地图。
+    #
+    # 底图优先用天地图：官方明确允许配合 Leaflet 使用，个人免费额度 1 万次/服务/日，
+    # 而且是"具有审图号的地图"的官方来源。去 www.tianditu.gov.cn 注册（需实名）→
+    # 申请"个人开发者"→ 建应用，拿到的浏览器端 key（tk）填到下面即可。
+    #
+    # 留空则退回高德瓦片——不用申请，但那属于非官方用法，只当临时预览用。
+    # 注意：无论用哪家，公开的地图都要注明来源与审图号（见 README）。
+    "map": {
+        "tianditu_key": "",
+    },
 }
 
 # 读书页按这个顺序展示状态分组
@@ -259,7 +273,8 @@ def nav_html(current: str) -> str:
     return "\n      ".join(items)
 
 
-def page(title: str, current: str, body: str, desc: str = "", depth: int = 0) -> str:
+def page(title: str, current: str, body: str, desc: str = "", depth: int = 0,
+         head: str = "") -> str:
     t = f"{title} · {SITE['title']}" if title else SITE["title"]
     d = desc or SITE["description"]
     return f"""<!DOCTYPE html>
@@ -270,7 +285,7 @@ def page(title: str, current: str, body: str, desc: str = "", depth: int = 0) ->
 <title>{html.escape(t)}</title>
 <meta name="description" content="{html.escape(d)}">
 <link rel="stylesheet" href="/style.css">
-</head>
+{head}</head>
 <body>
   <header class="site-head">
     <div class="wrap head-inner">
@@ -310,6 +325,192 @@ def card(title, href, meta_line, excerpt, extra=""):
           {extra}
         </div>
       </a>"""
+
+
+# ─────────────────────────────────────────────────────────────
+#  照片与地图
+# ─────────────────────────────────────────────────────────────
+
+PUBLISHED = STATIC / "photos"     # prep_photos.py 的产物，最后会被原样复制进 public/
+PHOTO_EXTS = (".jpg", ".jpeg", ".png", ".webp")
+MAP_HEAD = '<link rel="stylesheet" href="/leaflet/leaflet.css">\n'
+
+
+def trip_photos(slug: str):
+    """某个行程已经发布的照片（大图那批，不含 thumb/ 里的缩略图）。"""
+    d = PUBLISHED / slug
+    if not d.is_dir():
+        return []
+    return sorted(p for p in d.iterdir()
+                  if p.is_file() and p.suffix.lower() in PHOTO_EXTS)
+
+
+def photo_url(slug: str, name: str, thumb: bool = False) -> str:
+    """照片的网址。文件名可能是中文，所以要百分号编码。"""
+    return f"/photos/{quote(slug)}/{'thumb/' if thumb else ''}{quote(name)}"
+
+
+def gallery_html(slug: str) -> str:
+    """行程页底部的照片墙：缩略图点开看原尺寸。"""
+    photos = trip_photos(slug)
+    if not photos:
+        return ""
+    figs = "\n".join(
+        f'        <figure><a href="{photo_url(slug, p.name)}" target="_blank" rel="noopener">'
+        f'<img src="{photo_url(slug, p.name, thumb=True)}" alt="" loading="lazy"></a></figure>'
+        for p in photos
+    )
+    return f"""    <section class="block">
+      <h2 class="rule"><span>照片</span><small>{len(photos)} 张</small></h2>
+      <div class="gallery">
+{figs}
+      </div>
+    </section>"""
+
+
+def _as_list(v):
+    """front matter 的值可能是字符串，也可能是 `[a, b]` 解析出来的列表。"""
+    if isinstance(v, (list, tuple)):
+        return [str(x).strip() for x in v]
+    s = str(v or "").strip()
+    if s.startswith("[") and s.endswith("]"):
+        s = s[1:-1]
+    return [x.strip() for x in s.split(",") if x.strip()]
+
+
+def _points(t):
+    """把坐标解析成 [(纬度, 经度, 地名), ...]；没写或写坏就返回空表。
+
+    一次旅行能标好几个点：lat 和 lng 各写一串逗号分隔的等长数字，
+    再用可选的 stops 一行给每个点起名（跟 lat/lng 一一对应）。
+    """
+    names = _as_list(t.get("stops"))
+    out = []
+    for i, (a, b) in enumerate(zip(_as_list(t.get("lat")), _as_list(t.get("lng")))):
+        try:
+            out.append((float(a), float(b), names[i] if i < len(names) else ""))
+        except ValueError:
+            continue
+    return out
+
+
+def _map_layers():
+    """底图图层表。配了天地图 key 就用天地图（矢量底图 + 中文注记两层），否则退回高德瓦片。
+
+    天地图是官方认定的"具有审图号的地图"来源，也明确允许配合 Leaflet 使用；
+    高德瓦片直连只是免申请的临时方案，不算官方用法。
+    """
+    key = str(SITE["map"].get("tianditu_key", "")).strip()
+    if key:
+        tk = quote(key)
+        base = ("https://t{s}.tianditu.gov.cn/DataServer"
+                "?T=%s&x={x}&y={y}&l={z}&tk=" + tk)
+        return [
+            {"u": base % "vec_w", "s": "01234567", "a": "© 天地图", "z": 18},
+            {"u": base % "cva_w", "s": "01234567", "a": "", "z": 18},
+        ]
+    return [{
+        "u": "https://webrd0{s}.is.autonavi.com/appmaptile"
+             "?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
+        "s": "1234", "a": "© 高德地图", "z": 18,
+    }]
+
+
+def map_section(trips) -> str:
+    """旅行页顶部的地图。只有 front matter 里写了 lat/lng 的行程才有标记。"""
+    marks = []
+    for t in trips:
+        pts = _points(t)
+        if not pts:
+            continue
+        photos = trip_photos(t["slug"])
+        title = str(t.get("title", t["slug"]))
+        cover = photo_url(t["slug"], photos[0].name, thumb=True) if photos else ""
+        for lat, lng, stop in pts:
+            marks.append({
+                "x": lat, "y": lng,
+                "t": f"{title} · {stop}" if stop else title,
+                "u": f"/travel/{t['slug']}/",
+                "d": fmt_date(str(t.get("date", ""))),
+                "p": str(t.get("place", "")),
+                "s": (t.get("summary") or t.get("body", "")[:70]).replace("\n", " "),
+                "i": cover,
+            })
+
+    if not marks:
+        return """    <p class="empty map-empty">地图还空着。在 <code>content/travel/</code> 的 .md
+      里补上 <code>lat</code> 和 <code>lng</code> 两行，重新构建就有标记了；
+      一趟走了好几个地方的话，两行各写一串逗号分隔的数字，再用 <code>stops</code> 给每个点起名。</p>"""
+
+    js = """    <div id="trip-map" class="trip-map"></div>
+    <script src="/leaflet/leaflet.js"></script>
+    <script>
+    (function () {
+      var places = @PLACES@;
+      var el = document.getElementById('trip-map');
+
+      function init() {
+        if (!window.L) {
+          el.innerHTML = '<p class="map-failed">地图脚本没加载出来，刷新试试。</p>';
+          return;
+        }
+        L.Icon.Default.prototype.options.imagePath = '/leaflet/images/';
+        var map = L.map(el, { scrollWheelZoom: false });
+        @LAYERS@.forEach(function (lyr) {
+          L.tileLayer(lyr.u, {
+            subdomains: lyr.s, attribution: lyr.a, maxZoom: lyr.z, minZoom: 3
+          }).addTo(map);
+        });
+
+        var pts = [];
+        places.forEach(function (p) {
+          var pop = '<div class="map-pop">'
+            + (p.i ? '<a href="' + p.u + '"><img src="' + p.i + '" alt=""></a>' : '')
+            + '<strong><a href="' + p.u + '">' + p.t + '</a></strong>'
+            + '<em>' + p.d + (p.p ? '　·　' + p.p : '') + '</em>'
+            + (p.s ? '<span>' + p.s + '</span>' : '')
+            + '</div>';
+          L.marker([p.x, p.y]).addTo(map).bindPopup(pop, { maxWidth: 250 });
+          pts.push([p.x, p.y]);
+        });
+
+        function look() {
+          if (pts.length === 1) {
+            map.setView(pts[0], 11);
+          } else {
+            map.fitBounds(pts, { padding: [50, 50], maxZoom: 11 });
+          }
+        }
+        look();
+        // 图片/字体加载完之后容器尺寸才最终确定，这时再量一次并对准视野，
+        // 否则 Leaflet 会拿解析期的宽度去算缩放（会算出离谱的层级）。
+        window.addEventListener('load', function () {
+          map.invalidateSize();
+          look();
+        });
+
+        // 默认不抢滚轮：点一下地图才允许滚轮缩放，鼠标移开就还回去
+        el.addEventListener('click', function () { map.scrollWheelZoom.enable(); });
+        el.addEventListener('mouseleave', function () { map.scrollWheelZoom.disable(); });
+      }
+
+      // 这段脚本在文档还没解析完时就会执行，那时容器宽度还量不准，
+      // 所以等 DOM 就绪再建地图。
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
+    <p class="map-hint">点击标记看那一次的照片和记录　·　<a href="#trips">看文字记录 ↓</a></p>"""
+
+    for token, value in (
+        ("@PLACES@", json.dumps(marks, ensure_ascii=False)),
+        ("@LAYERS@", json.dumps(_map_layers(), ensure_ascii=False)),
+    ):
+        js = js.replace(token, value)
+    return js
 
 
 # ─────────────────────────────────────────────────────────────
@@ -498,12 +699,16 @@ def build():
     # ── 旅行 ──
     trip_cards = "\n".join(
         card(t.get("title", t["slug"]), f"/travel/{t['slug']}/",
-             f"{html.escape(str(t.get('place','')))}　·　{fmt_date(t['date'])}",
+             f"{html.escape(str(t.get('place','')))}　·　{fmt_date(t['date'])}"
+             + (f"　·　{len(trip_photos(t['slug']))} 张照片" if trip_photos(t["slug"]) else ""),
              (t.get("summary") or t["body"][:90]).replace("\n", " "))
         for t in trips
     ) or '      <p class="empty">还没有旅行记录。在 content/travel/ 下新建 .md 文件即可。</p>'
-    write_page("travel/index.html", page("旅行", "/travel/",
-        f'    <h1 class="page-title">旅行</h1>\n    <div class="grid">\n{trip_cards}\n    </div>'))
+    write_page("travel/index.html", page("旅行", "/travel/", f"""    <h1 class="page-title">旅行</h1>
+{map_section(trips)}
+    <div class="grid" id="trips">
+{trip_cards}
+    </div>""", head=MAP_HEAD))
     for t in trips:
         write_page(f"travel/{t['slug']}/index.html", page(t.get("title", t["slug"]), "/travel/", f"""    <article class="detail">
       <p class="crumb"><a href="/travel/">← 返回旅行</a></p>
@@ -512,17 +717,23 @@ def build():
       <div class="prose">
 {t['html']}
       </div>
+{gallery_html(t['slug'])}
     </article>""", depth=2))
 
     # ── 照片 ──
-    photos = []
-    if PHOTOS.exists():
-        photos = [p for p in sorted(PHOTOS.rglob("*"))
-                  if p.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp", ".gif")]
+    # 只收 prep_photos.py 压过的那批（static/photos/ 下），原图留在 photos/ 不进站点
+    all_photos = []
+    if PUBLISHED.is_dir():
+        for d in sorted(PUBLISHED.iterdir()):
+            if d.is_dir():
+                all_photos += [(d.name, p) for p in trip_photos(d.name)]
     tiles = "\n".join(
-        f'      <figure><img src="/photos/{p.relative_to(PHOTOS).as_posix()}" alt="" loading="lazy"></figure>'
-        for p in photos
-    ) or '      <p class="empty">还没有照片。把图片放进 <code>photos/</code> 文件夹，重新运行 <code>python build.py</code> 即可。</p>'
+        f'      <figure><a href="{photo_url(slug, p.name)}" target="_blank" rel="noopener">'
+        f'<img src="{photo_url(slug, p.name, thumb=True)}" alt="" loading="lazy"></a></figure>'
+        for slug, p in all_photos
+    ) or ('      <p class="empty">还没有照片。把原图放进 '
+          '<code>photos/&lt;行程&gt;/</code>，跑 <code>python prep_photos.py</code>，'
+          '再跑 <code>python build.py</code>。</p>')
     write_page("photos/index.html", page("照片", "/photos/",
         f'    <h1 class="page-title">照片</h1>\n    <div class="gallery">\n{tiles}\n    </div>'))
 
@@ -544,6 +755,8 @@ def build():
     </article>"""))
 
     # ── 静态资源 ──
+    # static/ 原样搬进 public/：style.css、leaflet/、books/<slug>/ 的手工页，
+    # 以及 prep_photos.py 压好的 static/photos/<行程>/（照片就靠这一步上线）
     if STATIC.exists():
         for item in STATIC.iterdir():
             dest = OUT / item.name
@@ -552,15 +765,8 @@ def build():
             else:
                 shutil.copy2(item, dest)
 
-    # 照片原图
-    if photos:
-        for p in photos:
-            dest = OUT / "photos" / p.relative_to(PHOTOS)
-            dest.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(p, dest)
-
     print(f"✓ 构建完成 → {OUT}")
-    print(f"  书籍 {len(books)} 本　文章 {len(posts)} 篇　旅行 {len(trips)} 条　照片 {len(photos)} 张")
+    print(f"  书籍 {len(books)} 本　文章 {len(posts)} 篇　旅行 {len(trips)} 条　照片 {len(all_photos)} 张")
 
 
 def serve():

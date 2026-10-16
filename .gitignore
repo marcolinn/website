@@ -1,6 +1,9 @@
 # 构建产物，不需要提交
 public/
 
+# 照片原图：只留在本地当底片，压缩后的成品在 static/photos/ 里进仓库
+photos/
+
 # 系统文件
 .DS_Store
 Thumbs.db

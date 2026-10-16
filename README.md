@@ -13,14 +13,17 @@ Website/
 ├─ build.py              ← 生成器（唯一需要动的代码）
 ├─ check.py              ← 构建后自检（死链、缺标题），也是部署闸门
 ├─ sync_book_page.py     ← 把手工网页的书同步进来（《中国租界通史》《青龍造》《霓虹灯外》，见第四节末）
+├─ prep_photos.py        ← 压缩照片 + 生成缩略图（本地跑一次，见第四节）
 ├─ content/              ← 所有内容都在这里，写 Markdown 就行
 │   ├─ about.md          ← 关于页
 │   ├─ books/            ← 每本书一个 .md
 │   ├─ blog/             ← 每篇文章一个 .md
-│   └─ travel/           ← 每条旅行记录一个 .md
-├─ photos/               ← 照片原图丢这里
+│   └─ travel/           ← 每条旅行记录一个 .md（可带 lat/lng/stops，见第四节）
+├─ photos/               ← 照片**原图**，每个行程一个文件夹（已 gitignore，不进仓库）
 ├─ static/               ← 原样复制到站点根目录的静态资源
 │   ├─ style.css         ←   全站样式
+│   ├─ leaflet/          ←   地图库（Leaflet 1.9.4，本地自带，不依赖 CDN）
+│   ├─ photos/           ←   prep_photos.py 压好的图，进仓库、会上线
 │   ├─ books/zhongguo-zujie-tongshi/   ← 《中国租界通史》整套手工网页
 │   ├─ books/qinglong-zao/             ← 《青龍造》整套手工网页
 │   └─ books/nihongdeng-wai/           ← 《霓虹灯外》整套手工网页（单文件）
@@ -109,16 +112,50 @@ place: 安徽 · 黄山 / 黟县 / 歙县
 date: 2026-04-12
 summary: 摘要
 ---
-
-正文……
 ```
 
-### 加照片 → 丢进 `photos/`
+**想让这条记录出现在旅行页的地图上**，再加三行（`lat` 和 `lng` 必须一样长，一一点对应）：
 
-把图片放进 `photos/`（支持子文件夹），然后重新 `python build.py`，照片墙会自动生成。
+```markdown
+lat: 29.71, 29.91, 29.90, 29.87, 30.13
+lng: 118.31, 118.00, 117.99, 118.44, 118.17
+stops: 屯溪, 宏村, 西递, 歙县, 黄山
+```
 
-**⚠️ 放之前先压缩**：长边压到 1600px 左右。手机原图一张 3–10 MB，几十张就会让网站变慢、也占满 Cloudflare 的 20000 文件额度以外没必要。
-推荐用 <https://squoosh.app/>（免费、在线、可存成 WebP，体积能降 80%）。
+- `stops` 可以省略，省略时标记就叫 `标题`。
+- 只写一个点也行（`lat: 31.23` / `lng: 121.47`），地图会以该点为中心放大到 11 级。
+- 一个行程几个点都行；超过一个点时地图自动缩到刚好框住所有点。
+- 坐标怎么来：手机拍的照片里带 GPS，跑 `python prep_photos.py --exif` 会把每张的拍摄时间和坐标列出来，末尾直接给出一行可粘贴的 `lat:` / `lng:`。手动查的坐标在高德网页版右键 →"复制坐标"。
+- **底图默认是高德**（免申请，但按官方定价只对个人开发者免费一年）。要长期稳妥就把 `build.py` 顶部 `SITE["map"]["tianditu_key"]` 填上天地图的 key，代码会自动换成天地图，高德那层不再加载。
+
+### 加照片 → 放进 `photos/<行程>/`，再跑 `prep_photos.py`
+
+照片**不进 git 仓库**（原图太大，`.gitignore` 已排除）。流程是：
+
+```powershell
+# 1. 把一个行程的照片原图丢进同名文件夹（文件夹名要和 content/travel/ 里的 .md 同名）
+#    photos/huizhou-7days/*.JPG
+
+# 2. 压缩（长边 1600 / 质量 82）+ 生成缩略图（长边 480）
+python prep_photos.py
+
+# 3. 构建、自检、上线
+python build.py && python check.py
+git add -A && git commit -m "加照片" && git push
+```
+
+跑完 `static/photos/<行程>/` 里会有大图和 `thumb/` 缩略图，它们**进仓库、会上线**；原图留在 `photos/` 里当底片，只有你自己有。
+
+几个要点：
+
+- **发布出去的那份会被剥掉全部 EXIF（含 GPS）** —— 照片墙不会泄露你家的坐标。这是脚本写死的，别改。
+- 脚本是幂等的：已经压过、且比原图新的成品会跳过，重复跑不会做无用功。想强制重压加 `--force`。
+- 只处理某一个行程：`python prep_photos.py huizhou-7days`。
+- 原图删掉后重跑，对应的成品也会被清掉。
+- `photos/<目录>` 在 `content/travel/` 里找不到同名 .md 时会警告——那样照片上了照片墙，但不会挂到任何一条旅行记录下面。
+- 照片**不压缩直接进仓库**是不可取的：手机原图一张 3–10 MB，几十张就让仓库和站点都变重。
+- 支持的格式：jpg / jpeg / jfif / png / webp / avif / bmp / tif / tiff / gif。
+  **iPhone 的 HEIC 不支持**（本机没装解码器），脚本会提示你怎么处理。
 
 ### 改"关于"页
 
@@ -277,7 +314,24 @@ Cloudflare 免费版：
 按 front matter 里的 `date` 倒序排的，检查日期格式是不是 `YYYY-MM-DD`。
 
 **照片没出现？**
-确认格式是 jpg/jpeg/png/webp/gif 之一，并且重新跑过 `python build.py`。
+1. 原图放的是 `photos/<行程>/` 吗？那个目录只是底片库，**不会**自动上线。
+2. 跑过 `python prep_photos.py` 吗？成品在 `static/photos/<行程>/`，那一份才会上线。
+3. 再跑一次 `python build.py`。
+4. 原图格式要在 `prep_photos.py` 顶部的 `SRC_EXTS` 里：jpg / jpeg / jfif / png / webp / avif / bmp / tif / tiff / gif。
+   **HEIC 不在里面**（iPhone 默认就拍 HEIC）。遇到时脚本会明确提示，两个办法：
+   手机上「设置 → 相机 → 格式」改成"兼容性最佳"，或先把 HEIC 转成 JPG。脚本也能识别
+   "整个文件夹都放不进去"的情况，不会只说一句"目录是空的"。
+
+**地图是空白 / 没框住我的点？**
+- 标记只来自 `content/travel/*.md` 里的 `lat`/`lng`；一个都没有时页面显示的是提示文字，不是地图。
+- `lat` 和 `lng` 必须**一样长**，否则那一行会被忽略。
+- 纬度在前、经度在后（`lat: 31.23` / `lng: 121.47`），写反了会跑到地球另一边。
+- 地图瓦片默认来自高德；要换成天地图就填 `build.py` 里 `SITE["map"]["tianditu_key"]`。
+
+**底图这样用合规吗？**
+最稳妥是使用**有审图号**的官方地图，天地图就是官方免费提供、带审图号的渠道。
+高德/腾讯的 JS 底图在"个人非商业"范围内普遍可用，但严格说仍需留意其许可条款与审图号要求。
+本站目前没在页面上标注审图号；如果将来涉及商业用途或对外推广，建议换天地图并按其要求标注。
 
 **想换配色？**
 `static/style.css` 最上面 `:root` 里的 CSS 变量：`--accent` 是主色（赭石红），`--accent-2` 是辅助色（松绿），`--paper` 是背景色。改这三个就能整体换风格。

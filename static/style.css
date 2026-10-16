@@ -46,7 +46,9 @@ body {
   min-height: 100vh;
 }
 
-.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+/* width:100% 是必须的：body 是 flex column，而交叉轴上的 auto 外边距
+   会让 align-self:stretch 失效，元素收缩成 fit-content。见 style.css 里 body 的注释。 */
+.wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
 
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; height: auto; display: block; }
@@ -234,6 +236,51 @@ h2.rule::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 .gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
 .gallery figure:hover img { transform: scale(1.05); }
 
+/* ── 旅行地图 ───────────────────────────────────────── */
+.trip-map {
+  height: 440px; margin: 0 0 14px;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--paper-2); overflow: hidden;
+  /* Leaflet 的控件 z-index 很高，隔离一层免得盖住站头 */
+  position: relative; z-index: 0;
+}
+/* Leaflet 自带的弹窗、按钮、署名条一律保持浅色：底图瓦片本身是浅色的，
+   跟着站点切暗色反而突兀。这里的选择器都带 .leaflet-container 前缀，
+   好压过 leaflet.css 里的同级选择器（那个文件在 <head> 里排在 style.css 之后）。 */
+.leaflet-container { font: inherit; background: var(--paper-2); }
+.leaflet-container .leaflet-popup-content-wrapper,
+.leaflet-container .leaflet-popup-tip {
+  background: #fff; color: #22201c;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .28);
+}
+.leaflet-container .leaflet-popup-content { margin: 12px 14px; font-size: 14px; line-height: 1.6; }
+.leaflet-container a.leaflet-popup-close-button { color: #8a8578; }
+.leaflet-container .leaflet-bar a,
+.leaflet-container .leaflet-bar a:hover {
+  background: #fff; color: #22201c; border-bottom-color: #ddd6ca;
+}
+.leaflet-container .leaflet-bar a:hover { background: #f2eee7; }
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, .78) !important; color: #4a4a4a !important; font-size: 11px;
+}
+.leaflet-control-attribution a { color: #3a5a86 !important; }
+
+.map-pop { min-width: 168px; }
+.map-pop img {
+  display: block; width: 100%; height: 106px; object-fit: cover;
+  border-radius: 8px; margin-bottom: 8px;
+}
+.map-pop strong { display: block; font-size: 15px; margin-bottom: 2px; }
+.map-pop em {
+  display: block; font-style: normal; font-size: 12.5px;
+  color: #8a8578; margin-bottom: 6px;
+}
+.map-pop span { display: block; font-size: 13px; color: #55504a; }
+.map-pop a { color: var(--accent); }
+
+.map-hint { margin: 0 0 30px; font-size: 13px; color: var(--ink-faint); }
+.map-failed { padding: 26px; text-align: center; color: var(--ink-faint); }
+
 /* ── 空状态 ─────────────────────────────────────────── */
 .empty {
   padding: 30px; text-align: center; color: var(--ink-faint); font-size: 14.5px;
@@ -262,4 +309,6 @@ h2.rule::after { content: ""; flex: 1; height: 1px; background: var(--line); }
   .book { align-items: flex-start; }
   .hero { padding-bottom: 40px; }
   .gallery { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .trip-map { height: 320px; }
+  .map-hint { margin-bottom: 24px; }
 }

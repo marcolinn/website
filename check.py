@@ -28,6 +28,11 @@ if not OUT.exists():
 
 LINK_RE = re.compile(r'(?:href|src)="([^"]*)"')
 
+# <script> 里的字符串拼接不是页面上的链接（比如旅行地图那段内联 JS 里的
+# '<a href="' + p.u + '">'）。扫描前把脚本正文挖空，但保留开标签本身，
+# 这样 <script src="..."> 引的文件仍然会被检查。
+SCRIPT_RE = re.compile(r"(<script\b[^>]*>).*?(</script>)", re.S | re.I)
+
 # 这些不是站内文件，不用查
 EXTERNAL = ("#", "http://", "https://", "//", "mailto:", "tel:", "data:", "javascript:")
 
@@ -58,7 +63,7 @@ def main() -> int:
         if "<h1" not in txt:
             errors.append(f"{rel}: 没有一级标题")
 
-        for url in LINK_RE.findall(txt):
+        for url in LINK_RE.findall(SCRIPT_RE.sub(r"\1\2", txt)):
             target = resolve(url, f)
             if target is None:
                 continue
