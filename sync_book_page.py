@@ -11,7 +11,7 @@
 custom_page: true），提供书单页用的书名、作者、评分、状态等字段，
 每一本都要和这里的 slug 对得上。
 
-目前有三本：
+目前有四本：
 
   中国租界通史   D:\\Data\\Onedrive\\DSH\\Book\\中国租界通史_网页
                  取 index.html、chapters.html、assets/（39 张图）
@@ -26,6 +26,11 @@ custom_page: true），提供书单页用的书名、作者、评分、状态等
                  只有 霓虹灯外_导读.html 一个文件（40 张插图全部 base64 内联，
                  没有图片目录），所以要改名成 index.html 才能当目录首页。
                  extract/、figures_src/、tools/、预览图/、内容概览.md 都不进站点。
+
+  河山           D:\\Data\\Onedrive\\DSH\\Book\\河山_内容分析\\web
+                 取 河山_导读.html（改名 index.html）、assets/img/（26 张图）、
+                 assets/svg/（6 张图）。25 张图 lazy 加载，只有 cover.jpg 首屏加载。
+                 原稿同级目录 extract/、正文/、笔记/、内容概览.md 都不进站点。
 
 book 字典可用的键：
 
@@ -74,6 +79,13 @@ BOOKS = [
         "files": ["霓虹灯外_导读.html"],
         "dirs": [],
         "rename": {"霓虹灯外_导读.html": "index.html"},
+    },
+    {
+        "slug": "heshan",
+        "source": Path(r"D:\Data\Onedrive\DSH\Book\河山_内容分析\web"),
+        "files": ["河山_导读.html"],
+        "dirs": ["assets"],
+        "rename": {"河山_导读.html": "index.html"},
     },
 ]
 

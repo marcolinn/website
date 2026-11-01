@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" width="900" height="700" role="img" aria-label="太行八陉示意图">
+  <defs>
+    <pattern id="hatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="7" stroke="#8d8375" stroke-width="1" opacity=".5"/>
+    </pattern>
+    <pattern id="hatch2" width="9" height="9" patternTransform="rotate(-38)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="9" stroke="#a39a8c" stroke-width=".9" opacity=".38"/>
+    </pattern>
+    <style>
+      .lbl{font-family:KaiTi,"Kaiti SC",STKaiti,SimSun,serif;fill:#241f1a;paint-order:stroke;stroke:#faf7f0;stroke-width:3.4;stroke-linejoin:round}
+      .sans{font-family:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#6b6358;letter-spacing:.06em;paint-order:stroke;stroke:#faf7f0;stroke-width:3}
+      .city{fill:#241f1a}
+      .river{fill:none;stroke:#6f8494;stroke-width:3;stroke-linecap:round}
+      .jit{stroke:#9c3a2b;stroke-width:2.2;stroke-dasharray:8 6}
+      .frame{fill:none;stroke:#c9bfae;stroke-width:1.2}
+    </style>
+  </defs>
+
+  <rect width="900" height="700" fill="#faf7f0"/>
+
+  <path d="M40,50 L470,50 L520,650 L40,650 Z" fill="#f2ece0"/>
+  <path d="M520,50 L860,50 L860,650 L560,650 Z" fill="#f8f4ea"/>
+
+  <path d="M468,58 L556,58 L578,300 L596,470 L584,644 L506,644 L496,466 L482,296 Z"
+        fill="url(#hatch)" stroke="#8d8375" stroke-width="1.4"/>
+  <text class="lbl" x="470" y="336" font-size="24" transform="rotate(90 470 336)" fill="#4a4136">太 行 山</text>
+
+  <path d="M240,404 L358,426 L378,488 L318,562 L230,542 L218,460 Z"
+        fill="url(#hatch2)" stroke="#a39a8c" stroke-width="1.2"/>
+  <text class="lbl" x="252" y="512" font-size="15" opacity=".9">太岳山</text>
+
+  <path d="M216,124 C196,214 190,292 188,362 C186,442 204,518 240,566" class="river"/>
+  <text class="sans" x="150" y="250" font-size="12">汾 水</text>
+  <path d="M40,592 C130,570 200,560 250,568 C330,582 470,618 560,620 C660,624 742,600 812,570 C836,560 852,556 864,556" class="river" stroke-width="3.6"/>
+  <text class="lbl" x="756" y="640" font-size="16" fill="#4d6472">黄 河</text>
+
+  <text class="sans" x="66" y="88" font-size="12.5">山西高原 · 黄土高原</text>
+  <text class="sans" x="706" y="88" font-size="12.5">华 北 平 原</text>
+
+  <g class="jit" fill="none">
+    <path d="M420,128 L604,128"/>
+    <path d="M414,188 L602,188"/>
+    <path d="M408,244 L600,244"/>
+    <path d="M394,318 L598,318"/>
+    <path d="M386,428 L592,428"/>
+    <path d="M382,494 L596,494"/>
+    <path d="M380,546 L600,546"/>
+    <path d="M378,598 L606,598"/>
+  </g>
+  <g class="sans" font-size="10.5" fill="#9c3a2b">
+    <text x="416" y="122">①</text><text x="410" y="182">②</text><text x="404" y="238">③</text>
+    <text x="390" y="312">④</text><text x="382" y="422">⑤</text><text x="378" y="488">⑥</text>
+    <text x="376" y="540">⑦</text><text x="374" y="592">⑧</text>
+  </g>
+
+  <g class="lbl" font-size="16">
+    <text x="612" y="134">军都陉</text>
+    <text x="610" y="194">蒲阴陉</text>
+    <text x="608" y="250">飞狐陉</text>
+    <text x="606" y="324">井陉</text>
+    <text x="600" y="434">滏口陉</text>
+    <text x="604" y="500">白陉</text>
+    <text x="608" y="552">太行陉</text>
+    <text x="612" y="604">轵关陉</text>
+  </g>
+  <g class="sans" font-size="11">
+    <text x="612" y="150">居庸关—怀来</text>
+    <text x="610" y="210">易县—灵丘</text>
+    <text x="608" y="266">涞源—蔚州</text>
+    <text x="606" y="340">石家庄—平定</text>
+    <text x="600" y="450">磁县—涉县</text>
+    <text x="604" y="516">辉县—陵川</text>
+    <text x="608" y="568">沁阳—晋城</text>
+    <text x="612" y="620">济源—侯马</text>
+  </g>
+
+  <circle class="city" cx="216" cy="124" r="4.6"/><text class="lbl" x="230" y="130" font-size="16">太原</text>
+  <circle class="city" cx="770" cy="118" r="4.6"/><text class="lbl" x="784" y="124" font-size="16">北京</text>
+  <circle class="city" cx="748" cy="318" r="4.6"/><text class="lbl" x="762" y="324" font-size="16">正定</text>
+  <circle class="city" cx="740" cy="428" r="4.6"/><text class="lbl" x="754" y="434" font-size="16">邯郸</text>
+  <circle class="city" cx="736" cy="494" r="4.6"/><text class="lbl" x="750" y="500" font-size="16">安阳</text>
+  <circle class="city" cx="252" cy="366" r="4.6"/><text class="lbl" x="266" y="372" font-size="16">临汾</text>
+  <circle class="city" cx="700" cy="648" r="4.6"/><text class="lbl" x="714" y="654" font-size="16">洛阳</text>
+
+
+  <g>
+    <rect x="46" y="600" width="326" height="72" fill="#faf7f0" stroke="#d8cdba"/>
+    <line x1="62" y1="622" x2="102" y2="622" class="jit"/>
+    <text class="sans" x="110" y="626" font-size="11">陉道：穿越太行的八条通道</text>
+    <path d="M62,648 C84,644 104,650 118,655" class="river"/>
+    <text class="sans" x="128" y="652" font-size="11">河流</text>
+    <rect x="184" y="641" width="24" height="13" fill="url(#hatch)" stroke="#8d8375" stroke-width="1"/>
+    <text class="sans" x="216" y="652" font-size="11">山脉</text>
+    <circle class="city" cx="278" cy="648" r="4"/>
+    <text class="sans" x="290" y="652" font-size="11">城市</text>
+  </g>
+
+  <rect class="frame" x="20" y="20" width="860" height="660"/>
+</svg>

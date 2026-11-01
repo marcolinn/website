@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 680" width="900" height="680" role="img" aria-label="唐代安史之乱形势示意图">
+  <defs>
+    <pattern id="h" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="7" stroke="#8d8375" stroke-width="1" opacity=".45"/>
+    </pattern>
+    <marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9c3a2b"/>
+    </marker>
+    <marker id="arb" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4a6b7c"/>
+    </marker>
+    <style>
+      .lbl{font-family:KaiTi,"Kaiti SC",STKaiti,SimSun,serif;fill:#241f1a;paint-order:stroke;stroke:#faf7f0;stroke-width:3.4;stroke-linejoin:round}
+      .sans{font-family:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#6b6358;letter-spacing:.06em;paint-order:stroke;stroke:#faf7f0;stroke-width:3}
+      .city{fill:#241f1a}
+      .river{fill:none;stroke:#6f8494;stroke-width:3;stroke-linecap:round}
+      .yan{fill:none;stroke:#9c3a2b;stroke-width:2.8;marker-end:url(#ar)}
+      .tang{fill:none;stroke:#4a6b7c;stroke-width:2.4;stroke-dasharray:9 6;marker-end:url(#arb)}
+      .frame{fill:none;stroke:#c9bfae;stroke-width:1.2}
+    </style>
+  </defs>
+
+  <rect width="900" height="680" fill="#faf7f0"/>
+  <rect x="40" y="40" width="820" height="560" fill="#f7f3e8"/>
+
+  <!-- 太行山 -->
+  <path d="M534,86 L592,86 L614,300 L628,470 L618,536 L560,536 L550,470 L538,300 Z"
+        fill="url(#h)" stroke="#8d8375" stroke-width="1.3"/>
+  <text class="lbl" x="596" y="352" font-size="18" fill="#4a4136" transform="rotate(90 596 352)">太行山</text>
+
+  <!-- 黄河 -->
+  <path class="river" d="M110,470 C250,444 372,432 480,426 C596,420 716,372 856,314"/>
+  <text class="lbl" x="742" y="336" font-size="15" fill="#4d6472" transform="rotate(-15 742 336)">黄 河</text>
+
+  <!-- 燕军主力：范阳 → 邺 → 洛阳 → 潼关 → 长安 -->
+  <path class="yan" d="M742,156 C724,214 700,268 682,320 C672,352 664,374 654,394
+                       C608,424 546,442 490,452 C424,464 356,472 300,490"/>
+  <text class="sans" x="700" y="222" font-size="11" fill="#9c3a2b">燕军主力南下</text>
+
+  <!-- 唐军出井陉 -->
+  <path class="tang" d="M470,250 C520,254 578,256 640,258"/>
+  <text class="sans" x="500" y="276" font-size="10.5" fill="#4a6b7c">唐军出井陉</text>
+
+  <!-- 回纥 -->
+  <path class="tang" d="M296,120 C292,168 288,220 286,282"/>
+  <text class="sans" x="228" y="112" font-size="10.5" fill="#4a6b7c">回纥援军</text>
+
+  <!-- 城市 -->
+  <circle class="city" cx="742" cy="150" r="5"/>
+  <text class="lbl" x="756" y="144" font-size="15">范阳</text>
+  <text class="sans" x="756" y="160" font-size="10">幽州 · 755 起兵</text>
+
+  <circle class="city" cx="812" cy="92" r="5"/>
+  <text class="lbl" x="762" y="86" font-size="14">平卢</text>
+
+  <circle class="city" cx="660" cy="258" r="5"/>
+  <text class="lbl" x="674" y="252" font-size="14">常山</text>
+
+  <circle class="city" cx="672" cy="386" r="5"/>
+  <text class="lbl" x="686" y="380" font-size="14">邺</text>
+  <text class="sans" x="686" y="396" font-size="9.5">759 安庆绪退守</text>
+
+  <circle class="city" cx="490" cy="452" r="5"/>
+  <text class="lbl" x="504" y="446" font-size="14">洛阳</text>
+  <text class="sans" x="504" y="462" font-size="9.5">756.1 陷</text>
+
+  <circle class="city" cx="352" cy="472" r="5"/>
+  <text class="lbl" x="336" y="452" font-size="14" text-anchor="end">潼关</text>
+  <text class="sans" x="292" y="466" font-size="9.5" text-anchor="end">756.6 失守</text>
+
+  <circle class="city" cx="236" cy="500" r="5"/>
+  <text class="lbl" x="188" y="524" font-size="15">长安</text>
+
+  <circle class="city" cx="452" cy="240" r="5"/>
+  <text class="lbl" x="440" y="228" font-size="14" text-anchor="middle">太原</text>
+
+  <circle class="city" cx="286" cy="296" r="5"/>
+  <text class="lbl" x="300" y="290" font-size="14">灵武</text>
+  <text class="sans" x="300" y="306" font-size="9.5">肃宗即位</text>
+
+  <circle class="city" cx="654" cy="500" r="5"/>
+  <text class="lbl" x="668" y="494" font-size="14">睢阳</text>
+  <text class="sans" x="668" y="510" font-size="9.5">757 张巡死守</text>
+
+  <!-- 时间轴 -->
+  <g>
+    <line x1="70" y1="632" x2="836" y2="632" stroke="#cbbfa9" stroke-width="1.2"/>
+    <g class="sans" font-size="9.5" fill="#6b6358">
+      <text x="72" y="624">755</text><text x="72" y="650">范阳起兵</text>
+      <text x="196" y="624">756</text><text x="196" y="650">洛阳、长安陷</text>
+      <text x="336" y="624">757</text><text x="336" y="650">安禄山死</text>
+      <text x="476" y="624">759</text><text x="476" y="650">史思明再起</text>
+      <text x="616" y="624">762</text><text x="616" y="650">史朝义败死</text>
+      <text x="756" y="624">763</text><text x="756" y="650">大乱平</text>
+    </g>
+    <g fill="#9c3a2b">
+      <circle cx="72" cy="632" r="3"/><circle cx="196" cy="632" r="3"/><circle cx="336" cy="632" r="3"/>
+      <circle cx="476" cy="632" r="3"/><circle cx="616" cy="632" r="3"/><circle cx="756" cy="632" r="3"/>
+    </g>
+  </g>
+
+  <rect class="frame" x="20" y="20" width="860" height="640"/>
+</svg>

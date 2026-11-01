@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" width="900" height="700" role="img" aria-label="黄河历次改道示意图">
+  <defs>
+    <style>
+      .lbl{font-family:KaiTi,"Kaiti SC",STKaiti,SimSun,serif;fill:#241f1a;paint-order:stroke;stroke:#faf7f0;stroke-width:3.4;stroke-linejoin:round}
+      .sans{font-family:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#6b6358;letter-spacing:.06em;paint-order:stroke;stroke:#faf7f0;stroke-width:3}
+      .city{fill:#241f1a}
+      .sea{fill:#e7eef1}
+      .frame{fill:none;stroke:#c9bfae;stroke-width:1.2}
+      .r1{fill:none;stroke:#3c3a34;stroke-width:3.4;stroke-linejoin:round}
+      .r2{fill:none;stroke:#7c7264;stroke-width:2.8;stroke-linejoin:round}
+      .r3{fill:none;stroke:#8a7d63;stroke-width:2.4;stroke-dasharray:12 5 3 5}
+      .r4{fill:none;stroke:#9c3a2b;stroke-width:2.6;stroke-dasharray:9 6}
+      .r5{fill:none;stroke:#9c3a2b;stroke-width:3.4;stroke-linejoin:round}
+      .num{font-family:"Segoe UI",sans-serif;font-size:11px;fill:#faf7f0}
+      .numbg{fill:#4a423a}
+    </style>
+  </defs>
+
+  <rect width="900" height="700" fill="#faf7f0"/>
+  <rect x="40" y="40" width="820" height="620" fill="#f6f2e7"/>
+
+  <!-- 海 -->
+  <ellipse class="sea" cx="712" cy="176" rx="128" ry="86"/>
+  <ellipse class="sea" cx="800" cy="588" rx="126" ry="82" transform="rotate(-16 800 588)"/>
+  <text class="lbl" x="676" y="150" font-size="16" fill="#5b7784">渤 海</text>
+  <text class="lbl" x="778" y="596" font-size="15" fill="#5b7784">黄 海</text>
+
+  <!-- 长江 / 淮河 -->
+  <path d="M60,660 C200,656 340,652 470,656 C560,658 640,662 720,666" fill="none" stroke="#8aa0aa" stroke-width="2.6"/>
+  <text class="sans" x="80" y="640" font-size="10.5">长江</text>
+  <path d="M300,616 C400,610 500,606 600,610 C650,612 690,616 720,620" fill="none" stroke="#a9bcc3" stroke-width="1.8" stroke-dasharray="5 4"/>
+  <text class="sans" x="322" y="600" font-size="10">淮河</text>
+
+  <!-- ① 禹河故道 -->
+  <path class="r1" d="M400,470 C420,420 452,352 496,300 C536,254 574,220 610,196"/>
+
+  <!-- ② 王景河道 -->
+  <path class="r2" d="M412,468 C448,440 494,404 540,372 C576,346 610,320 636,300"/>
+
+  <!-- ③ 1048 北流 / 东流 -->
+  <path class="r3" d="M424,466 C462,436 500,404 530,378 C560,352 588,324 612,300"/>
+  <path class="r3" d="M530,378 C576,376 618,368 652,356 C668,350 682,344 694,338"/>
+  <text class="sans" x="612" y="292" font-size="9.5" fill="#8a7d63">北流</text>
+  <text class="sans" x="640" y="372" font-size="9.5" fill="#8a7d63">东流</text>
+
+ 南流夺淮 -->
+  <path class="r4" d="M424,478 C458,506 496,536 538,562 C584,590 634,612 686,628"/>
+
+  <!-- ⑤ 1855 今河道 -->
+  <path class="r5" d="M412,458 C456,432 500,404 544,382 C578,364 610,340 640,316"/>
+
+  <!-- 编号 -->
+  <g>
+    <circle cx="588" cy="176" r="9" fill="#4a423a"/><text x="588" y="180" text-anchor="middle" fill="#faf7f0" font-family="Segoe UI" font-size="10.5">1</text>
+    <circle cx="660" cy="308" r="9" fill="#4a423a"/><text x="660" y="312" text-anchor="middle" fill="#faf7f0" font-family="Segoe UI" font-size="10.5">2</text>
+    <circle cx="700" cy="352" r="9" fill="#4a423a"/><text x="700" y="356" text-anchor="middle" fill="#faf7f0" font-family="Segoe UI" font-size="10.5">3</text>
+    <circle cx="706" cy="618" r="9" fill="#4a423a"/><text x="706" y="622" text-anchor="middle" fill="#faf7f0" font-family="Segoe UI" font-size="10.5">4</text>
+    <circle cx="668" cy="268" r="9" fill="#4a423a"/><text x="668" y="272" text-anchor="middle" fill="#faf7f0" font-family="Segoe UI" font-size="10.5">5</text>
+  </g>
+
+  <!-- 起点的黄河干流（示意） -->
+  <path class="r1" d="M150,520 C220,510 300,492 372,476 C392,472 400,470 408,468" stroke-width="2.6"/>
+  <text class="sans" x="150" y="534" font-size="10.5">黄河（上游来水）</text>
+
+  <!-- 城市 -->
+  <circle class="city" cx="330" cy="486" r="4.6"/><text class="lbl" x="286" y="470" font-size="14" text-anchor="end">郑州</text>
+  <circle class="city" cx="400" cy="470" r="4.6"/><text class="lbl" x="404" y="492" font-size="14">开封</text>
+  <circle class="city" cx="640" cy="196" r="4.6"/><text class="lbl" x="654" y="190" font-size="14">天津</text>
+  <circle class="city" cx="592" cy="392" r="4.6"/><text class="lbl" x="606" y="404" font-size="13">济南</text>
+  <circle class="city" cx="540" cy="566" r="4.6"/><text class="lbl" x="500" y="588" font-size="13" text-anchor="end">徐州</text>
+  <circle class="city" cx="660" cy="612" r="4.6"/><text class="lbl" x="650" y="592" font-size="13" text-anchor="end">淮安</text>
+
+  <!-- 图例 -->
+  <g>
+    <rect x="58" y="60" width="276" height="154" fill="#faf7f0" stroke="#d8cdba"/>
+    <text class="sans" x="74" y="82" font-size="10.5" fill="#9c3a2b">黄河五次大改道</text>
+    <g font-size="10.5" class="sans">
+      <path class="r1" d="M72,106 L108,106"/><text x="118" y="110">① 禹河故道　战国—西汉</text>
+      <path class="r2" d="M72,130 L108,130"/><text x="118" y="134">② 王景河道　东汉—北宋</text>
+      <path class="r3" d="M72,154 L108,154"/><text x="118" y="158">③ 1048 庆历改道（北流·东流）</text>
+      <path class="r4" d="M72,178 L108,178"/><text x="118" y="182">④ 南流夺淮　1128—1855</text>
+      <path class="r5" d="M72,202 L108,202"/><text x="118" y="206">⑤ 铜瓦厢改道　1855 至今</text>
+    </g>
+  </g>
+
+  <rect class="frame" x="20" y="20" width="860" height="660"/>
+</svg>

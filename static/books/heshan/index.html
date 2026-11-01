@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>河山 · 导读 | 施展</title>
+<meta name="description" content="施展《河山》导读：以地理与故事两条线索，重述中国历史的六次之变。含全书框架、逐章提要、原书地图与核心命题。">
+<style>
+:root{
+  --paper:#f5f1e8;
+  --paper-2:#ece5d7;
+  --paper-3:#fffdf7;
+  --ink:#1e1b17;
+  --ink-2:#433d34;
+  --muted:#7d7466;
+  --line:#d8cfbe;
+  --line-2:#c3b69f;
+  --accent:#9c3a2b;
+  --accent-soft:#b8624f;
+  --gold:#8c7440;
+  --serif:"Songti SC","STSong","SimSun","Noto Serif SC","Source Han Serif SC","PingFang SC",serif;
+  --kai:"Kaiti SC","STKaiti","KaiTi","Songti SC",serif;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --max:1120px;
+  --text:740px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.95;
+  letter-spacing:.02em;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(255,255,255,.55), transparent 45%),
+    radial-gradient(circle at 88% 92%, rgba(196,180,150,.22), transparent 40%),
+    repeating-linear-gradient(0deg, rgba(120,105,80,.035) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(120,105,80,.03) 0 1px, transparent 1px 4px);
+}
+::selection{background:rgba(156,58,43,.18)}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+/* ---------- progress & topbar ---------- */
+#progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--accent);z-index:120;transition:width .1s linear}
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.55rem clamp(1rem,3vw,2.2rem);
+  background:rgba(245,241,232,.82);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(195,182,159,.55);
+  transform:translateY(-110%);
+  transition:transform .55s cubic-bezier(.2,.7,.2,1);
+}
+.topbar.show{transform:translateY(0)}
+.topbar .brand{font-family:var(--kai);font-size:1.06rem;letter-spacing:.28em}
+.topbar .brand small{font-family:var(--sans);font-size:.66rem;letter-spacing:.16em;color:var(--muted);margin-left:.6rem}
+.toc-btn{
+  font-family:var(--sans);font-size:.72rem;letter-spacing:.2em;color:var(--ink-2);
+  border:1px solid var(--line-2);background:transparent;border-radius:2px;
+  padding:.42rem .85rem;cursor:pointer;transition:.25s;
+}
+.toc-btn:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* ---------- toc drawer ---------- */
+.toc{
+  position:fixed;inset:0;z-index:130;display:none;
+  background:rgba(30,27,23,.42);backdrop-filter:blur(3px);
+}
+.toc.open{display:block}
+.toc-panel{
+  position:absolute;right:0;top:0;bottom:0;width:min(420px,86vw);
+  background:var(--paper-3);border-left:1px solid var(--line);
+  padding:2.4rem 2rem;overflow:auto;
+  box-shadow:-24px 0 60px rgba(40,34,26,.12);
+}
+.toc-panel h4{font-family:var(--sans);font-size:.68rem;letter-spacing:.3em;color:var(--muted);font-weight:400;margin:0 0 1.6rem}
+.toc-panel ol{list-style:none;margin:0;padding:0;counter-reset:t}
+.toc-panel li{counter-increment:t;border-bottom:1px dotted var(--line);padding:.62rem 0}
+.toc-panel li a{display:flex;gap:.9rem;align-items:baseline;font-size:.98rem;transition:color .2s}
+.toc-panel li a::before{content:counter(t,decimal-leading-zero);font-family:var(--sans);font-size:.62rem;color:var(--accent);letter-spacing:.1em}
+.toc-panel li a:hover{color:var(--accent)}
+.toc-close{position:absolute;top:1rem;right:1.2rem;background:none;border:0;font-size:1.4rem;color:var(--muted);cursor:pointer}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  min-height:100vh;display:flex;align-items:center;
+  padding:clamp(3rem,8vh,6rem) clamp(1.2rem,4vw,3rem);
+  border-bottom:1px solid var(--line);
+}
+.hero-art{
+  position:absolute;inset:-6% -6% auto -6%;height:118%;
+  background:url("assets/img/art-ch1.jpg") center 28%/cover no-repeat;
+  mix-blend-mode:multiply;opacity:.32;
+  filter:contrast(1.05) brightness(1.06);
+  pointer-events:none;
+}
+.hero::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(245,241,232,.55),rgba(245,241,232,.15) 40%,rgba(245,241,232,.9));
+}
+.hero-inner{
+  position:relative;z-index:2;width:100%;max-width:var(--max);margin:0 auto;
+  display:grid;grid-template-columns:minmax(220px,320px) 1fr;
+  gap:clamp(2rem,5vw,4.5rem);align-items:center;
+}
+.cover-wrap{position:relative;justify-self:center}
+.cover-wrap::before{
+  content:"";position:absolute;inset:-14px -14px -22px -14px;
+  background:linear-gradient(160deg,rgba(255,255,255,.5),rgba(140,116,64,.12));
+  filter:blur(18px);z-index:-1;
+}
+.cover{
+  width:100%;border:1px solid rgba(120,105,80,.35);
+  box-shadow:0 26px 60px -18px rgba(50,42,32,.45),0 2px 0 rgba(255,255,255,.6) inset;
+  transition:transform .8s cubic-bezier(.2,.7,.2,1),box-shadow .8s;
+}
+.cover-wrap:hover .cover{transform:translateY(-6px) rotate(-.4deg);box-shadow:0 36px 80px -20px rgba(50,42,32,.5)}
+.hero-text .kicker{
+  font-family:var(--sans);font-size:.7rem;letter-spacing:.42em;color:var(--muted);
+  margin:0 0 1.4rem;text-transform:uppercase;
+}
+.hero-text h1{
+  font-family:var(--kai);font-size:clamp(4.6rem,13vw,8.4rem);line-height:.92;
+  letter-spacing:.06em;margin:0;font-weight:400;color:var(--ink);
+}
+.hero-text h1 span{display:inline-block;opacity:0;transform:translateY(18px);animation:rise .9s .15s forwards}
+.hero-text h1 span:nth-child(2){animation-delay:.32s}
+@keyframes rise{to{opacity:1;transform:none}}
+.hero-text .sub{
+  font-family:var(--kai);font-size:clamp(1rem,2.2vw,1.3rem);color:var(--ink-2);
+  letter-spacing:.14em;margin:1.3rem 0 1.6rem;
+}
+.hero-text .lede{max-width:34em;color:var(--ink-2);font-size:.98rem;line-height:2.05;margin:0 0 2rem}
+.hero-text .lede b{font-weight:400;color:var(--ink);border-bottom:1px solid var(--accent-soft);padding-bottom:1px}
+.meta-list{
+  list-style:none;margin:0;padding:1.3rem 0 0;border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;gap:.5rem 1.8rem;
+  font-family:var(--sans);font-size:.72rem;letter-spacing:.1em;color:var(--muted);
+}
+.meta-list b{color:var(--ink-2);font-weight:500}
+.scroll-hint{
+  position:absolute;left:50%;bottom:2rem;transform:translateX(-50%);
+  font-family:var(--sans);font-size:.64rem;letter-spacing:.3em;color:var(--muted);
+  display:flex;flex-direction:column;align-items:center;gap:.6rem;z-index:3
+}
+.scroll-hint::after{
+  content:"";width:1px;height:44px;background:linear-gradient(180deg,var(--muted),transparent);
+  animation:drop 2.2s ease-in-out infinite
+}
+@keyframes drop{0%{transform:scaleY(.3);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}100%{transform:scaleY(.3);transform-origin:top}}
+
+/* ---------- section scaffolding ---------- */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 clamp(1.2rem,4vw,3rem)}
+.narrow{max-width:var(--text);margin:0 auto}
+section{padding:clamp(3.6rem,9vh,7rem) 0;position:relative}
+.sec-head{margin-bottom:2.6rem;position:relative}
+.eyebrow{
+  font-family:var(--sans);font-size:.67rem;letter-spacing:.4em;color:var(--accent);
+  margin:0 0 1rem;display:flex;align-items:center;gap:.9rem;
+}
+.eyebrow::after{content:"";height:1px;flex:1;max-width:70px;background:var(--accent-soft);opacity:.5}
+h2.sec-title{
+  font-family:var(--kai);font-weight:400;font-size:clamp(1.7rem,3.6vw,2.5rem);
+  letter-spacing:.08em;margin:0;line-height:1.4;
+}
+.sec-sub{color:var(--muted);font-size:.9rem;margin:.9rem 0 0;max-width:40em}
+p{margin:0 0 1.35em}
+.lead{font-size:1.05rem;color:var(--ink-2)}
+.dropcap::first-letter{
+  float:left;font-family:var(--kai);font-size:3.9rem;line-height:.82;
+  padding:.16em .18em 0 0;color:var(--accent);
+}
+.hr-orn{
+  display:flex;align-items:center;justify-content:center;gap:1rem;
+  color:var(--line-2);margin:3.4rem 0;font-size:.8rem
+}
+.hr-orn::before,.hr-orn::after{content:"";height:1px;width:min(120px,20vw);background:var(--line)}
+
+/* ---------- quotes ---------- */
+.pull{
+  position:relative;margin:3.4rem 0;padding:2.4rem 2.6rem;
+  border-left:2px solid var(--accent);background:linear-gradient(90deg,rgba(236,229,215,.75),rgba(245,241,232,0));
+  font-family:var(--kai);font-size:clamp(1.1rem,2.3vw,1.42rem);line-height:2;color:var(--ink);
+}
+.pull::before{
+  content:"“";position:absolute;left:.5rem;top:-.7rem;
+  font-family:var(--kai);font-size:5rem;color:var(--accent);opacity:.18;line-height:1
+}
+.pull cite{display:block;margin-top:1.1rem;font-family:var(--sans);font-size:.7rem;letter-spacing:.14em;color:var(--muted);font-style:normal}
+
+/* ---------- figures ---------- */
+figure.fig{margin:3rem auto;position:relative;max-width:660px}
+figure.fig.wide{max-width:none;width:min(828px,92vw);margin-left:calc((100% - min(828px,92vw))/2);margin-right:0}
+figure.fig img{cursor:zoom-in}
+a.zoom{display:block;line-height:0}
+a.zoom:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
+figure.fig img{
+  width:100%;height:auto;background:var(--paper-3);
+  border:1px solid var(--line-2);
+  padding:12px;
+  box-shadow:0 18px 40px -26px rgba(50,42,32,.55);
+  filter:sepia(6%) contrast(1.03);
+}
+figcaption{
+  margin-top:.9rem;font-family:var(--sans);font-size:.74rem;line-height:1.8;
+  color:var(--muted);letter-spacing:.03em;
+  display:flex;flex-wrap:wrap;gap:.2rem .8rem;align-items:baseline;
+}
+figcaption .fno{color:var(--accent);letter-spacing:.16em;font-size:.64rem}
+figcaption .src{margin-left:auto;opacity:.85;white-space:nowrap}
+fig.wide{margin-left:calc((var(--text) - min(980px,88vw)) / 2);margin-right:calc((var(--text) - min(980px,88vw)) / 2)}
+@media(max-width:1140px){fig.wide{margin-left:0;margin-right:0}}
+
+/* ---------- cards / grids ---------- */
+.grid{display:grid;gap:1.2rem}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:860px){.g2,.g3{grid-template-columns:1fr}}
+.card{
+  background:linear-gradient(180deg,var(--paper-3),rgba(255,253,247,.35));
+  border:1px solid var(--line);padding:1.6rem 1.7rem;
+  transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s,border-color .45s;
+}
+.card:hover{transform:translateY(-4px);box-shadow:0 22px 40px -28px rgba(50,42,32,.55);border-color:var(--line-2)}
+.card .no{font-family:var(--sans);font-size:.64rem;letter-spacing:.24em;color:var(--accent)}
+.card h3{font-family:var(--kai);font-weight:400;font-size:1.18rem;margin:.7rem 0 .7rem;letter-spacing:.04em}
+.card p{font-size:.92rem;color:var(--ink-2);margin:0;line-height:1.9}
+
+/* ---------- mechanism chain ---------- */
+.chain{display:flex;flex-wrap:wrap;align-items:stretch;gap:.6rem;margin:2.6rem 0}
+.chain .node{
+  flex:1 1 150px;border:1px solid var(--line);background:rgba(255,253,247,.6);
+  padding:1rem 1.1rem;font-size:.86rem;line-height:1.7;position:relative
+}
+.chain .node b{display:block;font-family:var(--kai);font-size:1rem;font-weight:400;margin-bottom:.25rem;color:var(--ink)}
+.chain .node span{color:var(--muted);font-size:.78rem}
+.chain .arrow{align-self:center;color:var(--line-2);font-size:.9rem}
+@media(max-width:720px){.chain .arrow{display:none}}
+
+/* ---------- table ---------- */
+.table-wrap{overflow-x:auto;margin:2.4rem 0;border:1px solid var(--line);background:rgba(255,253,247,.5)}
+table{border-collapse:collapse;width:100%;font-size:.86rem;min-width:560px}
+th,td{padding:.8rem 1rem;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.75}
+th{font-family:var(--sans);font-size:.68rem;letter-spacing:.18em;color:var(--muted);font-weight:400;background:rgba(236,229,215,.6);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td b{font-weight:400;color:var(--accent)}
+
+/* ---------- chessboard svg ---------- */
+.board-fig{background:var(--paper-3);border:1px solid var(--line-2);padding:1.4rem;box-shadow:0 18px 40px -26px rgba(50,42,32,.5)}
+.board-fig svg{width:100%;height:auto;display:block}
+.legend{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;font-family:var(--sans);font-size:.7rem;color:var(--muted);margin-top:1rem}
+.legend i{display:inline-block;width:26px;height:0;border-top:2px solid var(--ink-2);vertical-align:middle;margin-right:.5rem}
+.legend .v i{border-top:2px dashed var(--accent-soft)}
+
+/* ---------- timeline ---------- */
+.timeline{position:relative;margin:2.6rem 0 0;padding-left:2.2rem}
+.timeline::before{content:"";position:absolute;left:.42rem;top:.4rem;bottom:.4rem;width:1px;background:linear-gradient(180deg,var(--line-2),rgba(195,182,159,.15))}
+.tl-item{position:relative;margin-bottom:2rem;padding-left:.4rem}
+.tl-item::before{
+  content:"";position:absolute;left:-2.06rem;top:.55rem;width:9px;height:9px;border-radius:50%;
+  background:var(--paper);border:1px solid var(--accent);box-shadow:0 0 0 4px var(--paper)
+}
+.tl-item .yr{font-family:var(--sans);font-size:.68rem;letter-spacing:.16em;color:var(--accent)}
+.tl-item h4{font-family:var(--kai);font-weight:400;font-size:1.1rem;margin:.35rem 0 .45rem;letter-spacing:.05em}
+.tl-item p{font-size:.88rem;color:var(--ink-2);margin:0}
+
+/* ---------- chapter shell ---------- */
+.chapter{padding-top:clamp(2rem,6vh,4rem);border-top:1px solid var(--line)}
+.chapter + .chapter{border-top:0}
+.ch-head{position:relative;margin-bottom:2.4rem}
+.ch-num{
+  font-family:var(--kai);font-size:clamp(5rem,16vw,10rem);line-height:.8;color:transparent;
+  -webkit-text-stroke:1px rgba(156,58,43,.42);
+  position:absolute;right:0;top:-1.6rem;pointer-events:none;user-select:none;
+}
+.ch-tag{font-family:var(--sans);font-size:.66rem;letter-spacing:.32em;color:var(--accent);margin:0 0 .8rem}
+.ch-title{font-family:var(--kai);font-weight:400;font-size:clamp(2rem,5vw,3.2rem);letter-spacing:.1em;margin:0;line-height:1.25}
+.ch-line{font-size:clamp(1.15rem,2.6vw,1.5rem);letter-spacing:.08em;color:var(--ink-2);margin:.1em 0 0;font-family:var(--kai)}
+.ch-epigraph{
+  margin:1.8rem 0 0;padding:1.2rem 1.6rem;border-left:1px solid var(--line-2);
+  font-family:var(--kai);font-size:.98rem;color:var(--muted);line-height:2
+}
+.ch-epigraph em{font-style:normal;color:var(--ink-2)}
+.ch-hero{margin:2.6rem 0 2.8rem;position:relative;overflow:hidden;border:1px solid var(--line)}
+.ch-hero img{width:100%;height:clamp(180px,26vw,320px);object-fit:cover;object-position:center 42%;filter:grayscale(1) contrast(1.02);opacity:.9;transition:transform 1.2s}
+.ch-hero:hover img{transform:scale(1.03)}
+.ch-hero figcaption{margin:0;padding:.6rem 1rem;background:rgba(255,253,247,.8);border-top:1px solid var(--line)}
+.ch-body p{font-size:1rem}
+.hl{background:linear-gradient(180deg,transparent 62%,rgba(184,98,79,.18) 62%)}
+
+/* ---------- proposition / concept ---------- */
+.concept-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid var(--line);margin-top:2rem}
+@media(max-width:860px){.concept-grid{grid-template-columns:1fr}}
+.concept{padding:1.5rem 1.6rem;border-bottom:1px solid var(--line)}
+.concept:nth-child(odd){border-right:1px solid var(--line)}
+@media(max-width:860px){.concept:nth-child(odd){border-right:0}}
+.concept dt{font-family:var(--kai);font-size:1.12rem;letter-spacing:.05em;margin-bottom:.5rem}
+.concept dd{margin:0;font-size:.88rem;color:var(--ink-2);line-height:1.85}
+.concept .from{display:block;margin-top:.55rem;font-family:var(--sans);font-size:.66rem;letter-spacing:.14em;color:var(--muted)}
+
+/* ---------- notes / lists ---------- */
+.notes{counter-reset:n;list-style:none;padding:0;margin:2rem 0;counter-reset:nn}
+.notes li{counter-increment:nn;position:relative;padding:0 0 1.3rem 2.6rem;font-size:.94rem;color:var(--ink-2)}
+.notes li::before{
+  content:counter(nn,decimal-leading-zero);position:absolute;left:0;top:.15rem;
+  font-family:var(--sans);font-size:.66rem;letter-spacing:.12em;color:var(--accent)
+}
+.check{list-style:none;padding:0;margin:1.6rem 0}
+.check li{position:relative;padding-left:1.7rem;margin-bottom:.8rem;font-size:.94rem;color:var(--ink-2)}
+.check li::before{content:"▸";position:absolute;left:.2rem;color:var(--accent);font-size:.8rem;top:.1rem}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.09s}.reveal.d2{transition-delay:.18s}.reveal.d3{transition-delay:.27s}
+
+/* ---------- footer ---------- */
+footer{
+  border-top:1px solid var(--line);background:linear-gradient(180deg,transparent,rgba(236,229,215,.55));
+  padding:4rem 0 3rem;margin-top:2rem
+}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:2.4rem;align-items:start}
+@media(max-width:760px){.foot-grid{grid-template-columns:1fr}}
+footer h3{font-family:var(--kai);font-weight:400;font-size:1.3rem;margin:0 0 1rem}
+footer p{font-size:.84rem;color:var(--muted);line-height:1.95}
+footer .seal{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:52px;height:52px;border:1px solid var(--accent);color:var(--accent);
+  font-family:var(--kai);font-size:.82rem;line-height:1.15;text-align:center;letter-spacing:.05em;
+  opacity:.8;margin-bottom:1.2rem
+}
+#toTop{
+  position:fixed;right:1.4rem;bottom:1.4rem;z-index:90;
+  width:42px;height:42px;border:1px solid var(--line-2);background:rgba(255,253,247,.9);
+  color:var(--ink-2);cursor:pointer;font-size:.9rem;opacity:0;pointer-events:none;transition:.4s;
+  backdrop-filter:blur(6px)
+}
+#toTop.show{opacity:1;pointer-events:auto}
+#toTop:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+@media(max-width:760px){
+  body{font-size:16px;line-height:1.9}
+  .hero-inner{grid-template-columns:1fr;gap:2.2rem;text-align:center}
+  .hero-text .lede{margin-left:auto;margin-right:auto}
+  .meta-list{justify-content:center}
+  .cover-wrap{max-width:250px}
+  .ch-num{opacity:.5}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+
+/* anchor offset for fixed topbar */
+section,header.hero{scroll-margin-top:72px}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<div class="topbar" id="topbar">
+  <div class="brand">河山<small>SHI ZHAN</small></div>
+  <button class="toc-btn" id="tocOpen">目录 · CONTENTS</button>
+</div>
+
+<div class="toc" id="toc">
+  <div class="toc-panel">
+    <button class="toc-close" id="tocClose" aria-label="关闭">×</button>
+    <h4>CONTENTS</h4>
+    <ol>
+      <li><a href="#overview">这本书在做什么</a></li>
+      <li><a href="#frame">总框架：地理与故事</a></li>
+      <li><a href="#board">中国棋盘</a></li>
+      <li><a href="#pastoral">三组农牧关系</a></li>
+      <li><a href="#changes">六次之变</a></li>
+      <li><a href="#ch0">序 · 地理、故事与我们</a></li>
+      <li><a href="#ch1">第一章 · 黄河西来决昆仑</a></li>
+      <li><a href="#ch2">第二章 · 茫茫大块洪炉里</a></li>
+      <li><a href="#ch3">第三章 · 当年万里觅封侯</a></li>
+      <li><a href="#ch4">第四章 · 穹庐一曲本天然</a></li>
+      <li><a href="#ch5">第五章 · 海畔云山拥蓟城</a></li>
+      <li><a href="#ch6">第六章 · 将军何处觅功名</a></li>
+      <li><a href="#ch7">第七章 · 异域风涛万里来</a></li>
+      <li><a href="#post">跋 · 星际幻想</a></li>
+      <li><a href="#props">六个核心命题</a></li>
+      <li><a href="#concepts">关键概念</a></li>
+      <li><a href="#method">写法与方法</a></li>
+      <li><a href="#critique">可商榷之处</a></li>
+      <li><a href="#howto">怎么读这本书</a></li>
+      <li><a href="#appendix">附录 · 题记与时间线</a></li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-art"></div>
+  <div class="hero-inner">
+    <div class="cover-wrap">
+      <img class="cover" src="assets/img/cover.jpg" alt="《河山》施展著，湖南文艺出版社·博集天卷，2026年3月">
+    </div>
+    <div class="hero-text">
+      <p class="kicker">历史地理 · 一部空间版的中国通史</p>
+      <h1><span>河</span><span>山</span></h1>
+      <p class="sub">地理带来差异，故事带来认同</p>
+      <p class="lede">
+        施展用两把尺子，把中国历史重新量了一遍：一把叫<b>地理</b>，量的是山川如何把大地切成不同的生境；一把叫<b>故事</b>，量的是人如何靠叙事把陌生人变成自己人。七章就是七条山脉、七次「之变」——从青藏高原的隆起，一直写到海洋成为新的边疆。
+      </p>
+      <ul class="meta-list">
+        <li><b>施展</b> 著</li>
+        <li>湖南文艺出版社 · 博集天卷</li>
+        <li>2026 年 3 月第 1 版</li>
+        <li>524 千字 · 489 页</li>
+        <li>ISBN 978-7-5726-2730-9</li>
+      </ul>
+    </div>
+  </div>
+  <div class="scroll-hint">向下滚动</div>
+</header>
+
+<!-- ============ OVERVIEW ============ -->
+<section id="overview">
+  <div class="wrap narrow">
+    <div class="sec-head reveal">
+      <p class="eyebrow">速览 · 五分钟版</p>
+      <h2 class="sec-title">这本书在做什么</h2>
+      <p class="sec-sub">如果只读五分钟，读这三段就够了。</p>
+    </div>
+
+    <div class="grid g3 reveal d1">
+      <div class="card">
+        <span class="no">01 / 两把尺子</span>
+        <h3>地理负责「分」，故事负责「合」</h3>
+        <p>大山挡住水汽，放大纬度造成的气候差异，切出农耕、游牧、渔猎、商贸各不相同的生境与人群；语言让人能讲故事，故事让没有血缘的人彼此认同，形成超血缘的大规模合作。</p>
+      </div>
+      <div class="card">
+        <span class="no">02 / 一条主线</span>
+        <h3>六次「之变」的连续剧</h3>
+        <p>每一次之变，都发生在一条山脉或一个地理界面上：青藏高原、太行—秦岭、祁连山、阴山、燕山、一脉河山与辽泽、河与海。旧故事装不下新人群，新故事扩容，新秩序诞生。</p>
+      </div>
+      <div class="card">
+        <span class="no">03 / 一句结论</span>
+        <h3>命运的一半，还在人手里</h3>
+        <p>「地理空间只能决定人类命运的一半，还有一半要由人类自主地去把握和创造。」而文明能长到多大，最终取决于它的<strong>故事容量</strong>——这正是跋《星际幻想》要问的问题。</p>
+      </div>
+    </div>
+
+    <div class="pull reveal d2">
+      异质性带来历史动力，异质性源于地理；<br>
+      同质性带来多元共存，同质性基于故事。
+      <cite>序《地理、故事与我们》</cite>
+    </div>
+
+    <p class="lead dropcap reveal">这不是一部断代史，也不是一部地理决定论。它是一套「空间版」的中国通史，外加一层历史哲学：先给出地理机制，再用具体的人与具体的故事把它讲圆，最后逼出一个问题——一个文明究竟能容纳多少异质的他者。</p>
+  </div>
+</section>
+
+<!-- ============ FRAME ============ -->
+<section id="frame" style="background:linear-gradient(180deg,rgba(236,229,215,.55),transparent)">
+  <div class="wrap narrow">
+    <div class="sec-head reveal">
+      <p class="eyebrow">总框架 · 序</p>
+      <h2 class="sec-title">从一桩龙脉公案开始</h2>
+      <p class="sec-sub">山川叙事从来不是纯粹的地理，而是关于「谁有资格代表天下」的故事。</p>
+    </div>
+
+    <p class="reveal">康熙四十八年（1709），李光地说泰山龙脉自陕西、河南而来——那是中原正统的说法。康熙断然否认，作《泰山山脉自长白山来》，亲派人在辽东与山东之间的海岛测量，把泰山接到关外。到乾隆修《西域图志》（1782），又构造出「天下诸山皆发源于冈底斯山」的官方叙事，把五岳系统升级成西起冈底斯、东达长白山的山川体系。</p>
+
+    <p class="reveal">作者由此点题：山川被怎样叙述，本身就是政治正当性的一部分。于是全书的两条线索浮出水面。</p>
+
+    <div class="chain reveal d1">
+      <div class="node"><b>山</b><span>带来差异，带来交往的动力</span></div>
+      <div class="arrow">→</div>
+      <div class="node"><b>水</b><span>带来连通，带来交往的可能</span></div>
+      <div class="arrow">→</div>
+      <div class="node"><b>通道</b><span>河流在山中切出孔道，两端各长一座重镇</span></div>
+      <div class="arrow">→</div>
+      <div class="node"><b>异质人群</b><span>不同的生计、组织与观念相遇</span></div>
+      <div class="arrow">→</div>
+      <div class="node"><b>演化</b><span>「化学反应」，而非「物理反应」</span></div>
+    </div>
+
+    <p class="reveal">与之并行的，是故事这一条线：语言（单词＋语法的二维结构）→ 虚构与叙事 → 超血缘认同 → 大规模合作。「人类的历史又是各种故事的竞争史」，竞争的关键是<strong>故事容量</strong>：能容纳越多异质要素的故事，越能维持大而久的秩序，也越有机会在竞争中存续。</p>
+
+    <figure class="fig reveal">
+      <a class="zoom" href="assets/img/map-eurasia-belts.jpg" target="_blank" rel="noopener"><img src="assets/img/map-eurasia-belts.jpg" alt="亚欧大陆山系带分布示意图" loading="lazy" width="1320" height="922"></a>
+      <figcaption><span class="fno">图 01</span> 亚欧大陆山系带分布示意图<span class="src">《河山》第 54 页</span></figcaption>
+    </figure>
+
+    <p class="reveal">这条山系带东起兴都库什、帕米尔，西至阿尔卑斯与比利牛斯，是全书比较文明的基本舞台。作者在第 56 页把它摊开：阿特拉斯山造就了迦太基，比利牛斯山让 732 年的普瓦提埃之战终结了阿拉伯帝国的西进；阿尔卑斯山隔开地中海气候与海洋性气候，也隔开了南边的教皇与北边的皇帝——「西欧历史演化的首要动力，来自政教关系之张力；亚欧大陆其余地区历史演化的首要动力，则来自农牧关系之张力。」</p>
+
+    <div class="pull reveal d1">
+      在非常真实的意义上说，欧洲文明是反对亚洲人入侵的长期斗争的成果。
+      <cite>第一章 · 阿尔卑斯—喜马拉雅山系带</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOARD ============ -->
+<section id="board">
+  <div class="wrap">
+    <div class="narrow">
+      <div class="sec-head reveal">
+        <p class="eyebrow">总框架 · 中国棋盘</p>
+        <h2 class="sec-title">一张被三向挤压出来的格子网</h2>
+        <p class="sec-sub">全书最重要的一张「底图」，出现在第一章第四节。</p>
+      </div>
+      <p class="reveal">亚洲大陆三面受挤压：太平洋板块向西俯冲，劳亚古陆向南挤，冈瓦纳古陆向北俯冲。三股力量在中国大地上压出<strong>西北—东南</strong>与<strong>东北—西南</strong>两组构造带，交织成一张「棋盘状的构造网」，把中国切成中原、草原、西域、高原几个大板块。</p>
+    </div>
+
+    <div class="board-fig reveal d1" style="margin:2.6rem 0">
+      <svg viewBox="0 0 880 400" role="img" aria-label="中国棋盘：三横三纵的构造带示意图">
+        <defs>
+          <pattern id="paperDots" width="14" height="14" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r=".7" fill="#c3b69f" opacity=".5"/>
+          </pattern>
+        </defs>
+        <rect x="0" y="0" width="880" height="400" fill="url(#paperDots)" opacity=".55"/>
+        <g stroke="#433d34" stroke-width="1.6" stroke-linecap="round" opacity=".85">
+          <line x1="80" y1="70" x2="800" y2="70"/>
+          <line x1="80" y1="200" x2="800" y2="200"/>
+          <line x1="80" y1="330" x2="800" y2="330"/>
+        </g>
+        <g stroke="#b8624f" stroke-width="1.6" stroke-dasharray="7 6" stroke-linecap="round" opacity=".9">
+          <line x1="250" y1="24" x2="250" y2="366"/>
+          <line x1="440" y1="24" x2="440" y2="366"/>
+          <line x1="630" y1="24" x2="630" y2="366"/>
+        </g>
+        <g fill="#9c3a2b">
+          <circle cx="630" cy="70" r="4.2"/>
+          <circle cx="440" cy="200" r="4.2"/>
+          <circle cx="628" cy="240" r="4.2"/>
+        </g>
+        <g font-family="Songti SC, serif" font-size="13" fill="#433d34">
+          <text x="80" y="54">阿尔泰山—阴山—泰山—沂蒙山</text>
+          <text x="80" y="184">天山—祁连山—陇山—秦岭—大别山—天目山</text>
+          <text x="80" y="314">东昆仑—大凉山—乌蒙山—珠江</text>
+        </g>
+        <g font-family="Songti SC, serif" font-size="12.5" fill="#8f4436">
+          <text x="250" y="390" text-anchor="middle">长白山—雪峰山</text>
+          <text x="440" y="390" text-anchor="middle">燕山—太行山—龙门山—大雪山</text>
+          <text x="630" y="390" text-anchor="middle">大兴安岭—阴山—贺兰山</text>
+        </g>
+        <g font-family="Kaiti SC, serif" font-size="12" fill="#7d7466">
+          <text x="336" y="62" text-anchor="middle">阴山</text>
+          <text x="466" y="192">秦岭</text>
+          <text x="660" y="232">贺兰—阴山交汇</text>
+        </g>
+      </svg>
+      <div class="legend">
+        <span><i></i>横向构造带（三条）</span>
+        <span class="v"><i></i>纵向构造带（三条）</span>
+        <span style="opacity:.75">· 红点为书中特别标出的交汇带</span>
+      </div>
+    </div>
+
+    <div class="narrow">
+      <p class="reveal" style="font-family:var(--sans);font-size:.74rem;color:var(--muted)">示意图：据第一章第四节文字描述绘制，非地理投影，仅供理解「三横三纵」的结构。</p>
+
+      <p class="reveal">由这张棋盘，派生出全书反复使用的几组「空间语法」：</p>
+      <ul class="check reveal d1">
+        <li><strong>关中 / 关东</strong>：秦岭东延的崤山与太行西延的中条山隔黄河相对，函谷关就在崤山脚下——「宋代以前，关洛地区长期构成中国的政治轴心」。</li>
+        <li><strong>农牧分界</strong>：祁连—陇山与燕山—阴山—贺兰相接，构成农牧分界线，长城沿此线展开——「从『中国』视野来看，中原、草原、西域、高原都不过是『中国』的一个组成部分，<span class="hl">长城才是中国的中心</span>」。</li>
+        <li><strong>大河套（西北）</strong>：太行—秦岭—陇山—贺兰—阴山围出的近方形空间（黄土高原＋鄂尔多斯＋河套）——「太史公所谓『收功实者常于西北』中的『西北』，就是这个大河套地区」。</li>
+        <li><strong>东南</strong>：大别山周边是长江与淮河的分水岭，控武汉、九江、安庆，「夫作事者必于东南」。</li>
+        <li><strong>热河</strong>：西拉木伦河＋老哈河滋养的三角地带，大兴安岭—燕山呈倒 T 形，是蒙古草原游牧、东北森林渔猎、华北平原农耕三大生境的分界，宋代以后「成为新的历史发动机与秩序创生地」。</li>
+        <li><strong>辽泽</strong>：辽河下游的沼泽，以「无」隔出南北两道，是明清易代的空间密钥。</li>
+        <li><strong>走廊</strong>：河西走廊是「中国唯一同时连接中原、西域、草原、高原四大生境区域的走廊地带」。</li>
+      </ul>
+
+      <p class="reveal">作者据此给出全书使用频率最高的解释装置：<span class="hl">「每一组东西、南北关系中的过渡地带，都是新秩序的创生线。」</span>因为过渡地带的人同时理解两套逻辑，才设计得出双方都能接受的复合秩序。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PASTORAL ============ -->
+<section id="pastoral" style="background:linear-gradient(180deg,rgba(236,229,215,.6),transparent 70%)">
+  <div class="wrap">
+    <div class="narrow">
+      <div class="sec-head reveal">
+        <p class="eyebrow">总框架 · 三组农牧关系</p>
+        <h2 class="sec-title">横贯亚欧大陆的动力带</h2>
+        <p class="sec-sub">农牧关系是构建秩序时的第一问题，而三组农牧关系会连锁反应。</p>
+      </div>
+    </div>
+    <div class="grid g3 reveal d1">
+      <div class="card">
+        <span class="no">东部</span>
+        <h3>中原 — 蒙古草原</h3>
+        <p>规模最大的一组。轴心在阴山、河套与长城一线。「对东亚大陆来说，农牧关系是构建秩序时的第一问题，其他问题都从属于这个大问题。」</p>
+      </div>
+      <div class="card">
+        <span class="no">中部</span>
+        <h3>中亚草原 / 绿洲 — 伊朗高原</h3>
+        <p>轴心在<strong>呼罗珊</strong>——「对伊朗高原的意义，颇类似于河套地区对中原的意义」。琐罗亚斯德教与伊斯兰的东进都从这里出发。</p>
+      </div>
+      <div class="card">
+        <span class="no">西部</span>
+        <h3>黑海北岸 — 巴尔干</h3>
+        <p>轴心是君士坦丁堡与维也纳两座要塞，贝尔格莱德是前线。「欧洲文明是反对亚洲人入侵的长期斗争的成果。」</p>
+      </div>
+    </div>
+
+    <div class="narrow">
+      <figure class="fig reveal">
+        <a class="zoom" href="assets/img/map-habitats.jpg" target="_blank" rel="noopener"><img src="assets/img/map-habitats.jpg" alt="亚欧大陆诸生境区域分布示意图" loading="lazy" width="1330" height="926"></a>
+        <figcaption><span class="fno">图 02</span> 亚欧大陆诸生境区域分布示意图<span class="src">《河山》第 22 页</span></figcaption>
+      </figure>
+      <p class="reveal">三组关系不是彼此孤立：东亚农牧冲突的<strong>超大规模性</strong>，常常把失败者向西推（匈奴—突厥—蒙古），引发中西部连锁演化，再反作用回东部；而西迁的人群又常以新的身份回来——月氏西迁后作为佛教的传播者返回东亚，突厥西迁后作为伊斯兰战士冲击欧洲。</p>
+
+      <div class="pull reveal">
+        同质性人群之间的交往，发生的是物理反应，往往带来重复；<br>异质性人群之间的交往，发生的是化学反应，才会带来演化。
+        <cite>序</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SIX CHANGES ============ -->
+<section id="changes">
+  <div class="wrap narrow">
+    <div class="sec-head reveal">
+      <p class="eyebrow">总框架 · 七章提纲</p>
+      <h2 class="sec-title">六次「之变」</h2>
+      <p class="sec-sub">每一章＝一条山脉／一个地理界面＋一次历史转型。章名取自古诗，正文却是一套制度史。</p>
+    </div>
+
+    <div class="timeline reveal d1">
+      <div class="tl-item">
+        <span class="yr">序 · 立总纲</span>
+        <h4>地理、故事与我们</h4>
+        <p>从康熙、乾隆的两套山川叙事讲起，提出「地理—故事」双坐标。</p>
+      </div>
+      <div class="tl-item">
+        <span class="yr">第一章 · 天地之变</span>
+        <h4>黄河西来决昆仑 — 青藏高原</h4>
+        <p>高原隆起 → 季风与三大气候区；语言与故事 → 超血缘合作；轴心突破 → 反思性。全书的方法论在此。</p>
+      </div>
+      <div class="tl-item">
+        <span class="yr">第二章 · 周秦之变</span>
+        <h4>茫茫大块洪炉里 — 太行山、秦岭</h4>
+        <p>封建、宗法、礼乐的「天下」→ 官僚、郡县、事功的「帝国」。「中原为资，边缘为基。」</p>
+      </div>
+      <div class="tl-item">
+        <span class="yr">第三章 · 内外之变</span>
+        <h4>当年万里觅封侯 — 祁连山、河西走廊</h4>
+        <p>单一中原帝国 → 农牧复合帝国。走廊地带长出整合者，制度成功即失败之因。</p>
+      </div>
+      <div class="tl-item">
+        <span class="yr">第四章 · 五胡之变</span>
+        <h4>穹庐一曲本天然 — 阴山、贺兰山、河套</h4>
+        <p>中原帝国 → 胡汉二元帝国。正当性缺口逼出「戎神—戎君」，关陇集团做出隋唐。</p>
+      </div>
+      <div class="tl-item">
+        <span class="yr">第五章 · 唐宋之变</span>
+        <h4>海畔云山拥蓟城 — 燕山、大兴安岭、热河</h4>
+        <p>豪族社会 → 平民社会；单一帝国 → 辽金元式复合帝国。首都东移，燕山关乎帝国生死。</p>
+      </div>
+      <div class="tl-item">
+        <span class="yr">第六章 · 明清之变</span>
+        <h4>将军何处觅功名 — 一脉河山</h4>
+        <p>农牧整合到极致：满蒙藏政教二道、空前大一统，也空前僵死。</p>
+      </div>
+      <div class="tl-item">
+        <span class="yr">第七章 · 古今之变</span>
+        <h4>异域风涛万里来 — 河与海</h4>
+        <p>大陆帝国 → 海陆二元现代国家。水与土的主客易位，就是古今之变。</p>
+      </div>
+      <div class="tl-item">
+        <span class="yr">跋 · 文明容量之问</span>
+        <h4>星际幻想</h4>
+        <p>从「地出」与「奥陌陌」回到书名：什么才是一个文明的真正容量？</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 序 ============ -->
+<section id="ch0" class="chapter">
+  <div class="wrap narrow">
+    <div class="ch-head reveal">
+      <div class="ch-num">序</div>
+      <p class="ch-tag">PROLOGUE</p>
+      <h2 class="ch-title">地理、故事与我们</h2>
+      <p class="ch-line">两套龙脉，两种天下</p>
+    </div>
+    <div class="ch-body">
+      <p class="dropcap reveal">序言是一场关于「谁有资格代表天下」的较量。康熙用《泰山山脉自长白山来》把泰山接进关外，乾隆用《西域图志》把天下诸山收归冈底斯。两次都是测量，两次都是叙事——而叙事本身就是权力的形状。</p>
+      <p class="reveal">作者的收束极漂亮：康熙在版图上追问泰山龙脉的那个夜晚（1709 年 2 月），南太平洋一座无人岛上，被遗弃四年的苏格兰水手塞尔扣克正在独自求生——他就是《鲁滨孙漂流记》的原型。</p>
+      <div class="pull reveal">
+        东半球与西半球，庞大帝国与荒远海岛，王朝正统与个人顽强。
+        <cite>序 · 结尾</cite>
+      </div>
+      <p class="reveal">这一对照埋下了全书的方法：制度的宏大叙事，与个体的顽强求生，必须同时在场，历史才不是一张平面图。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第一章 ============ -->
+<section id="ch1" class="chapter">
+  <div class="wrap narrow">
+    <div class="ch-head reveal">
+      <div class="ch-num">壹</div>
+      <p class="ch-tag">CHAPTER ONE · 天地之变</p>
+      <h2 class="ch-title">黄河西来决昆仑</h2>
+      <p class="ch-line">青藏高原惊天地之变</p>
+      <div class="ch-epigraph">
+        <em>黄河西来决昆仑，咆哮万里触龙门。</em><br>
+        —— 唐 · 李白《公无渡河》
+      </div>
+    </div>
+
+    <figure class="ch-hero reveal">
+      <img src="assets/img/art-ch1.jpg" alt="第一章章首水墨山峦" loading="lazy" width="1182" height="987">
+      <figcaption><span class="fno">章首图</span> 原书水墨山峦<span class="src">《河山》第 14 页</span></figcaption>
+    </figure>
+
+    <div class="ch-body">
+      <p class="dropcap reveal">这是全书的「操作系统」，也是最不像历史、最像自然史的一章。它先讲一块高原怎样长出来，再讲人怎样长出语言、故事与时间感，最后告诉你：这一切决定了此后两千年的棋该怎么下。</p>
+
+      <h3 style="font-family:var(--kai);font-weight:400;font-size:1.3rem;letter-spacing:.06em;margin:2.4rem 0 .9rem">山：三次隆起，把大地掰成三级台阶</h3>
+      <p class="reveal">印度板块撞上来，青藏高原经历三次隆起、两次夷平。最后一次分三幕：约 360—170 万年前的「青藏运动」，高原抬到 2000 米；约 110—60 万年前的「昆仑—黄河运动」，抬到 3000 米以上，昆仑山出现，黄河溯源的侵蚀也追了上来；约 15 万年前的「共和运动」，抬到 4000—4500 米。</p>
+      <p class="reveal">恐龙时代的中国是东高西低，大河向西流入特提斯洋；高原隆起之后「天倾西北，地陷东南」，大河集体改向东流，于是有了西高东低的三级阶梯。作者在此埋下全书最长的一条伏笔：<span class="hl">「再过千百万年，三大阶梯间长城蜿蜒而行，农耕与游牧两大族群依此线而对峙。」</span></p>
+
+      <h3 style="font-family:var(--kai);font-weight:400;font-size:1.3rem;letter-spacing:.06em;margin:2.4rem 0 .9rem">水与风：亚洲水塔与最强大的季风</h3>
+      <p class="reveal">帕米尔山结向东展开天山、昆仑、喀喇昆仑、喜马拉雅，向西接兴都库什。世界屋脊成了亚洲水塔：长江黄河养活中原，澜沧江怒江伊洛瓦底江流向东南亚，雅鲁藏布江恒河印度河滋养印度，祁连山的石羊河、黑河、疏勒河与塔里木河、阿姆河、锡尔河则串起绿洲文明。</p>
+      <p class="reveal">更有意思的是风。北纬 30° 两侧本是干旱带，中东、北非、澳洲都是沙漠，江南却烟雨富庶——因为高原恰好处在副热带高压带的纬度上，又面朝最大的洋面，「横向的海陆效应和纵向的高原效应相叠加，形成了世界上最强大的亚洲季风」。约 260 万年前高原长到 2000 米，季风系统成形，中国被切成东部季风区、西北干旱半干旱区、青藏高寒区。</p>
+
+      <figure class="fig wide reveal">
+        <a class="zoom" href="assets/img/map-climate.jpg" target="_blank" rel="noopener"><img src="assets/img/map-climate.jpg" alt="中国三大自然气候区示意图" loading="lazy" width="1264" height="1060"></a>
+        <figcaption><span class="fno">图 03</span> 中国三大自然气候区示意图<span class="src">《河山》第 20 页</span></figcaption>
+      </figure>
+
+      <h3 style="font-family:var(--kai);font-weight:400;font-size:1.3rem;letter-spacing:.06em;margin:2.4rem 0 .9rem">人、言、星：故事是怎样长出来的</h3>
+      <p class="reveal">人类三拨走出非洲，节奏与高原隆起若合符节。约 100 万年前 FOXP2 基因的两个碱基突变，给了人语言能力：「语言并不是在古人类聒噪的吱呀叫喊中逐渐发展起来的，相反，它是一种天赋的本能。」单词与语法构成二维结构，有限的词因此能组合出无限的意思——黑猩猩能学上百个单词，却学不会语法。</p>
+      <p class="reveal">约 30 万年前 MEF2A 基因突变，让现代人的大脑发育延迟三四年，可塑性更强，于是有了创造力。尼安德特人「有漂亮的石器，却是愚蠢的工匠」；克罗马农人却画出了拉斯科与阿尔塔米拉。毕加索说：「阿尔塔米拉之后，一切皆是衰退。」</p>
+      <p class="reveal">然后是全章最动人的一节——「第一个故事：远古的星辰」。古希腊的七姐妹，中国的七仙女，澳洲、美洲、非洲、南洋的土著，都说那是七颗星，可今天只能看到六颗。天文学计算证实：十万年前的东非，肉眼确实能看见七颗，另两颗后来靠得太近；而 1.7 万年前的拉斯科洞窟壁画上，已经只画了六颗。</p>
+
+      <div class="pull reveal">
+        那是七姐妹星，但今天只能看到六颗了。<br>
+        <span style="font-size:.86em;color:var(--muted)">故事在塑造着我们，形成超血缘认同；故事也在离散着我们，忘记了本是一家人。</span>
+        <cite>第一章 · 第一个故事</cite>
+      </div>
+
+      <h3 style="font-family:var(--kai);font-weight:400;font-size:1.3rem;letter-spacing:.06em;margin:2.4rem 0 .9rem">洪、辰、洞：从大洪水到柏拉图洞穴</h3>
+      <p class="reveal">约 1.29 万年前，一颗约 1500 米大小的彗星撞在格陵兰，留下 31 公里的坑，「新仙女木事件」让气温骤降 6℃、持续千年。约 7500 年前，地中海海水冲破博斯普鲁斯海峡灌入黑海，成为西亚大洪水故事的原型。各大陆的洪水神话结构惊人一致：幸福被猝然打断、浩劫、英雄携种子与动物幸存、重新繁衍——「这种故事结构，似乎在暗示洪水过后的农业革命」。</p>
+      <p class="reveal">农业革命的四个源发地——肥沃新月带、燕山南麓、洞庭湖西岸、中美洲——有一个共同特征：山水交错、生态过渡。多物种可以试错，多种生计可以互补。「山水交错、多元生境的过渡地带，是重要的制度创生地，是解读人类历史演化动力机制的核心线索。」</p>
+      <p class="reveal">再往后是「轴心突破」：公元前 800—前 200 年，孔孟老庄、奥义书与佛陀、琐罗亚斯德、犹太先知、希腊哲人并出。关键不是他们说了什么，而是<strong>反思性</strong>——「意识本身开始被意识，思想本身开始被思想」。前轴心的帝国像沙丁鱼群，有集体行动，却不是基于精神自觉；轴心之后的人进入有限与无限、特殊与普遍的张力，「悲剧意识是一种最为高贵的意识」。</p>
+      <p class="reveal">最精妙的一节是「北辰与星际」。孔子说「为政以德，譬如北辰，居其所而众星共之」，中国政治想象的核心，是找到那个不可移易的原点，让秩序从它流溢出来。可因为岁差，北极星一直在换：克罗马农人看见的是天鹅座 δ，新仙女木时代是织女星，吉尔伽美什与法老看见天龙座 α，孔子生前是小熊座 4、身后是小熊座 β，成吉思汗以后才是勾陈一。「人们所寄托的那个带来确定秩序的原点，实际上不停在变；所谓『不可移易』，不过是人们的一种想象。」</p>
+      <p class="reveal">再往前推，是时间轴的两种形状：行星尺度是循环（「五百年必有王者兴」、印度的轮回、赫拉克利特的「永恒的活火」），恒星尺度是线性（古希伯来人的创世—出伊甸—先知—末日审判）。循环教人顺应命运、向后看、保守；线性教人自主抉择、向前看、革命。</p>
+
+      <div class="pull reveal">
+        倘若没有保守，人类的历史便无法获得积累；<br>倘若没有革命，人类的历史便无法获得突破。<br>
+        <span style="font-size:.86em;color:var(--muted)">人类历史的真实演化逻辑，隐藏在保守与革命的张力当中。</span>
+        <cite>第一章 · 时间轴</cite>
+      </div>
+
+      <p class="reveal">最后是「洞穴的故事」。柏拉图说人被困在洞穴里，只看见火光投在墙上的影子；作者把它改写成故事论的比喻：小容量的故事让人「向洞底越钻越深」，最终自我衰败，或被他人的故事吞并；大容量的故事则不断吸收异质要素，永远处在重构之中。</p>
+      <div class="pull reveal">
+        人类配得上一个更好的洞穴，或者说更好的故事。好的故事，必定有着足够大的容量，有着充分的开放性与容纳力，能够吸收、包容足够多的异质要素……
+        <cite>第一章 · 洞穴的故事</cite>
+      </div>
+
+      <p class="reveal">章节末尾，作者把地理与故事两条线索合上了扣：荀子说「天行有常，不为尧存，不为桀亡」，又说「明于天人之分」；尊严由自我赋予，「人的灵魂在本质上是不被物质所决定的」。苏格拉底拒绝逃走，摩西望见迦南而不得入，佛陀涅槃，孔子唱「太山坏乎！梁柱摧乎！哲人萎乎！」——「哲人先知的死亡，锁定了意义的根基。此后，历史不会消散，而会迎来新生。」</p>
+      <p class="reveal" style="text-align:center;font-family:var(--kai);font-size:1.24rem;letter-spacing:.16em;margin-top:2.4rem">哲人其萎，其道大光</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第二章 ============ -->
+<section id="ch2" class="chapter">
+  <div class="wrap narrow">
+    <div class="ch-head reveal">
+      <div class="ch-num">贰</div>
+      <p class="ch-tag">CHAPTER TWO · 周秦之变</p>
+      <h2 class="ch-title">茫茫大块洪炉里</h2>
+      <p class="ch-line">太行山观周秦之变</p>
+      <div class="ch-epigraph">
+        <em>太行如砺，黄河如带，等是尘埃。</em><br>
+        —— 元 · 刘因《人月圆 · 茫茫大块洪炉里》
+      </div>
+    </div>
+
+    <figure class="ch-hero reveal">
+      <img src="assets/img/art-ch2.jpg" alt="第二章章首水墨山峦" loading="lazy" width="1190" height="1007">
+      <figcaption><span class="fno">章首图</span> 原书水墨山峦<span class="src">《河山》第 70 页</span></figcaption>
+    </figure>
+
+    <div class="ch-body">
+      <p class="dropcap reveal">中国第一次秩序转型——从封建、宗法、礼乐的「天下」，转为官僚、郡县、事功的「帝国」——是被山河结构逼出来的。</p>
+      <p class="reveal">太行八陉像一条拉链：军都陉、飞狐陉、蒲阴陉、井陉、滏口陉、白陉、太行陉、轵关陉，把山西与河北切成北中南三块，又缝在一起。上党高地「与天为党」，独占八陉之三，俯瞰洛、汴、邺、邯、襄诸都，所以叫「天下之脊」——长平之战正发生在它的狭窄通道上。</p>
+
+      <figure class="fig wide reveal">
+        <img src="assets/svg/taihang.svg" alt="太行八陉分布示意（重绘）" loading="lazy" width="900" height="700">
+        <figcaption><span class="fno">图 04</span> 太行八陉分布示意图<span class="src">据《河山》第 89 页重绘 · <a href="assets/img/map-taihang.jpg" target="_blank" rel="noopener">看原图</a></span></figcaption>
+      </figure>
+
+      <figure class="fig wide reveal">
+        <img src="assets/svg/shangdang.svg" alt="上党高地位置示意（重绘）" loading="lazy" width="820" height="720">
+        <figcaption><span class="fno">图 05</span> 上党高地位置示意图<span class="src">据《河山》第 80 页重绘 · <a href="assets/img/map-shangdang.jpg" target="_blank" rel="noopener">看原图</a></span></figcaption>
+      </figure>
+
+      <p class="reveal">另一边是关中：四塞（函谷、大散、萧关、武关）加渭河八水，所以关中的「地势形便」，「首先在其一流的安全性」。</p>
+
+      <figure class="fig reveal">
+        <a class="zoom" href="assets/img/map-guanzhong.jpg" target="_blank" rel="noopener"><img src="assets/img/map-guanzhong.jpg" alt="关中四塞位置示意图" loading="lazy" width="1328" height="1316"></a>
+        <figcaption><span class="fno">图 06</span> 关中四塞位置示意图<span class="src">《河山》第 83 页</span></figcaption>
+      </figure>
+
+      <p class="reveal">由此得出全书的地缘逻辑大反转：中原富庶，却无险可守、四战之地、对外征伐收益低；边缘有山川为险、前线单一、可以吸纳蛮族武力。</p>
+      <div class="pull reveal">
+        中原地区是霸王之资，边缘地带才是霸王之基。
+        <cite>第二章 · 霸王之道（第 81 页）</cite>
+      </div>
+      <p class="reveal">所以春秋的主线是晋楚争霸，战国的主线是秦抗六国；郑、韩这类「天下之中」的国家，只能做筹码。</p>
+
+      <p class="reveal">制度侧的关键发明是「绝地天通」：颛顼把通神权收归君主，祭祀与战争成为国家两件事，礼乐秩序因此获得高效率、大规模、可扩展的组织逻辑。但它同时压制了个体的道德自主——<span class="hl">「边缘被扫荡殆尽之日，就是中心自我消解之时」</span>。</p>
+      <p class="reveal">周人则用「封建亲戚，以蕃屏周」把地缘与亲属扣在一起，用《洪范》「无偏无党，王道荡荡」把天命从一族一姓转向「天下之王」。至于华夷之辨，作者提醒那是故事不是血统：周人很可能本为戎狄一支，翦商之后才构造出后稷—帝喾的谱系——「身份靠『共同记住』与『共同忘记』构建」。</p>
+      <p class="reveal">轴心时代在章末并置：孔子去鲁、赵简子筑晋阳、吴越争锋，同一年发生。东方相信「人事内在于自然」，西方相信「规则外在于人事」；「秦岭之侧孕育霸王之基，太行之侧孕育霸王之资，泰山之侧孕育霸王之思」。尾声叫「困龙之地」：商纣、赵武灵王、秦始皇，都死在沙丘。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第三章 ============ -->
+<section id="ch3" class="chapter">
+  <div class="wrap narrow">
+    <div class="ch-head reveal">
+      <div class="ch-num">叁</div>
+      <p class="ch-tag">CHAPTER THREE · 内外之变</p>
+      <h2 class="ch-title">当年万里觅封侯</h2>
+      <p class="ch-line">祁连山瞰内外之变</p>
+      <div class="ch-epigraph">
+        本章无题记，直接以「李陵—苏武」的序幕开篇。
+      </div>
+    </div>
+
+    <figure class="ch-hero reveal">
+      <img src="assets/img/art-ch3.jpg" alt="第三章章首水墨山峦" loading="lazy" width="1191" height="1009">
+      <figcaption><span class="fno">章首图</span> 原书水墨山峦<span class="src">《河山》第 132 页</span></figcaption>
+    </figure>
+
+    <div class="ch-body">
+      <p class="dropcap reveal">中原帝国第一次遇到一个「无法用同一套制度消化」的外部——草原，于是被逼出了多元复合帝国的雏形。</p>
+      <p class="reveal">祁连山是青藏高原的北缘，山北陡然干旱，山南的雪水滋养河西走廊。四郡靠石羊河、黑河、疏勒河串成节律性的补给点，尾闾湖又成为游牧者溯流南下的入口——霍去病二征河西，走的正是这条路。金城（兰州）是「中原、西域、高原三个方向通道的交会点」。</p>
+      <p class="reveal">战略递推被写成一串口诀：「欲保关中，先固陇右」→「欲保秦、陇，必固河西；欲固河西，必斥西域」。</p>
+
+      <figure class="fig wide reveal">
+        <img src="assets/svg/hexi.svg" alt="西汉河西四郡示意（重绘）" loading="lazy" width="900" height="620">
+        <figcaption><span class="fno">图 07</span> 西汉河西四郡位置示意图<span class="src">据《河山》第 143 页重绘 · <a href="assets/img/map-hexi.jpg" target="_blank" rel="noopener">看原图</a></span></figcaption>
+      </figure>
+
+      <p class="reveal">汉匈之间的「互构」是本章的机制核心。集权官僚、财政、常备军都依赖定居农耕，受 400 毫米降水线约束，所以长城与农牧线重合；草原税赋成本太高，只能熟人治理（「一百五十人以上便无法再维持熟人关系」），所以只能是散居的小部落。于是贸易还是战争，取决于中原的政治结构：</p>
+      <div class="pull reveal">
+        中原的分裂让草原也保持分裂，中原的统一则带来草原的统一。
+        <cite>第三章（第 142 页）</cite>
+      </div>
+
+      <p class="reveal">人物部分写得极好看。卫青的「不败」不是天幸，而是战法不对称——强弩、装甲与纪律被移植到骑兵身上；李广的悲剧是「同态竞争」。张骞凿空西域，作者顺手给了一个大胆猜想：「大宛」或即希腊语的「大爱奥尼亚」，东亚的农牧对抗由此接上了希腊化世界。</p>
+      <p class="reveal">然后是「帝国之踵」：耕战与征兵制需要「可授之田」和有限疆域，疆域一扩、田一分尽，就只能转向募兵；募兵要财政，财政靠编户，编户被豪族吸纳则税基流失——与罗马的马略改革同构。<span class="hl">「一个制度成功的原因往往也会成为它日后失败的缘由。」</span></p>
+      <p class="reveal">草原的节奏同样被算得清清楚楚：兄终弟及保证单于成年可战，但「能够顺畅继承的一辈兄弟，寿命合计难以超过百年」，所以「胡虏无百年之运」；中原的嫡长制没有这个危机，却生出官僚的自我异化与周期性衰败。两条曲线互补，构成农牧共生的深层节奏。</p>
+      <p class="reveal">尾声收在凉州。光武帝把凉州豪族内迁，官员内地化、不懂羌情，羌乱百年；「凉州三明」平乱即被调离，终至董卓入京。「西汉的耀眼来自它在凉州的狂飙，东汉的败亡则来自它在凉州的颓唐。」诸葛亮卒于五丈原——北伐的真实战略是取陇西、控天水、西联羌胡、再取河西良马，与隗嚣之谋同构。「祁连山将暂从历史高光中隐去，阴山将登临前台。」</p>
+
+      <figure class="fig reveal">
+        <a class="zoom" href="assets/img/map-qishan.jpg" target="_blank" rel="noopener"><img src="assets/img/map-qishan.jpg" alt="一出祁山（228年）路线示意图" loading="lazy" width="1326" height="1170"></a>
+        <figcaption><span class="fno">图 08</span> 一出祁山（228 年）路线示意图<span class="src">《河山》第 179 页</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第四章 ============ -->
+<section id="ch4" class="chapter">
+  <div class="wrap narrow">
+    <div class="ch-head reveal">
+      <div class="ch-num">肆</div>
+      <p class="ch-tag">CHAPTER FOUR · 五胡之变</p>
+      <h2 class="ch-title">穹庐一曲本天然</h2>
+      <p class="ch-line">阴山眺五胡之变</p>
+      <div class="ch-epigraph">
+        <em>中州万古英雄气，也到阴山敕勒川。</em><br>
+        —— 金 · 元好问《论诗三十首 · 其七》
+      </div>
+    </div>
+
+    <figure class="ch-hero reveal">
+      <img src="assets/img/art-ch4.jpg" alt="第四章章首水墨山峦" loading="lazy" width="1183" height="1000">
+      <figcaption><span class="fno">章首图</span> 原书水墨山峦<span class="src">《河山》第 182 页</span></figcaption>
+    </figure>
+
+    <div class="ch-body">
+      <p class="dropcap reveal">这一章要回答的问题很直接：胡人如何统治中原？答案是一项制度发明——二元帝国。</p>
+      <p class="reveal">阴山东西约 1200 公里，不高，却因为纬度与内陆深度，成为季风与非季风、内流与外流的分界。「自秦汉建立大一统帝国，阴山便成为农牧恩怨的前线，持续近两千年。」同一道山，由北向南是「大自然为游牧一方所营造出的战场气势」，由南向北则是长城俯视的威压——这是全书「地理即态势」最经济的一次示范。贺兰山是十字路口，河套（西套、后套、前套）是农牧关系的棋眼。</p>
+      <p class="reveal">更妙的是「天时又在定义地利」：西汉均温比明代高约 2℃，汉长城修到了阴山以北；东汉转冷，游牧者入塞——「西晋末年五胡之乱的种子就此埋下」。</p>
+
+      <figure class="fig wide reveal">
+        <a class="zoom" href="assets/img/map-sixzhen.jpg" target="_blank" rel="noopener"><img src="assets/img/map-sixzhen.jpg" alt="北魏阴山六镇分布示意图" loading="lazy" width="1330" height="1002"></a>
+        <figcaption><span class="fno">图 09</span> 北魏阴山六镇分布示意图<span class="src">《河山》第 194 页</span></figcaption>
+      </figure>
+
+      <p class="reveal">但五胡之乱的根因，作者说在中原自身：嵇康父子的困境、八王之乱、王浚引鲜卑乌桓南下、刘渊以「汉室之甥」自立、石勒全歼十万禁军。他引孟子：「人必自侮，然后人侮之。」</p>
+      <div class="pull reveal">
+        五胡之乱的缘起，还在晋室八王之乱。
+        <cite>第四章（第 192 页）</cite>
+      </div>
+      <p class="reveal">石勒若只依儒家则没有文化正当性，只凭血统又没有血统正当性。于是需要第二个故事来源——石虎说：「佛是戎神，正所应奉。」「戎神」配「戎君」，两难自解，「皇帝」的意涵由此突破中原的文化边界，超越胡汉。</p>
+      <p class="reveal">佛教东传的路线（犍陀罗—西域—河西—平城—洛阳）也被讲成经济问题：西域长期只是「通道」，直到中原屯田带来人口爆炸（「平均增长五倍，有的绿洲人口甚至增长近十倍」），才有供养寺院的能力——<span class="hl">「中原以物质重塑西域，西域以精神重塑中原，草原则是推动这双重重塑的发动机。」</span></p>
+      <p class="reveal">北魏一段写得冷峻：拓跋珪离散部落、逼母杀妻、立「子贵母死」之制——「秩序往往是从带有兽性的野蛮中生长出来的；但只有人性才能让秩序持久，所以必须构造出新的故事，让人们遗忘掉兽性的过往」。六镇的逻辑与秦长城正相反：秦长城「易守难攻」、是「王者有外」；六镇「易攻难守」、是「王者无外」——「长城由此成为帝国的内部分野而非外部边界」。</p>
+      <p class="reveal">关陇集团是本章的制度高潮：宇文泰以最弱之势行最彻底的改革，「阳传周礼经典制度之文，阴适关陇胡汉现状之实」——鲜卑得实质地位，汉人得名分统摄，「胡汉共生融合的秩序找到了底层模型」。同一时期的罗马，用《查士丁尼法典》完成了一次「用空间换时间」的文明保存。</p>
+      <p class="reveal">最后是安史之乱。府兵制随均田制崩坏，节度使「皆依山而置」，自筹军费、以战养权，天宝末年「边将拥天下兵力八成以上」。作者说这是兵制与财政不同步的结构性结果，而真正的胜负手不在潼关，在河套与山西——郭子仪据灵州，李光弼出井陉。肃宗在灵州登基，与百余年前太宗在此称天可汗，恰成兴衰剪影。</p>
+
+      <figure class="fig wide reveal">
+        <img src="assets/svg/anshi.svg" alt="安史之乱形势示意（重绘）" loading="lazy" width="900" height="680">
+        <figcaption><span class="fno">图 10</span> 唐代安史之乱各军路线示意图<span class="src">据《河山》第 239 页重绘 · <a href="assets/img/map-anshi.jpg" target="_blank" rel="noopener">看原图</a></span></figcaption>
+      </figure>
+
+      <p class="reveal">本章尾声叫「渔阳鼙鼓」，而下一章的开场，正是从这场叛乱留下的河朔藩镇开始。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第五章 ============ -->
+<section id="ch5" class="chapter">
+  <div class="wrap narrow">
+    <div class="ch-head reveal">
+      <div class="ch-num">伍</div>
+      <p class="ch-tag">CHAPTER FIVE · 唐宋之变</p>
+      <h2 class="ch-title">海畔云山拥蓟城</h2>
+      <p class="ch-line">燕山望唐宋之变</p>
+      <div class="ch-epigraph">
+        <em>沙场烽火连胡月，海畔云山拥蓟城。</em><br>
+        —— 唐 · 祖咏《望蓟门》
+      </div>
+    </div>
+
+    <figure class="ch-hero reveal">
+      <img src="assets/img/art-ch5.jpg" alt="第五章章首水墨山峦" loading="lazy" width="1186" height="1002">
+      <figcaption><span class="fno">章首图</span> 原书水墨山峦<span class="src">《河山》第 240 页</span></figcaption>
+    </figure>
+
+    <div class="ch-body">
+      <p class="dropcap reveal">中原社会自身结构的变化——豪族变平民——如何把历史的重心从祁连山搬到了燕山。</p>
+      <p class="reveal">燕山界分华北平原、蒙古草原、东北渔猎三大生境；四条廊道（古北道、卢龙道、无终道、傍海道）南北两端分别汇聚于朝阳与北京。大兴安岭—呼伦贝尔「兼跨草原带与森林区」，是「古代最重要的民族策源地」；热河三角（西拉木伦＋老哈河）「在宋代以后，成为新的历史发动机与秩序创生地」——「掌握热河者便掌握整体上的战略主动性」。</p>
+
+      <figure class="fig wide reveal">
+        <a class="zoom" href="assets/img/map-rehe.jpg" target="_blank" rel="noopener"><img src="assets/img/map-rehe.jpg" alt="热河地区示意图" loading="lazy" width="1326" height="1558"></a>
+        <figcaption><span class="fno">图 11</span> 热河地区示意图<span class="src">《河山》第 255 页</span></figcaption>
+      </figure>
+
+      <p class="reveal">核心判断句在这里出现：「兼容农牧的二元复合型帝国，需有复数都城来整合多元板块……北京天然是复合型帝国的首都，燕山地区也因此成为帝国发动机。」</p>
+      <p class="reveal">唐宋之变的实质是社会结构之变：豪族社会变为平民社会；大一统由「可逆」变为「不可逆」——「宋代以后，一个大一统崩溃了，取代它的是另一个大一统，再无长期的大分裂出现」。政治地理也从东西（关洛对关东）转为南北（江南财赋对北方军事），首都必然东移：「定都关东乃至北京后，祁连山便不再关乎帝国生死……燕山则开始关乎帝国生死。」</p>
+      <p class="reveal">二元帝国在此迭代：阿保机以死亡为「祭品」突破兄终弟及——「强大的传统从来都需要昂贵的祭品才能被突破」；辽以南北面官「因俗而治」，华严宗因「胡汉内外之别皆被超越」而成为辽的精神内核；金则因领土狭长（「腰部」在燕山北麓）而陷入「热河困局」，最终「从兼容农牧的二元帝国，逐渐坍缩为以农耕为本的一元帝国」。</p>
+      <p class="reveal">宗教在这一章有三条线：房山石经（幽州因藩镇割据躲过两次法难，成为辽的佛教渊源）；藏传佛教在高原兴起（「因资源稀缺，雪域高原成为古代中国唯一一个教权有机会独立于政权之外发展起来的地方」）；凉州会盟（1247）使高原第一次接受东亚帝国的直接统治，藏传佛教进入草原。忽必烈与八思巴之约则确立了「私域宗教高于政治、公域政治高于宗教」的格局。</p>
+
+      <figure class="fig reveal">
+        <a class="zoom" href="assets/img/map-yuan-capital.jpg" target="_blank" rel="noopener"><img src="assets/img/map-yuan-capital.jpg" alt="元朝首都圈示意图" loading="lazy" width="1322" height="1330"></a>
+        <figcaption><span class="fno">图 12</span> 元朝首都圈示意图<span class="src">《河山》第 291 页</span></figcaption>
+      </figure>
+
+      <p class="reveal">「中国」在这一章被边缘视角撑大：西夏以「西番中国」指西藏，其帝师制度为元所继承，「中国」由此「不再是局限于汉地、儒家的文化象征，而是可以兼容多元文化、复合中心的普遍秩序」；金莲川幕府把「小中国」伸展为「大中国」；明太祖承认元之正统，构想「第三次南北朝」。</p>
+      <p class="reveal">草原法统的破碎同样是一条链：俺答汗以「转世」解决自身正当性（1578 年仰华寺），却打开了赠号、认汗的闸门——「各个法统的力量相互抵消……主导者将是来自侧翼的第三方」，女真因此登场。</p>
+      <p class="reveal">尾声叫「波托西的诅咒」：1545 年波托西银矿被发现，白银经马尼拉流入中国；1618 年，三十年战争爆发，「七大恨」也在这年告天——「在全球化的时代，没有哪个地方的命运能够由自己来决定。」</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第六章 ============ -->
+<section id="ch6" class="chapter">
+  <div class="wrap narrow">
+    <div class="ch-head reveal">
+      <div class="ch-num">陆</div>
+      <p class="ch-tag">CHAPTER SIX · 明清之变</p>
+      <h2 class="ch-title">将军何处觅功名</h2>
+      <p class="ch-line">一脉河山察明清之变</p>
+      <div class="ch-epigraph">
+        <em>单于渭桥今已拜，将军何处觅功名。</em><br>
+        —— 北朝 · 卢思道《从军行》
+      </div>
+    </div>
+
+    <figure class="ch-hero reveal">
+      <img src="assets/img/art-ch6.jpg" alt="第六章章首水墨山峦" loading="lazy" width="1189" height="1018">
+      <figcaption><span class="fno">章首图</span> 原书水墨山峦<span class="src">《河山》第 312 页</span></figcaption>
+    </figure>
+
+    <div class="ch-body">
+      <p class="dropcap reveal">大清如何把「农牧整合」做到极致，以及这种极致如何僵死。</p>
+      <p class="reveal">作者把帝国看成身体，河山是「骨相与经络」，观察单元是一条自东北贯穿西北的山脉链，加一片自大沽口到南海的海面——「一脉河山」。陆海两塞：京师北有燕山、西有太行，交于军都陉（居庸关）；东以环渤海、黄海为海塞。燕山沿渤海岸挤出「辽西走廊傍海道」，明中期以后热河失控，此线成为关内与辽河诸镇唯一的陆上通道——「京师东北的安全被寄托于如此狭窄一线，显然是脆弱的」。</p>
+      <p class="reveal">辽泽是本章的空间密钥：辽河下游「地势低洼，水网纵横，河流经常改道，形成泥淖难行的辽泽」，东西南北各二百余里，清末才淤平。它以「无」隔出南道（辽阳）与北道（沈阳）——明清易代，就发生在这「有」与「无」之间。</p>
+
+      <figure class="fig wide reveal">
+        <img src="assets/svg/liaoning-ze.svg" alt="辽泽与辽西走廊示意（重绘）" loading="lazy" width="880" height="620">
+        <figcaption><span class="fno">图 13</span> 明代晚期辽泽与周边战略通道示意图<span class="src">据《河山》第 343 页重绘 · <a href="assets/img/map-liaoning-ze.jpg" target="_blank" rel="noopener">看原图</a></span></figcaption>
+      </figure>
+
+      <p class="reveal">帝国瓮城有三重：阴山—贺兰是大瓮城，晋北内外长城之间是小瓮城，五台山是精神瓮城——「其地缘格局护卫京师，其精神格局连接汉、满、蒙、藏」。</p>
+      <p class="reveal">技术代差是明清易代最硬的解释：宁远之战，红夷大炮重创努尔哈赤；徐光启借耶稣会网络追踪欧洲火器技术（1608 年望远镜发明，1629 年他已上书请造三架），主张「凭坚城，用大炮」；辽人因受欺凌而离心，反使「以辽人守辽土」落地；登莱之变后孔有德、耿仲明携红夷大炮降后金，皇太极遂有东亚最强的炮兵与汉军旗——「这并非因为命数，而是因为冷热兵器的代差」。</p>
+      <p class="reveal">「天下道场」一节讲盛京坛城（四塔四寺、外圆内方）、「政教二道」的三重网络（敕建寺庙、驻京喇嘛、活佛体系）、四大活佛互制，以及关公如何被仪轨化为汉满蒙藏共享的符号。首都圈（北京—承德—五台山）是撬动大陆帝国的杠杆。</p>
+
+      <figure class="fig reveal">
+        <a class="zoom" href="assets/img/map-shengjing.jpg" target="_blank" rel="noopener"><img src="assets/img/map-shengjing.jpg" alt="沈阳故宫布局示意图" loading="lazy" width="1190" height="1298"></a>
+        <figcaption><span class="fno">图 14</span> 盛京城布局示意图<span class="src">《河山》第 350 页</span></figcaption>
+      </figure>
+
+      <figure class="fig wide reveal">
+        <a class="zoom" href="assets/img/map-qing-eurasia.jpg" target="_blank" rel="noopener"><img src="assets/img/map-qing-eurasia.jpg" alt="清前期的亚欧大陆地缘格局示意图" loading="lazy" width="1324" height="662"></a>
+        <figcaption><span class="fno">图 15</span> 清前期的亚欧大陆地缘格局示意图<span class="src">《河山》第 362 页</span></figcaption>
+      </figure>
+
+      <p class="reveal">大陆帝国部分讲清朝与准噶尔的相互塑造，以及西域法统先被伊斯兰教、后被藏传佛教破碎，满洲以第三方身份层层整合（皇太极漠南、康熙漠北、雍正青海、乾隆漠西）。</p>
+      <div class="pull reveal">
+        只有汉人能够提供伟大理想，只有胡人能让伟大理想化为现实，<br>中国是真正地由胡汉共创而成的。
+        <cite>第六章（第 357 页）</cite>
+      </div>
+
+      <p class="reveal">晚清一节最见功力：西北史地之学（徐松、龚自珍、魏源、林则徐「为中国患者，其俄罗斯乎」）止于义理化的地理，跟不上物理化的现代地理学；英俄大博弈、阿古柏、俄「代管」伊犁、1895 年瓜分帕米尔。作者由此提出帝国空间性质的转变——由「<strong>有边疆无边界</strong>」转入「<strong>有边界无边疆</strong>」：边疆可以义理界定，边界只能物理把握，晚清交涉的被动正源于此。</p>
+      <p class="reveal">尾声「山庄春秋」写承德避暑山庄：帝国的巅峰与僵死同在一处。绵密的统治术「抑制了人们的自由选择空间，也就抑制了人们的道德感」，帝国「已在过度成熟中沦入僵死」；英法联军所见，是百姓替联军挖战壕、搬云梯，指着死难同胞的脸大笑。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第七章 ============ -->
+<section id="ch7" class="chapter">
+  <div class="wrap narrow">
+    <div class="ch-head reveal">
+      <div class="ch-num">柒</div>
+      <p class="ch-tag">CHAPTER SEVEN · 古今之变</p>
+      <h2 class="ch-title">异域风涛万里来</h2>
+      <p class="ch-line">河海通古今之变</p>
+      <div class="ch-epigraph">
+        <em>深愁极目烟波外，异域风涛万里来。</em><br>
+        —— 近代 · 张謇《浦子口中敌台》
+      </div>
+    </div>
+
+    <figure class="ch-hero reveal">
+      <img src="assets/img/art-ch7.jpg" alt="第七章章首水墨山峦" loading="lazy" width="1193" height="1030">
+      <figcaption><span class="fno">章首图</span> 原书水墨山峦<span class="src">《河山》第 382 页</span></figcaption>
+    </figure>
+
+    <div class="ch-body">
+      <p class="dropcap reveal">这一章的结构本身就是论点：先「陆之水」，再「陆之海」，再「海之海」，最后「海之陆」——水从从属者变成定义者，陆地由主体变成被重塑者。</p>
+      <p class="reveal">「传统帝国时期，运河串联起几大水系，但它归根结底是被土定义的……水开始定义土，海洋成为全球贸易的载体。」「水与土的主客关系之转换，背后隐含的是时空的古今之转换。」四渎通济一节从济水的消失讲到黄河改道的南北极限，再讲到运河的「水脊」：泰山与南旺，「三分的水由此南下汇入泗水，七分的水由此北上」。</p>
+
+      <figure class="fig wide reveal">
+        <img src="assets/svg/yellow-river.svg" alt="黄河五次大改道示意（重绘）" loading="lazy" width="900" height="700">
+        <figcaption><span class="fno">图 16</span> 黄河历次改道示意图<span class="src">据《河山》第 403 页重绘 · <a href="assets/img/map-yellow-river.jpg" target="_blank" rel="noopener">看原图</a></span></figcaption>
+      </figure>
+
+      <p class="reveal">河漕与海漕之争，被还原成利益结构：海运点到点，民间无从获益；运河是漫长的经济带，能激活沿线，于是地方社会与京官合谋废海运，治河又被漕运绑架，帝国「共谋着走向保守」。</p>
+      <p class="reveal">南洋绝唱一节从宗族讲起：丘陵保存宗族，宗族提供跨海信用——「汉人本身是一种复数性的存在」。南洋是「社会概念」，所以闽粤人下南洋是内部移动，北方人视之为彻底放逐。郑芝龙以海上力量换陆上身份而成功；郑成功因「反清复明」不能放弃大陆战略，终被迁海令与陆海夹击困死。</p>
+      <div class="pull reveal">
+        欧洲因为陆上分裂，海上反得统一；<br>东亚因为陆上统一，海上反倒分裂。
+        <cite>第七章（第 430 页）</cite>
+      </div>
+
+      <figure class="fig wide reveal">
+        <a class="zoom" href="assets/img/map-colonial.jpg" target="_blank" rel="noopener"><img src="assets/img/map-colonial.jpg" alt="大航海早期的殖民帝国示意图" loading="lazy" width="1332" height="920"></a>
+        <figcaption><span class="fno">图 17</span> 大航海早期的殖民帝国示意图<span class="src">《河山》第 410 页</span></figcaption>
+      </figure>
+
+      <p class="reveal">「分布秩序」一节是全书少见的政治哲学段落：海盗船的普选、罢免、舵手制衡与战时专断，是用「内在于船员」的权力对抗商船「外在于船员」的独裁——「非法的世界反而倒逼着『合法』的世界变得真正合法」；无敌舰队的失败，是陆战逻辑对海战逻辑的失败；格劳秀斯为暴力补上了正当性——「法律—规范本身像一个倍增放大器，可以让秩序的扩展远远超出暴力的覆盖半径」。</p>
+      <p class="reveal">「帝国涅槃」一节写晋商以「河套—晋北走廊」为枢纽经营万里茶道与草地驼运，证明大陆社会也有开放性格；牡丹社事件暴露帝国理念与国际法理念的错位，引出海防塞防之争——李鸿章主海防，左宗棠主「海塞并重」（「重新疆者，所以保蒙古，保蒙古者，所以卫京师」）。西征之费出自海关关税与汇丰外债——「以大清帝国东部的海关作为转换枢纽，海洋世界的力量转换为大陆深处的秩序重建」。</p>
+
+      <figure class="fig reveal">
+        <a class="zoom" href="assets/img/map-tea-road.jpg" target="_blank" rel="noopener"><img src="assets/img/map-tea-road.jpg" alt="晚清时期晋商万里茶道示意图" loading="lazy" width="1334" height="1216"></a>
+        <figcaption><span class="fno">图 18</span> 晚清时期晋商万里茶道示意图<span class="src">《河山》第 434 页</span></figcaption>
+      </figure>
+
+      <p class="reveal">最后是「帝国死结」：热兵器使帝国板块失衡（财富、军事、人力、观念转由中原主导），满洲为自保而极端保守，庚子之乱激化革命；农牧整合到极致带来四亿人口，人口爆炸 → 劳动力便宜 → 内卷 → 无法内生工业革命。而作者给了一个不那么悲观的转折：「过剩的劳动力只有在封闭的经济体中才会导向『内卷』，一旦加入开放的全球经济体系，劳动力过剩反倒会转化为一种比较优势」——而开放，以革命为前提。</p>
+      <div class="pull reveal">
+        在古代，草原—中原关系是秩序的生成线……<br>到近现代，海洋—中原关系成为秩序的生成线。
+        <cite>第七章（第 457 页）</cite>
+      </div>
+      <p class="reveal">尾声「中国新生」只写了两件事：1911 年武昌枪响；1912 年 1 月 1 日孙中山就任临时大总统——「周虽旧邦，其命维新」。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 跋 ============ -->
+<section id="post" class="chapter" style="background:linear-gradient(180deg,rgba(236,229,215,.5),transparent)">
+  <div class="wrap narrow">
+    <div class="ch-head reveal">
+      <div class="ch-num">跋</div>
+      <p class="ch-tag">EPILOGUE</p>
+      <h2 class="ch-title">星际幻想</h2>
+      <p class="ch-line">什么才是一个文明的真正容量</p>
+    </div>
+    <div class="ch-body">
+      <p class="dropcap reveal">1968 年，阿波罗 8 号的安德斯拍下「地出」。人类第一次从外面看自己的家：地球「只是飘浮在无垠太空中的脆弱灰尘」，也是「让我们盲目自大的洞穴」。</p>
+      <p class="reveal">2017 年，星际天体「奥陌陌」穿过太阳系。哈佛天文系主任阿维·洛布设想：某个文明预知母星将被超新星摧毁，于是把文明种子做成千百万份，配上光帆，送往星系边缘，靠超新星爆发的能量把它们像蒲公英一样吹散到宇宙。</p>
+      <div class="pull reveal">
+        如此的想象力、执行力和星际格局，这将会是怎样的一种文明容量？
+        <cite>跋</cite>
+      </div>
+      <p class="reveal">答案回到书名。东亚大陆有地球上最复杂的山川地理，塑造了这片土地上最跌宕的空间命运；而人要看清自己，只能通过他者。</p>
+      <div class="pull reveal">
+        任何人都是通过他者来看清自我……大国的他者就是命运。<br>只有面对命运，看清自己的极限，才会行其所当行，止其所当止。
+        <cite>跋 · 收束</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 命题 ============ -->
+<section id="props" style="background:linear-gradient(180deg,rgba(236,229,215,.55),transparent)">
+  <div class="wrap">
+    <div class="narrow">
+      <div class="sec-head reveal">
+        <p class="eyebrow">提炼 · 六个核心命题</p>
+        <h2 class="sec-title">全书可以背下来的六句话</h2>
+        <p class="sec-sub">如果只带走六条判断，带走这六条。</p>
+      </div>
+    </div>
+    <div class="grid g2 reveal d1">
+      <div class="card">
+        <span class="no">PROPOSITION 01</span>
+        <h3>地理不是背景，而是机制</h3>
+        <p>「山，带来差异，带来交往的动力；水，带来连通，带来交往的可能。」气候—生境—生计—组织—观念这条链条，被落实成可检验的空间关系：隘口、走廊、绿洲、降水线、长城。地理给的是<strong>势能</strong>。</p>
+      </div>
+      <div class="card">
+        <span class="no">PROPOSITION 02</span>
+        <h3>过渡地带是新秩序的创生线</h3>
+        <p>上党、河西走廊、陇西、阴山—河套、大兴安岭—热河、辽泽、关陇、南洋——过渡地带的人同时理解两套逻辑，所以设计得出双方都能接受的复合秩序。</p>
+      </div>
+      <div class="card">
+        <span class="no">PROPOSITION 03</span>
+        <h3>秩序 ＝ 暴力 ＋ 故事</h3>
+        <p>「祀与戎」是国家的两件事；绝地天通把通神权收归君主，使礼乐秩序可获得可扩展性。暴力必须由故事赋义才能成为秩序，故事也必须靠暴力落地——「只有汉人能够提供伟大理想，只有胡人能让伟大理想化为现实」。</p>
+      </div>
+      <div class="card">
+        <span class="no">PROPOSITION 04</span>
+        <h3>故事容量决定文明的规模与寿命</h3>
+        <p>轴心突破带来反思性，「只有基于轴心时代的精神反思，才能把故事的特殊性上升为人性的普遍性」。容量靠吸收外来故事扩张（佛教→宋儒、关公→格萨尔），容量不足则自我封闭，「好的故事，没有定型的那一刻」。</p>
+      </div>
+      <div class="card">
+        <span class="no">PROPOSITION 05</span>
+        <h3>「中国」是互构的体系，长城是中心</h3>
+        <p>中原以物质重塑西域，西域以精神重塑中原，草原则是发动机；高原以宗教反塑草原，海洋以贸易与规范重塑大陆。「中国」不是某个板块的自我展开，而是互构的产物——所以「长城才是中国的中心」。</p>
+      </div>
+      <div class="card">
+        <span class="no">PROPOSITION 06</span>
+        <h3>每一次成功都埋下下一次危机的种子</h3>
+        <p>征兵制→募兵制→财政→豪族→私兵；农牧整合到极致→四亿人口→内卷；帝国过度成熟→僵死→革命。而解法总是同一条：<strong>换一条生成线，把外部他者编进更大的故事</strong>。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 概念 ============ -->
+<section id="concepts">
+  <div class="wrap narrow">
+    <div class="sec-head reveal">
+      <p class="eyebrow">词表 · 关键概念</p>
+      <h2 class="sec-title">十七个概念，一张地图</h2>
+      <p class="sec-sub">读这本书时反复出现的术语，先记住它们，后面会省很多力气。</p>
+    </div>
+    <dl class="concept-grid reveal d1">
+      <div class="concept"><dt>异质性 / 同质性</dt><dd>地理造成差异，差异带来动力；故事造成认同，认同带来共存。</dd><span class="from">序 · 全书</span></div>
+      <div class="concept"><dt>故事容量</dt><dd>一个故事能容纳的异质要素与人群规模，决定文明的规模与寿命。</dd><span class="from">序 · 一章 · 跋</span></div>
+      <div class="concept"><dt>过渡地带</dt><dd>两组空间关系的交界带，新秩序、新制度、新人群的创生地。</dd><span class="from">二至六章</span></div>
+      <div class="concept"><dt>中国棋盘</dt><dd>三横三纵的构造带网，把中国切成中原、草原、西域、高原。</dd><span class="from">一章</span></div>
+      <div class="concept"><dt>大河套</dt><dd>太行—秦岭—陇山—贺兰—阴山围出的方形空间，「收功实者常于西北」之「西北」。</dd><span class="from">一章</span></div>
+      <div class="concept"><dt>热河三角</dt><dd>西拉木伦＋老哈河地带，宋代以后的历史发动机。</dd><span class="from">一、五章</span></div>
+      <div class="concept"><dt>辽泽</dt><dd>辽河下游沼泽，以「无」分隔南北两道，明清易代的空间密钥。</dd><span class="from">六章</span></div>
+      <div class="concept"><dt>帝国瓮城</dt><dd>阴山—晋北长城—五台山构成的地理与精神双重安全带。</dd><span class="from">六章</span></div>
+      <div class="concept"><dt>一脉河山</dt><dd>自东北贯穿西北的山脉链＋环渤海—黄海的海面，观帝国如观身体骨相经络。</dd><span class="from">六章</span></div>
+      <div class="concept"><dt>二元 / 复合型帝国</dt><dd>兼容农牧（乃至高原）的帝国形态，需要复数都城与超越二元的精神内核。</dd><span class="from">四、五、六章</span></div>
+      <div class="concept"><dt>政教二道</dt><dd>大清管理藏传佛教的体制（敕建寺庙、驻京喇嘛、活佛体系），私域与公域分治。</dd><span class="from">五、六章</span></div>
+      <div class="concept"><dt>政教分立</dt><dd>西欧特有的秩序张力（阿尔卑斯隔开教会与帝国重心），成为演化的首要动力。</dd><span class="from">一、五章</span></div>
+      <div class="concept"><dt>三组农牧关系</dt><dd>东部（中原—草原）、中部（中亚—伊朗）、西部（黑海—巴尔干）及其连锁反应。</dd><span class="from">一章</span></div>
+      <div class="concept"><dt>秩序的生成线</dt><dd>古代是草原—中原，近现代是海洋—中原。换线，就是换时代。</dd><span class="from">七章</span></div>
+      <div class="concept"><dt>有边疆无边界 → 有边界无边疆</dt><dd>传统帝国到现代国家的空间性质转变。</dd><span class="from">六章</span></div>
+      <div class="concept"><dt>内卷 / 帝国死结</dt><dd>人口过剩→劳动力便宜→技术不进步；板块失衡→保守→革命。</dd><span class="from">七章</span></div>
+      <div class="concept"><dt>文明容量</dt><dd>一个文明把外部他者转化为内部要素的能力。</dd><span class="from">跋</span></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ============ 写法 ============ -->
+<section id="method" style="background:linear-gradient(180deg,rgba(236,229,215,.5),transparent)">
+  <div class="wrap narrow">
+    <div class="sec-head reveal">
+      <p class="eyebrow">笔法 · 怎么写出来的</p>
+      <h2 class="sec-title">七章如七个乐章</h2>
+      <p class="sec-sub">这本书的写法本身就是论证的一部分。</p>
+    </div>
+    <ol class="notes reveal d1">
+      <li><strong>固定结构</strong>：题记诗 → 序幕（一个人的命运）→ 地理机制 → 历史叙事 → 机制提炼 → 尾声（悬念转场）。七章像七个乐章，尾声往往抛出下一章的引子。</li>
+      <li><strong>尺度跳跃</strong>：从地质（百万年）、天文（岁差、冰期）到王朝（百年）与个人（一日），作者刻意让不同时间尺度互相解释。</li>
+      <li><strong>全球并置</strong>：白登之围与扎马战役同年；392 年基督教成为罗马国教与北魏开国并置；1545 年波托西银矿与 1618 年「七大恨」同年——用共时性制造「体系感」。</li>
+      <li><strong>现场感</strong>：自驾河西走廊，在怀朔古城拾起一块瓦片之后才想通六镇之谜——作者相信身体经验是理解地理的一部分。</li>
+      <li><strong>地图即论证</strong>：近百幅历史与现代地图，图例统一（书末专附「历史图基本要素图例」）。地图不是配图，是论据。</li>
+      <li><strong>反决定论的自省</strong>：每当地理推演到极致，作者就提醒一句「还有一半要由人类自主地去把握」。</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 可商榷 ============ -->
+<section id="critique">
+  <div class="wrap narrow">
+    <div class="sec-head reveal">
+      <p class="eyebrow">对话 · 可以商榷之处</p>
+      <h2 class="sec-title">它的强处，也是它的风险</h2>
+      <p class="sec-sub">一本有野心的书，值得被认真地质疑。</p>
+    </div>
+    <ol class="notes reveal d1">
+      <li><strong>「故事容量」难以量化、难以证伪。</strong>它容易变成事后归因：存续下来的秩序被解释为容量大，崩解的被解释为容量不足。作者没有给出判断容量的独立标准（人口？疆域？制度弹性？），这是全书最需要读者自己补足的地方。</li>
+      <li><strong>地理决定论的残余仍然明显。</strong>山脉—气候—生境—人群这条链条讲得非常硬；技术（马镫、火炮、蒸汽机）、制度与偶然性虽被提及，却常被安置在「地理势能」的框架内解释，权重是否恰当可以讨论。</li>
+      <li><strong>部分史实与考古推论采用了较新、仍有争议的假说</strong>，如陶寺遗址的暴力解读、汤武革命「更有可能是东夷、西戎对中原地区的轮番征服」、周人本为戎狄一支、「大宛」即「大爱奥尼亚」、二里头与夏的对应。作者多用「很可能」「或许」限定，但叙事语气有时强于证据强度。</li>
+      <li><strong>信息密度极高。</strong>七章跨越百万年，五六两章人名、地名、部族名密集，缺少分段小结与图表辅助，非专业读者容易迷失；注释后置也提高了查证成本。</li>
+      <li><strong>宏大判断与文学抒情之间存在张力。</strong>「星际幻想」与各章尾声的诗性收束很动人，但也容易让读者把隐喻当成论证。</li>
+      <li><strong>「体系」视角对「民族国家」叙事的消解会引起争议。</strong>把「中国」讲成互构的复合体系，解释力强，但对「中国」之为政治共同体的法理与情感维度着墨较少。</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 怎么读 ============ -->
+<section id="howto" style="background:linear-gradient(180deg,rgba(236,229,215,.6),transparent)">
+  <div class="wrap">
+    <div class="narrow">
+      <div class="sec-head reveal">
+        <p class="eyebrow">入口 · 三种读法</p>
+        <h2 class="sec-title">怎么读这本书</h2>
+      </div>
+    </div>
+    <div class="grid g3 reveal d1">
+      <div class="card">
+        <span class="no">读法一 · 推荐</span>
+        <h3>线性读</h3>
+        <p>序 → 一章 → 二至七章。第一章是全书方法论的钥匙：读不懂第一章，后面会误以为它只是「地理决定历史」。</p>
+      </div>
+      <div class="card">
+        <span class="no">读法二</span>
+        <h3>按「之变」跳读</h3>
+        <p>对哪一段历史感兴趣就读对应章：周秦→二；汉匈→三；魏晋南北朝→四；唐宋辽金→五；明清→六；晚清民国→七。</p>
+      </div>
+      <div class="card">
+        <span class="no">读法三</span>
+        <h3>按地理单元读</h3>
+        <p>把书末地图与《中国历史地图集》对照，逐章在地图上走一遍：太行八陉、河西四郡、阴山六镇、燕山四道、辽泽两路、运河与南洋航线。</p>
+      </div>
+    </div>
+
+    <div class="narrow" style="margin-top:2.6rem">
+      <p class="reveal"><strong>重点章</strong>：第一章（操作系统，「中国棋盘」「三组农牧关系」「洞穴的故事」三节）、第二章（方法论最集中）、第六章（解释力最强的收束）、第七章（与当下最相关）。</p>
+      <p class="reveal"><strong>延伸阅读</strong>：与作者前作《枢纽》对读，本书更像它的「前传」——解释枢纽格局如何从山河中长出来；与拉铁摩尔《中国的亚洲内陆边疆》、巴菲尔德《危险的边疆》对读，看边疆视角的差异；与《中国历史地图集》对读，把文字放回地面。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 附录 ============ -->
+<section id="appendix">
+  <div class="wrap narrow">
+    <div class="sec-head reveal">
+      <p class="eyebrow">附录</p>
+      <h2 class="sec-title">七章题记与关键时间线</h2>
+      <p class="sec-sub">每章以一诗开篇，以一人开场——宏大结构必须落到具体的人身上才成立。</p>
+    </div>
+
+    <div class="table-wrap reveal d1">
+      <table>
+        <thead><tr><th>章</th><th>题记</th><th>作者</th></tr></thead>
+        <tbody>
+          <tr><td>一</td><td>《公无渡河》</td><td>唐 · 李白</td></tr>
+          <tr><td>二</td><td>《人月圆 · 茫茫大块洪炉里》</td><td>元 · 刘因</td></tr>
+          <tr><td>三</td><td>（无题记，以「李陵—苏武」序幕开篇）</td><td>——</td></tr>
+          <tr><td>四</td><td>《论诗三十首 · 其七》</td><td>金 · 元好问</td></tr>
+          <tr><td>五</td><td>《望蓟门》</td><td>唐 · 祖咏</td></tr>
+          <tr><td>六</td><td>《从军行》</td><td>北朝 · 卢思道</td></tr>
+          <tr><td>七</td><td>《浦子口中敌台》</td><td>近代 · 张謇</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-wrap reveal d2" style="max-height:520px;overflow:auto">
+      <table>
+        <thead><tr><th>时间</th><th>事件</th><th>章</th></tr></thead>
+        <tbody>
+          <tr><td>约 360 万年前起</td><td>青藏运动、昆仑—黄河运动、共和运动，高原三次隆升</td><td>一</td></tr>
+          <tr><td>约 6 万年前</td><td>现代人第三拨走出非洲，故事随人散播全球</td><td>一</td></tr>
+          <tr><td>约 1.29 万年前</td><td>新仙女木事件与全球洪水神话</td><td>一</td></tr>
+          <tr><td>约 1 万年前</td><td>农业革命（肥沃新月、燕山南麓、洞庭湖西岸）</td><td>一</td></tr>
+          <tr><td>前 800—前 200 年</td><td>轴心时代</td><td>一、二</td></tr>
+          <tr><td>前 295 年</td><td>赵武灵王饿死沙丘</td><td>二</td></tr>
+          <tr><td>前 262—前 260 年</td><td>长平之战</td><td>二</td></tr>
+          <tr><td>前 221 年</td><td>秦统一，「周秦之变」完成</td><td>二</td></tr>
+          <tr><td>前 200 年</td><td>白登之围</td><td>三</td></tr>
+          <tr><td>前 138—前 126 年</td><td>张骞凿空西域</td><td>三</td></tr>
+          <tr><td>前 121 年</td><td>霍去病定河西，设四郡</td><td>三</td></tr>
+          <tr><td>89 年</td><td>燕然勒石</td><td>三</td></tr>
+          <tr><td>189—190 年</td><td>董卓入京，关东起兵</td><td>三</td></tr>
+          <tr><td>291—306 年</td><td>八王之乱，五胡登场</td><td>四</td></tr>
+          <tr><td>439 年</td><td>北魏统一北方</td><td>四</td></tr>
+          <tr><td>546 年</td><td>玉壁之战，《敕勒歌》</td><td>四</td></tr>
+          <tr><td>755—763 年</td><td>安史之乱</td><td>四、五</td></tr>
+          <tr><td>926 年</td><td>阿保机崩，辽立</td><td>五</td></tr>
+          <tr><td>960 年</td><td>陈桥兵变；喀喇汗皈依伊斯兰</td><td>五</td></tr>
+          <tr><td>1127 年</td><td>靖康之变</td><td>五</td></tr>
+          <tr><td>1247 年</td><td>凉州会盟</td><td>五</td></tr>
+          <tr><td>1368 年</td><td>元顺帝北奔，明立</td><td>五</td></tr>
+          <tr><td>1578 年</td><td>仰华寺会晤，俺答汗与索南嘉措</td><td>五</td></tr>
+          <tr><td>1619 年</td><td>萨尔浒之战</td><td>六</td></tr>
+          <tr><td>1626 年</td><td>宁远之战</td><td>六</td></tr>
+          <tr><td>1635 年</td><td>林丹汗死，蒙古归附</td><td>六</td></tr>
+          <tr><td>1755—1759 年</td><td>清平准噶尔、定西域</td><td>六</td></tr>
+          <tr><td>1840—1842 年</td><td>鸦片战争</td><td>七</td></tr>
+          <tr><td>1855 年</td><td>铜瓦厢决口，济水消失</td><td>七</td></tr>
+          <tr><td>1875—1878 年</td><td>左宗棠西征，海塞并重</td><td>七</td></tr>
+          <tr><td>1894—1895 年</td><td>甲午战争</td><td>七</td></tr>
+          <tr><td>1911—1912 年</td><td>辛亥革命，清帝退位</td><td>七</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="seal">河山</div>
+        <h3>关于这一页</h3>
+        <p class="note">说明：图 04、05、06、10、12、16 为据原书内容重绘的矢量示意图（原图分辨率约 130 dpi，字迹难辨）；点击图注末尾「看原图」可查看原书图片。</p>
+      <p>本页为《河山》（施展 著，湖南文艺出版社 · 博集天卷，2026 年 3 月第 1 版）的读书导读，依据原书 PDF 全文（489 页、约 35 万字）整理，引文逐字核对原文，页码为正文页脚页码。</p>
+        <p>页面中的地图均取自原书，按 300 dpi 重新渲染裁剪后使用，图注标注原书页码；章首水墨山峦亦取自原书各章扉页。封面图取自原书，原扫描件中部有一处白色遮挡，已作修补处理。</p>
+        <p style="opacity:.8">「中国棋盘」一节的两幅示意图为依据书中文字描述绘制，非地理投影，仅供理解结构之用。</p>
+      </div>
+      <div>
+        <h3>信息</h3>
+        <p>开本与篇幅：524 千字，正文 489 页，含序、七章、跋与注释九十余条。<br>
+        上架建议：历史地理。<br>
+        全书结构：序 → 七章（天地、周秦、内外、五胡、唐宋、明清、古今）→ 跋。</p>
+        <p style="margin-top:1.4rem;font-family:var(--sans);font-size:.7rem;letter-spacing:.18em;color:var(--line-2)">READING NOTES · 2026</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="toTop" aria-label="回到顶部">↑</button>
+
+<script>
+(function(){
+  var bar=document.getElementById('progress');
+  var top=document.getElementById('topbar');
+  var toTop=document.getElementById('toTop');
+  function onScroll(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    var y=window.scrollY||h.scrollTop;
+    bar.style.width=(max>0? (y/max*100):0)+'%';
+    if(y>window.innerHeight*0.7){top.classList.add('show');}else{top.classList.remove('show');}
+    if(y>900){toTop.classList.add('show');}else{toTop.classList.remove('show');}
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+  var toc=document.getElementById('toc');
+  document.getElementById('tocOpen').onclick=function(){toc.classList.add('open');};
+  document.getElementById('tocClose').onclick=function(){toc.classList.remove('open');};
+  toc.addEventListener('click',function(e){ if(e.target===toc){toc.classList.remove('open');} });
+  toc.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){toc.classList.remove('open');});});
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'){toc.classList.remove('open');} });
+
+  toTop.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+})();
+</script>
+</body>
+</html>

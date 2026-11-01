@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" width="900" height="620" role="img" aria-label="西汉河西四郡位置示意图">
+  <defs>
+    <pattern id="h" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="7" stroke="#8d8375" stroke-width="1" opacity=".48"/>
+    </pattern>
+    <pattern id="desert" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="4" r="1" fill="#b3a893"/>
+      <circle cx="10" cy="11" r="1" fill="#b3a893"/>
+    </pattern>
+    <marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9c3a2b"/>
+    </marker>
+    <marker id="arg" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7d7a70"/>
+    </marker>
+    <style>
+      .lbl{font-family:KaiTi,"Kaiti SC",STKaiti,SimSun,serif;fill:#241f1a;paint-order:stroke;stroke:#faf7f0;stroke-width:3.4;stroke-linejoin:round}
+      .sans{font-family:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#6b6358;letter-spacing:.06em;paint-order:stroke;stroke:#faf7f0;stroke-width:3}
+      .city{fill:#241f1a}
+      .river{fill:none;stroke:#6f8494;stroke-width:2.6;stroke-linecap:round}
+      .route{fill:none;stroke:#9c3a2b;stroke-width:2.4;stroke-dasharray:9 6}
+      .frame{fill:none;stroke:#c9bfae;stroke-width:1.2}
+    </style>
+  </defs>
+
+  <rect width="900" height="620" fill="#faf7f0"/>
+
+  <!-- 荒漠底色 -->
+  <rect x="40" y="40" width="820" height="540" fill="#f6f2e7"/>
+  <path d="M40,40 L860,40 L860,300 L40,300 Z" fill="url(#desert)" opacity=".7"/>
+
+  <!-- 河西走廊（狭长通道） -->
+  <path d="M188,232 L706,404 L700,462 L182,286 Z" fill="#eee4d2" stroke="#c8a97e" stroke-width="1.4"/>
+  <text class="lbl" x="302" y="308" font-size="13" fill="#8a6a45" transform="rotate(18 302 308)">河西走廊</text>
+
+  <!-- 祁连山 -->
+  <path d="M120,320 L300,352 L520,420 L700,494 L716,540 L640,566 L420,516 L240,470 L120,404 Z"
+        fill="url(#h)" stroke="#8d8375" stroke-width="1.4"/>
+  <text class="lbl" x="402" y="494" font-size="18" fill="#4a4136" transform="rotate(15 402 494)">祁 连 山</text>
+  <text class="sans" x="196" y="424" font-size="10.5">南山 · 冰雪融水</text>
+
+  <!-- 北山 / 龙首山 -->
+  <path d="M190,176 L420,206 L660,296 L696,330 L520,300 L260,232 Z"
+        fill="url(#h)" stroke="#8d8375" stroke-width="1.2" opacity=".9"/>
+  <text class="lbl" x="322" y="222" font-size="14" opacity=".85">龙首山 · 合黎山</text>
+
+  <text class="sans" x="612" y="120" font-size="12">腾格里沙漠</text>
+  <text class="sans" x="86" y="88" font-size="12">西 域（三十六国）</text>
+  <path class="river" d="M700,470 C660,486 620,470 588,486"/>
+  <text class="sans" x="640" y="502" font-size="10.5">黄河</text>
+
+  <!-- 四郡 -->
+  <g>
+    <circle class="city" cx="256" cy="288" r="5"/>
+    <text class="lbl" x="256" y="274" font-size="15" text-anchor="middle">敦煌</text>
+    <text class="sans" x="256" y="258" font-size="10" text-anchor="middle" fill="#9c3a2b">④ 敦煌郡</text>
+
+    <circle class="city" cx="372" cy="320" r="5"/>
+    <text class="lbl" x="386" y="314" font-size="15">酒泉</text>
+    <text class="sans" x="386" y="298" font-size="10" fill="#9c3a2b">③ 酒泉郡</text>
+
+    <circle class="city" cx="492" cy="362" r="5"/>
+    <text class="lbl" x="506" y="356" font-size="15">张掖</text>
+    <text class="sans" x="506" y="340" font-size="10" fill="#9c3a2b">② 张掖郡</text>
+
+    <circle class="city" cx="618" cy="404" r="5"/>
+    <text class="lbl" x="632" y="398" font-size="15">武威</text>
+    <text class="sans" x="632" y="382" font-size="10" fill="#9c3a2b">① 武威郡</text>
+  </g>
+
+  <!-- 关隘 -->
+  <g>
+    <rect x="190" y="238" width="15" height="9" fill="#241f1a" opacity=".8"/>
+    <text class="sans" x="197" y="230" font-size="10.5" text-anchor="middle">玉门关</text>
+    <rect x="200" y="312" width="15" height="9" fill="#241f1a" opacity=".8"/>
+    <text class="sans" x="207" y="336" font-size="10.5" text-anchor="middle">阳关</text>
+  </g>
+
+
+  <!-- 金城 / 长安 -->
+  <circle class="city" cx="744" cy="448" r="5"/><text class="lbl" x="758" y="454" font-size="14">金城</text>
+  <circle class="city" cx="834" cy="522" r="5"/><text class="lbl" x="834" y="546" font-size="14" text-anchor="middle">长安</text>
+  <path class="route" d="M828,510 C806,490 782,470 756,454" marker-end="url(#ar)"/>
+  <text class="sans" x="694" y="502" font-size="10.5" fill="#9c3a2b">汉军西进</text>
+
+  <path d="M420,150 C440,180 452,204 462,222" class="route" marker-end="url(#ar)"/>
+  <text class="lbl" x="424" y="140" font-size="16" fill="#9c3a2b">匈 奴</text>
+  <path d="M470,556 C480,530 490,510 498,490" class="route" marker-end="url(#ar)"/>
+  <text class="lbl" x="486" y="586" font-size="16" fill="#9c3a2b">羌</text>
+  <path d="M196,232 C170,226 146,220 122,216" class="route" marker-end="url(#ar)"/>
+  <text class="sans" x="92" y="204" font-size="10.5">通西域</text>
+
+  <!-- 注释 -->
+  <g>
+    <rect x="46" y="470" width="286" height="94" fill="#faf7f0" stroke="#d8cdba"/>
+    <text class="sans" x="62" y="492" font-size="10.5">四郡一线排开，把草原与高原隔断，</text>
+    <text class="sans" x="62" y="510" font-size="10.5">汉朝由此「断匈奴右臂」，并开通西域。</text>
+    <line x1="62" y1="524" x2="314" y2="524" stroke="#e0d5c1"/>
+    <text class="sans" x="62" y="544" font-size="10.5">南：祁连山—羌；北：戈壁—匈奴；</text>
+    <text class="sans" x="62" y="560" font-size="10.5">走廊本身即是汉帝国的西向支点。</text>
+  </g>
+
+  <rect class="frame" x="20" y="20" width="860" height="580"/>
+</svg>
