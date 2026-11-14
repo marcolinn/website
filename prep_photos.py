@@ -16,7 +16,7 @@
 用法：
     python prep_photos.py            # 只处理有新照片的行程
     python prep_photos.py --force    # 全部重压
-    python prep_photos.py huizhou-7days   # 只处理指定行程
+    python prep_photos.py <行程名>   # 只处理指定行程
 """
 
 import sys

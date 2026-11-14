@@ -438,9 +438,7 @@ def map_section(trips) -> str:
             })
 
     if not marks:
-        return """    <p class="empty map-empty">地图还空着。在 <code>content/travel/</code> 的 .md
-      里补上 <code>lat</code> 和 <code>lng</code> 两行，重新构建就有标记了；
-      一趟走了好几个地方的话，两行各写一串逗号分隔的数字，再用 <code>stops</code> 给每个点起名。</p>"""
+        return """    <p class="empty map-empty">地图上还没有标记的地方。</p>"""
 
     js = """    <div id="trip-map" class="trip-map"></div>
     <script src="/leaflet/leaflet.js"></script>
@@ -703,7 +701,7 @@ def build():
              + (f"　·　{len(trip_photos(t['slug']))} 张照片" if trip_photos(t["slug"]) else ""),
              (t.get("summary") or t["body"][:90]).replace("\n", " "))
         for t in trips
-    ) or '      <p class="empty">还没有旅行记录。在 content/travel/ 下新建 .md 文件即可。</p>'
+    ) or '      <p class="empty">还没有旅行记录。</p>'
     write_page("travel/index.html", page("旅行", "/travel/", f"""    <h1 class="page-title">旅行</h1>
 {map_section(trips)}
     <div class="grid" id="trips">

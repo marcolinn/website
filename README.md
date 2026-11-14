@@ -137,7 +137,7 @@ stops: 屯溪, 宏村, 西递, 歙县, 黄山
 
 ```powershell
 # 1. 把一个行程的照片原图丢进同名文件夹（文件夹名要和 content/travel/ 里的 .md 同名）
-#    photos/huizhou-7days/*.JPG
+#    photos/<行程名>/*.JPG
 
 # 2. 压缩（长边 1600 / 质量 82）+ 生成缩略图（长边 480）
 python prep_photos.py
@@ -153,7 +153,7 @@ git add -A && git commit -m "加照片" && git push
 
 - **发布出去的那份会被剥掉全部 EXIF（含 GPS）** —— 照片墙不会泄露你家的坐标。这是脚本写死的，别改。
 - 脚本是幂等的：已经压过、且比原图新的成品会跳过，重复跑不会做无用功。想强制重压加 `--force`。
-- 只处理某一个行程：`python prep_photos.py huizhou-7days`。
+- 只处理某一个行程：`python prep_photos.py <行程名>`。
 - 原图删掉后重跑，对应的成品也会被清掉。
 - `photos/<目录>` 在 `content/travel/` 里找不到同名 .md 时会警告——那样照片上了照片墙，但不会挂到任何一条旅行记录下面。
 - 照片**不压缩直接进仓库**是不可取的：手机原图一张 3–10 MB，几十张就让仓库和站点都变重。
