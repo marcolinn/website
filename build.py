@@ -97,7 +97,11 @@ def smart_quotes(text: str) -> str:
     在读取 Markdown 时统一转换，这样正文、摘要、标题全都一致。
     """
     out, in_quote = [], False
-    cjk = re.compile(r"[\u4e00-\u9fff]")
+    # 判定"是不是中文语境"必须把中文标点和全角字符一起算进来，否则
+    #  哦！"      → 前一个字符是"！"，被判成非中文，尾引号不转
+    #  淋到。"我  → 前一个字符是"。"、后一个"我"是汉字，尾引号被误判成开引号
+    # 覆盖：CJK 标点(U+3000-303F) + 汉字(U+4E00-9FFF, U+3400-4DBF) + 全角形式(U+FF00-FFEF)
+    cjk = re.compile(r"[\u3000-\u303f\u3400-\u4dbf\u4e00-\u9fff\uff00-\uffef]")
 
     for i, ch in enumerate(text):
         if ch != '"':
